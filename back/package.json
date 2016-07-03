@@ -1,0 +1,17 @@
+{
+  "name": "Testing It",
+  "main": "server.js",
+  "dependencies" : {
+    "express" : "*",
+    "ejs" : "*",
+    "mongoose" : "*",
+    "passport" : "*",
+    "passport-local" : "*",
+    "passport-token": "*",
+    "jsonwebtoken": "*",
+    "connect-flash" : "*",
+    "bcrypt-nodejs" : "*",
+    "async": "*",
+    "jwt-simple": "*"
+  }
+}

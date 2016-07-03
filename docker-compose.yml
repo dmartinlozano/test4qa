@@ -1,0 +1,44 @@
+#Store database in host:
+db_data:
+  image: mongo
+  volumes:
+    - /data/db
+  command: --break-mongo
+
+#Mongo instance:
+db:
+  image: mongo
+  volumes_from:
+    - db_data
+  ports:
+    - 27017:27017
+  restart: always
+  command: --smallfiles --rest
+
+#Mongo web admin
+db_web:
+  image: mongo-express
+  ports:
+    - 8081:8081
+  links:
+    - db
+  environment:
+    ME_CONFIG_MONGODB_SERVER: db
+    ME_CONFIG_BASICAUTH_USERNAME: admin
+    ME_CONFIG_BASICAUTH_PASSWORD: admin
+
+#server part
+#back:
+#  build: back
+#  ports:
+#    - 9090:9090
+#  environment:
+#    PORT: 9090
+#  net: host
+
+#front part
+#front:
+#  build: front
+#  ports:
+#    - 8080:8080
+#  net: host
