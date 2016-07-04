@@ -1,17 +1,21 @@
 {
-  "name": "Testing It",
+  "name": "TestingIt",
   "main": "server.js",
+  "version": "1.0.0",
   "dependencies" : {
     "express" : "*",
     "ejs" : "*",
     "mongoose" : "*",
     "passport" : "*",
+    "morgan": "*",
     "passport-local" : "*",
     "passport-token": "*",
     "jsonwebtoken": "*",
     "connect-flash" : "*",
     "bcrypt-nodejs" : "*",
     "async": "*",
-    "jwt-simple": "*"
+    "jwt-simple": "*",
+    "cookie-parser": "*",
+    "body-parser": "*"
   }
 }

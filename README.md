@@ -19,4 +19,5 @@ sudo apt-get install node-legacy
 sudo apt-get install npm
 sudo npm install
 sudo npm install i -g bower
+sudo npm install i -g gulp
 bower install

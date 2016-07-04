@@ -10,16 +10,14 @@ var port     = process.env.PORT || 9090;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
-var configDB = require('./config/database.js');
 var path 	 = require('path');
 var fs		 = require('fs');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var TokenStrategy = require('passport-token').Strategy;
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect('mongodb://localhost:27017/testingItDB');
 
 	// set up our express application
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -45,9 +43,9 @@ app.use(function (err, req, res, next) {
 require('./app/api/user')(app,passport);
 
 // bootstrap ===================================================================
-/*if (env === 'development'){
+if (env === 'development'){
 	require('./app/bootstrap.js');
-}*/
+}
 app.use(express.static(__dirname + '/'));
 
 // launch ======================================================================
