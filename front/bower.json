@@ -12,7 +12,8 @@
     "angular-environment": "*",
     "restangular": "*",
     "underscore": "*",
-    "bootstrap": "*"
+    "bootstrap": "*",
+    "components-font-awesome": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",

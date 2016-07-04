@@ -20,7 +20,7 @@ angular.module('testingItApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ui.rou
         })
         .state('dashBoard', {
           url: '/dashBoard',
-          templateUrl: '/views/dashBoard/dashBoard.html',
+          templateUrl: '/views/dashboard/dashboard/dashboard.html',
           controller: 'DashBoardController',
           controllerAs: 'DashBoardCtrl'
         });

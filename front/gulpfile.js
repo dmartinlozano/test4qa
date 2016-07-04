@@ -106,6 +106,7 @@ gulp.task('lint:vendorCSS', function() {
     //concatenate vendor CSS files
     gulp.src(['./bower_components/bootstrap/dist/css/bootstrap.css',
               './bower_components/bootstrap/dist/css/bootstrap-theme.css',
+              './bower_components/components-font-awesome/css/font-awesome.css',
               './app/sb-admin-2.css'
 		          ])
         .pipe($.concat('lib.css'))
@@ -212,8 +213,10 @@ gulp.task('copy:extras', function () {
 gulp.task('copy:fonts', function () {
   gulp.src(testingIt.app + '/fonts/**/*')
     .pipe(gulp.dest(testingIt.dist + '/fonts'));
-  gulp.src(['./bower_components/ionicons/fonts/ionicons.ttf',
-            'bower_components/ionicons/fonts/ionicons.woff'])
+  gulp.src(['./bower_components/components-font-awesome/fonts/fontawesome-webfont.woff',
+            './bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2',
+            './bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf',
+          ])
     .pipe(gulp.dest(testingIt.dist + '/fonts'));
 });
 
