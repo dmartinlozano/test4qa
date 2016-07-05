@@ -26,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // model =======================================================================
 var User = require('./app/models/user');
+var TestProject = require('./app/models/test_project');
+
 
 //Corss validation =============================================================
 app.use(function(req, res, next) {
@@ -41,6 +43,7 @@ app.use(function (err, req, res, next) {
 });
 // RESTful API =================================================================
 require('./app/api/user')(app,passport);
+require('./app/api/test_project')(app,passport);
 
 // bootstrap ===================================================================
 if (env === 'development'){

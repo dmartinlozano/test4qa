@@ -13,7 +13,7 @@ angular.module('testingItApp')
 
   this.login = function(name, password, $scope){
         Restangular.one("/auth/login").customPOST({name: name, password: password}).then(function(token) {
-          window.localStorage.setItem("user.token",token);
+          window.localStorage.setItem("user.token",token.token);
           $state.go('dashBoard');
         },function (res) {
           $scope.reqErr.allowed = false;
