@@ -14,6 +14,12 @@ User.find({name : "admin"}, function (err, user) {
     admin.save(function(err) {if (err) console.log(err);});
   }
 });
+TestProject.findOne({prefix:"TP1"}).remove().exec();
 var testProject1 = new TestProject({name: "Test Project 1", prefix: "TP1", description: "Description del test project 1", testManagementTree: "", testPlanTree: ""});
 testProject1.save(function(err) {if (err) console.log(err);});
+
+TestProject.findOne({prefix:"TP2"}).remove().exec();
+var testProject1 = new TestProject({name: "Test Project 2", prefix: "TP2", description: "Description del test project 2", testManagementTree: "", testPlanTree: ""});
+testProject1.save(function(err) {if (err) console.log(err);});
+
 console.log("Bootstrap done");

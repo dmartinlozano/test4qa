@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
   name: String,
   password: { type: String, select: false },
   isAdmin: Boolean,
+  defaultProject: mongoose.Schema.ObjectId
   //permissions
 }, { collection: 'user' });
 
