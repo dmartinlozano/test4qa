@@ -13,7 +13,8 @@
     "restangular": "*",
     "underscore": "*",
     "bootstrap": "*",
-    "components-font-awesome": "*"
+    "components-font-awesome": "*",
+    "angular-bootstrap-nav-tree": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",
