@@ -14,8 +14,7 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', function($scope, $rootScope) {
-    }],
+    controller: [function() {}],
     templateUrl: 'views/dashboard/navbar/navbar.html'
   };
 });

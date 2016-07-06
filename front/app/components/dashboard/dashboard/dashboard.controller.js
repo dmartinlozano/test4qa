@@ -8,9 +8,9 @@
  * Controller of the testingItApp
  */
 angular.module('testingItApp')
-.controller('DashBoardController', ['$rootScope', '$scope', 'DashboardService',
-  function ($rootScope, $scope, DashboardService) {
-    var vm = this;
+.controller('DashBoardController', ['$rootScope', '$scope', 'DashboardService', '$state',
+  function ($rootScope, $scope, DashboardService, $state) {
+
     $scope.reqErr = {};
 
     //if token not exist, go to login
@@ -20,7 +20,5 @@ angular.module('testingItApp')
 
     //get default project and build TM and TP
     DashboardService.getTMTreeFromDefaultProject($scope);
-
-
   }
 ]);

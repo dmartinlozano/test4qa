@@ -16,12 +16,30 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 
-$scope.tmTreeData = [];
-      //print tree
+      var tree;
+      $scope.tmTreeControl = tree = {};
+      $scope.tmTreeData = [];
+
+      //print tm tree
       $rootScope.$on('dashboard.service:tmTreeData', function($event, tmTreeData) {
-        $scope.tmTreeData = tmTreeData;
-        //https://github.com/nickperkinslondon/angular-bootstrap-nav-tree/issues/13
+        $scope.tmTreeData = eval(tmTreeData);
       });
+
+      //collapseTmTree
+      $rootScope.$on('test-management-find.directive:collapseTmTree', function() {
+        $scope.tmTreeControl.collapse_all();
+      });
+
+      //expandTmTree
+      $rootScope.$on('test-management-find.directive:expandTmTree', function() {
+        $scope.tmTreeControl.expand_all();
+      });
+
+      //select a branch
+      $scope.tmTreeHandler = function(branch){
+        //TODO
+        console.log(branch);
+      };
 
     }],
     templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'

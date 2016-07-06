@@ -9,8 +9,9 @@
  */
 angular.module('testingItApp')
 
-.service('NavbarService', ['Restangular', '$state', function(Restangular, $state) {
+.service('NavbarService', ['Restangular', function(Restangular) {
 
+  //Return all test projects
   this.getAllProjects = function($scope){
         Restangular.all("/api/testProject").getList().then(function(testProjects) {
           $scope.testProjects = testProjects;

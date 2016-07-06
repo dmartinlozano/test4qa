@@ -10,7 +10,6 @@
 angular.module('testingItApp')
 .controller('NavbarController', ['$rootScope', '$scope', '$state', 'NavbarService',
   function ($rootScope, $scope, $state, NavbarService) {
-    var vm = this;
     $scope.reqErr = {};
 
     //Init webComponent with the list of projects
