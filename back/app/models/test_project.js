@@ -6,8 +6,8 @@ var testProjectSchema = mongoose.Schema({
   name: String,
   prefix: String,
   description: String,
-  testManagementTree: String,
-  testPlanTree: String
+  tmTreeData: String,
+  tpTreeData: String
 }, { collection: 'testProject' });
 
 // create the model for TP and expose it to our app

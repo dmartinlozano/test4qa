@@ -8,7 +8,7 @@
  * Directive of the testingItApp
  */
 angular.module('testingItApp')
-.directive('test-management-tree', function() {
+.directive('testManagementTree', function() {
   return {
     restrict: 'E',
     scope: {
@@ -16,13 +16,14 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 
-      //Filter activities for mobile
-      $scope.filterActivities= function(element){
-        $scope.popover.hide();
-        $rootScope.$emit('filterAndFindActivities', element.target.getAttribute("value"), "");
-      };
+$scope.tmTreeData = [];
+      //print tree
+      $rootScope.$on('dashboard.service:tmTreeData', function($event, tmTreeData) {
+        $scope.tmTreeData = tmTreeData;
+        //https://github.com/nickperkinslondon/angular-bootstrap-nav-tree/issues/13
+      });
 
     }],
-    templateUrl: 'views/dashboard/test-management-tree/test-management-tree2.html'
+    templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'
   };
 });

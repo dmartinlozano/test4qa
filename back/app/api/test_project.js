@@ -23,19 +23,20 @@ module.exports = function(app, passport) {
     });
   });
 
-
-};
-  //find a string in Activity
-/*  app.get('/api/activity/findByDescriptionOrName/:descriptionOrName', middleware.ensureAuthenticated, function (req,res){
-    var descriptionOrName = req.params.descriptionOrName;
-    //Activity.find({$or:[{'name': descriptionOrName },{'description': descriptionOrName}]}, function(err, activities) {
-    Activity.find({$or:[{'name': new RegExp(descriptionOrName, 'i')},{'description': new RegExp(descriptionOrName, 'i')}]}, function(err, activities) {
-      if (activities) {
-        res.send(activities);
-      }else{
-        res.send([]);
-      };
+  //Get the projects
+  app.get('/api/testProject/:id', middleware.ensureAuthenticated, function(req, res) {
+    //TestProject.find({_id: mongoose.Schema.ObjectId(req.params.id)},function(err, tp) {
+    TestProject.findOne({_id: req.params.id},function(err, tp) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (tp) {
+            res.send(tp);
+          }else{
+            res.send({});
+          };
+        }
     });
-
   });
-};*/
+};

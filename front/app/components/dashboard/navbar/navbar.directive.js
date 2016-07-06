@@ -15,13 +15,6 @@ angular.module('testingItApp')
       type: '@',
     },
     controller: ['$scope', '$rootScope', function($scope, $rootScope) {
-
-      //Filter activities for mobile
-      $scope.filterActivities= function(element){
-        $scope.popover.hide();
-        $rootScope.$emit('filterAndFindActivities', element.target.getAttribute("value"), "");
-      };
-
     }],
     templateUrl: 'views/dashboard/navbar/navbar.html'
   };
