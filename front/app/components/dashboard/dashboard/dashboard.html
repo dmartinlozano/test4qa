@@ -1,18 +1,9 @@
 <div ng-controller="DashBoardController">
+  <!--Modals:-->
+  <test-project-crud></test-project-crud>
+  <!--./Modals-->
   <navbar></navbar>
   <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a data-target="#tm" data-toggle="tab">Test management</a></li>
     <li><a data-target="#tp" data-toggle="tab">Test plan</a></li>
   </ul>
-
-  <div class="tab-content">
-    <div class="tab-pane active" id="tm">
-      <div id="tmLeft" style="width: 25%">
-        <test-management-find></test-management-find>
-        <test-management-tree></test-management-tree>
-      </div>
-    </div>
-    <div class="tab-pane" id="tp">Test Plan</div>
-  </div>
-
-</div>

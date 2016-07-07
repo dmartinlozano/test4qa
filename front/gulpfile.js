@@ -74,7 +74,8 @@ gulp.task('lint:vendorJS', function() {
   del([testingIt.dist + '/scripts/lib.js'], function(err, paths) {
     console.log('Deleted files/folders:\n', paths.join('\n'));
   });
-  gulp.src(['./bower_components/angular/angular.js',
+  gulp.src(['./bower_components/jquery/dist/jquery.js',
+            './bower_components/angular/angular.js',
             './bower_components/angular-animate/angular-animate.js',
             './bower_components/angular-cookies/angular-cookies.js',
             './bower_components/angular-environment/dist/angular-environment.js',
@@ -84,11 +85,10 @@ gulp.task('lint:vendorJS', function() {
             './bower_components/angular-touch/angular-touch.js',
             './bower_components/restangular/dist/restangular.js',
             './bower_components/underscore/underscore.js',
-            './bower_components/jquery/dist/jquery.js',
+            './bower_components/angular-ui-grid/ui-grid.js',
             './bower_components/bootstrap/dist/js/bootstrap.js',
             './bower_components/angular-bootstrap-nav-tree/dist/abn_tree_directive.js',
-            './bower_components/angular-bootstrap/ui-bootstrap.js',
-            './bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
+            ''
           ])
     .pipe($.concat('lib.js'))
     .pipe(gulp.dest(testingIt.dist + '/scripts'));
@@ -112,7 +112,8 @@ gulp.task('lint:vendorCSS', function() {
               './bower_components/components-font-awesome/css/font-awesome.css',
               './bower_components/angular-bootstrap-nav-tree/dist/abn_tree.css',
               './app/sb-admin-2.css',
-              './bower_components/angular-bootstrap/ui-bootstrap-csp.css'
+              './bower_components/angular-bootstrap/ui-bootstrap-csp.css',
+              './bower_components/angular-ui-grid/ui-grid.css'
 		          ])
         .pipe($.concat('lib.css'))
         .pipe(gulp.dest(testingIt.dist + '/stylesheets'));
@@ -220,9 +221,13 @@ gulp.task('copy:fonts', function () {
     .pipe(gulp.dest(testingIt.dist + '/fonts'));
   gulp.src(['./bower_components/components-font-awesome/fonts/fontawesome-webfont.woff',
             './bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2',
-            './bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf',
+            './bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf'
           ])
     .pipe(gulp.dest(testingIt.dist + '/fonts'));
+  gulp.src(['./bower_components/angular-ui-grid/ui-grid.woff',
+            './bower_components/angular-ui-grid/ui-grid.ttf'
+            ])
+    .pipe(gulp.dest(testingIt.dist + '/stylesheets'));
 });
 
 gulp.task('build', ['clean:dist'], function () {

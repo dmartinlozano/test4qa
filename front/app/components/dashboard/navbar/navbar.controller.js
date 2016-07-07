@@ -15,5 +15,9 @@ angular.module('testingItApp')
     //Init webComponent with the list of projects
     NavbarService.getAllProjects($scope);
 
+    //Open generic modal by name from navbar
+    $scope.openModal = function(modalName){
+      $('#'+modalName).modal('show');
+    };
   }
 ]);

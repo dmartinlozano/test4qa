@@ -14,7 +14,8 @@
     "underscore": "*",
     "bootstrap": "*",
     "components-font-awesome": "*",
-    "angular-bootstrap-nav-tree": "*"
+    "angular-bootstrap-nav-tree": "*",
+    "angular-ui-grid": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",
