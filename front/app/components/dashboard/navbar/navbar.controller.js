@@ -24,5 +24,10 @@ angular.module('testingItApp')
     $rootScope.$on('test-project-crud.directive:hidden.bs.modal', function() {
       NavbarService.getAllProjects($scope);
     });
+
+    $scope.existAlerts = function(){
+      $scope.unreadAlerts = $rootScope.unreadAlerts;
+      if ($rootScope.unreadAlerts === 0){return false;} else{return true;}
+    };
   }
 ]);

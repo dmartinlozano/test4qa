@@ -1,0 +1,22 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="alertsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Alerts</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="list-group">
+          <a ng-repeat="alert in alerts" ng-click="markAsRead($index)" class="list-group-item" ng-class="{'disabled': alert.unread == false}">
+            {{alert.message}}
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="markAllAsRead()">Mark all as read</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteAll()">Delete all</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

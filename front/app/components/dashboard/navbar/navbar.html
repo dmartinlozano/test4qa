@@ -14,7 +14,12 @@
                   <li><a><i class="fa fa-key fa-fw"></i> Key words</a></li>
                 </ul>
               </li>
-                <li class="dropdown">
+              <li>
+                <a href="" ng-click="openModal('alertsModal')">
+                  <i class="fa fa-bell"></i><span class="badge" ng-show="existAlerts()">{{unreadAlerts}}</span></a>
+                </a>
+              </li>
+              <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" >
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>

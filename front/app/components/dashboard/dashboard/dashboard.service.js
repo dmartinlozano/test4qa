@@ -9,22 +9,18 @@
  */
 angular.module('testingItApp')
 
-.service('DashboardService', ['Restangular', '$state', '$rootScope', function(Restangular, $state, $rootScope) {
+.service('DashboardService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
 
-  this.getTMTreeFromDefaultProject = function($scope){
+  this.getTMTreeFromDefaultProject = function(){
         Restangular.one("/api/me").get().then(function(user) {
           var idProject = user.defaultTestProject;
           Restangular.one("/api/testProject/"+idProject).get().then(function(projectManagement) {
             $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
           },function (res) {
-            $scope.reqErr.allowed = false;
-            $scope.reqErr.status = res.status;
-            $scope.reqErr.message = res.data.message;
+            $rootScope.$emit('alert', "The current user hasn't defined a default project");
           });
         },function (res) {
-          $scope.reqErr.allowed = false;
-          $scope.reqErr.status = res.status;
-          $scope.reqErr.message = res.data.message;
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
       };
  }]);

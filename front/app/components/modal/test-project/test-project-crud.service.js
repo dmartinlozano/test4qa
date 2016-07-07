@@ -9,16 +9,14 @@
  */
 angular.module('testingItApp')
 
-.service('TestProjectCrudService', ['Restangular', function(Restangular) {
+.service('TestProjectCrudService', ['Restangular', 'NavbarService', '$rootScope', function(Restangular, NavbarService, $rootScope) {
 
   //service to add a new testProject
   this.addTestProject = function($scope, name,prefix,description){
         Restangular.one("/api/testProject").customPUT({name: name, prefix: prefix, description: description}).then(function() {
           $scope.closeModal();
         },function (res) {
-          $scope.reqErr.allowed = false;
-          $scope.reqErr.status = res.status;
-          $scope.reqErr.message = res.data.message;
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
       };
 
@@ -27,11 +25,17 @@ angular.module('testingItApp')
     Restangular.one("/api/testProject/"+id).customPOST({field:field, newValue:newValue}).then(function() {
       //TODO mostrar mensaje de ok
     },function (res) {
-      $scope.reqErr.allowed = false;
-      $scope.reqErr.status = res.status;
-      $scope.reqErr.message = res.data.message;
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
   };
 
-  //TODO delete
+  //delete a testProject
+  this.deleteTestProject = function($scope, id){
+    Restangular.one("/api/testProject/"+id).remove().then(function() {
+            $scope.testProjects = [];
+            NavbarService.getAllProjects($scope);
+          },function (res) {
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+  };
  }]);

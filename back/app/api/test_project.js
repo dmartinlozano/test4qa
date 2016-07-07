@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
           if (tp) {
             res.send(tp);
           }else{
-            res.send([]);
+            return res.status(500).send({ message: 'Projects not found' });
           };
         }
     });
@@ -34,7 +34,7 @@ module.exports = function(app, passport) {
           if (tp) {
             res.send(tp);
           }else{
-            res.send({});
+            return res.status(500).send({ message: 'Project not found' });
           };
         }
     });
@@ -48,12 +48,13 @@ module.exports = function(app, passport) {
         }
         else{
           if (tp) {
-            return res.status(500).send({ message: 'Project already exists' });
+            return res.status(500).send({ message: 'Project test already exists' });
           }else{
             var newTP = new TestProject({
               name: req.body.name,
               prefix: req.body.prefix,
-              description: req.body.description
+              description: req.body.description,
+              tmTreeData: "[{label: "+req.body.name+",children: []}]"
             });
             newTP.save(function(err, result) {
               if (err) {
@@ -76,7 +77,7 @@ module.exports = function(app, passport) {
         }
         else{
           if (!tp) {
-            return res.status(500).send({ message: "Project doesn't exists" });
+            return res.status(500).send({ message: "Project test doesn't exists" });
           }else{
             tp[req.body.field] = req.body.newValue;
             TestProject.findOneAndUpdate({_id:req.params.id}, tp, {upsert:true}, function(err, doc){
@@ -85,7 +86,27 @@ module.exports = function(app, passport) {
             });
           };
         }
+    });
+  });
 
+  //delete a test plan
+  app.delete('/api/testProject/:id', function(req, res) {
+    TestProject.findOne({_id: req.params.id}, function(err, tp) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (tp) {
+            tp.remove(function(err, result) {
+              if (err) {
+                res.status(500).send({ message: err.message });
+              }
+              return res.send("succesfully deleted");
+            });
+          }else{
+            return res.status(500).send({ message: "Project test doesn't exists" });
+          };
+        }
     });
   });
 };

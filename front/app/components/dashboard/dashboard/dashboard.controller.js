@@ -19,6 +19,6 @@ angular.module('testingItApp')
     }
 
     //get default project and build TM and TP
-    DashboardService.getTMTreeFromDefaultProject($scope);
+    DashboardService.getTMTreeFromDefaultProject();
   }
 ]);
