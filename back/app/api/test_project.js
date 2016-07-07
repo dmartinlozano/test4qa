@@ -39,4 +39,53 @@ module.exports = function(app, passport) {
         }
     });
   });
+
+  //add a new test project
+  app.put('/api/testProject', function(req, res) {
+    TestProject.findOne({ name: req.body.name }, function(err, tp) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (tp) {
+            return res.status(500).send({ message: 'Project already exists' });
+          }else{
+            var newTP = new TestProject({
+              name: req.body.name,
+              prefix: req.body.prefix,
+              description: req.body.description
+            });
+            newTP.save(function(err, result) {
+              if (err) {
+                res.status(500).send({ message: err.message });
+              }
+              return res.send("succesfully saved");
+            });
+          };
+        }
+
+    });
+  });
+
+
+  //update a field
+  app.post('/api/testProject/:id', function(req, res) {
+    TestProject.findOne({_id: req.params.id}, function(err, tp) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (!tp) {
+            return res.status(500).send({ message: "Project doesn't exists" });
+          }else{
+            tp[req.body.field] = req.body.newValue;
+            TestProject.findOneAndUpdate({_id:req.params.id}, tp, {upsert:true}, function(err, doc){
+                if (err) res.status(500).send({ message: err.message });
+                return res.send("succesfully saved");
+            });
+          };
+        }
+
+    });
+  });
 };

@@ -19,5 +19,10 @@ angular.module('testingItApp')
     $scope.openModal = function(modalName){
       $('#'+modalName).modal('show');
     };
+
+    //TestProject management modal is closed, update the projects
+    $rootScope.$on('test-project-crud.directive:hidden.bs.modal', function() {
+      NavbarService.getAllProjects($scope);
+    });
   }
 ]);

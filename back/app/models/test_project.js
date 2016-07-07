@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // define the schema for our TP model
 var testProjectSchema = mongoose.Schema({
-  name: String,
+  name: { type: String, index: { unique: true }},
   prefix: String,
   description: String,
   tmTreeData: String,
