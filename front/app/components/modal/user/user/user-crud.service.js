@@ -51,4 +51,13 @@ angular.module('testingItApp')
       $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
   };
+
+  //Return all test projects -dropdown in ui-grid
+  this.getAllProjectsForDropDown = function(gridOptions){
+        Restangular.all("/api/testProject").getList().then(function(testProjects) {
+          gridOptions.columnDefs[5].editDropdownOptionsArray = testProjects;
+        },function (res) {
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+      };
  }]);

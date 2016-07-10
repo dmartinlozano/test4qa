@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
-  roleInProject: mongoose.Schema.ObjectId,
+  roleInProject: [{role: mongoose.Schema.ObjectId, project: mongoose.Schema.ObjectId}],
   isAdmin: Boolean,
   defaultTestProject: mongoose.Schema.ObjectId
   //permissions

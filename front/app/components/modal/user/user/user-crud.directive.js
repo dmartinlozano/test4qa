@@ -16,23 +16,17 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', 'UserService', 'TestProjectCrudService', function($scope, $rootScope, UserService, TestProjectCrudService) {
 
-      //TODO Fix error grid in modal
-
       //Init users when modal is show
       $rootScope.$on('user-management.directive:shown.bs.modal', function() {
         $scope.users = [];
-        $scope.testProjects = [];
+        //To read in a combo in ng-grid
         UserService.getAllUsers($scope);
         TestProjectCrudService.getAllProjects($scope);
+        UserService.getAllProjectsForDropDown($scope.userCrudGridOptions);
+        window.setTimeout(function(){
+          $(window).resize();
+        }, 1000);
       });
-
-      //watch $scope.users to parse id of testProject
-      /*$scope.$watch('users', function() {
-        $scope.users.forEach(function(user)
-          user.defaultTestProject
-          entry.unread = false;
-          $rootScope.unreadAlerts = $rootScope.unreadAlerts -1;
-        });*/
 
       //Delete an user
       $scope.deleteUser = function(id){
@@ -42,15 +36,20 @@ angular.module('testingItApp')
       //Init ngGrid for users
       $scope.userCrudGridOptions = {
         data: 'users',
-        enableCellEditOnFocus: true,
         columnDefs: [{field:'name', displayName: 'Name'},
                      {field:'firstName', displayName:'First Name'},
                      {field:'lastName', displayName: 'Last Name'},
                      {field:'email', displayName: 'Email'},
                      {field:'isAdmin', displayName: 'Is admin', enableCellEdit: false, cellTemplate: '<input type="checkbox" ng-model="row.entity.isAdmin"  ng-click="grid.appScope.clickIsAdminCheckBox(row.entity)">'},
                      //{field:'defaultTestProject', enableCellEdit: false, displayName: 'Test project by default'},
-                     {field:'defaultTestProject', cellTemplate: 'views/modal/user/user/user-crud-test-project-dropdown.html', enableCellEdit: false, displayName: 'Test project'},
-                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteUser(row.entity._id)" ></button>'}]
+                     {field:'defaultTestProject',
+                      displayName: 'Test Project',
+                      editableCellTemplate: 'ui-grid/dropdownEditor',
+                      editDropdownOptionsArray: $scope.testProjects,
+                      editDropdownIdLabel: '_id',
+                      editDropdownValueLabel: 'name',
+                      cellFilter: 'testProjectsFilter:editDropdownOptionsArray:editDropdownIdLabel:editDropdownValueLabel:row.entity'},
+                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteUser(row.entity.)" ></button>'}]
       };
 
       //when the table is editing
@@ -106,6 +105,7 @@ angular.module('testingItApp')
       //Load test projects for dropdown
       $('#userAddModal').on('shown.bs.modal', function() {
         TestProjectCrudService.getAllProjects($scope);
+        UserService.getAllProjectsForDropDown($scope.userCrudGridOptions);
       });
 
       $scope.setSelectedTestProjectInUserCrudDropDown = function(id){
@@ -116,4 +116,20 @@ angular.module('testingItApp')
     }],
     templateUrl: 'views/modal/user/user/user-crud-add.html'
   };
-});
+})
+
+.filter('testProjectsFilter', function () {
+  //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
+    return function (input, map, idField, valueField, initial) {
+        if (typeof map !== "undefined") {
+            for (var i = 0; i < map.length; i++) {
+                if (map[i][idField] == input) {
+                    return map[i][valueField];
+                }
+            }
+        } else if (initial) {
+            return initial;
+        }
+        return input;
+    };
+})

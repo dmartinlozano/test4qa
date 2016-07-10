@@ -8,10 +8,10 @@
 
         <!-- Tabs: -->
         <ul class="nav nav-tabs" id="myTab">
-          <li class="active"><a data-target="#users" data-toggle="tab" href="">Users</a></li>
-          <li><a data-target="#roles" data-toggle="tab" ng-click="showRolesPanel">Roles</a></li>
-          <li><a data-target="#tpRoles" data-toggle="tab" ng-click="showTpRolesPanel">Test project roles</a></li>
-          <li><a data-target="#tpnRoles" data-toggle="tab" ng-click="showTpnRolesPanel">Test plan roles</a></li>
+          <li class="active"><a data-target="#users" data-toggle="tab" href ng-click="changeTab()">Users</a></li>
+          <li><a data-target="#roles" data-toggle="tab" href ng-click="changeTab()">Roles</a></li>
+          <li><a data-target="#tpRoles" data-toggle="tab" href ng-click="changeTab()">Test project roles</a></li>
+          <li><a data-target="#tpnRoles" data-toggle="tab" href ng-click="changeTab()">Test plan roles</a></li>
         </ul>
 
         <div class="tab-content">

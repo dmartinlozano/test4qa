@@ -9,10 +9,16 @@
  */
 angular.module('testingItApp')
 
-.service('DashboardService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
+.service('DashboardService', ['Restangular', '$rootScope', '$state', function(Restangular, $rootScope, $state) {
 
+
+  //return tmTreeData of defaultTestProject of user
   this.getTMTreeFromDefaultProject = function(){
         Restangular.one("/api/me").get().then(function(user) {
+          //Session lost or back rest:
+          if (user === undefined){
+            $state.go('login');
+          }
           var idProject = user.defaultTestProject;
           Restangular.one("/api/testProject/"+idProject).get().then(function(projectManagement) {
             $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
