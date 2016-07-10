@@ -33,9 +33,27 @@ angular.module('testingItApp')
   this.deleteTestProject = function($scope, id){
     Restangular.one("/api/testProject/"+id).remove().then(function() {
             $scope.testProjects = [];
-            NavbarService.getAllProjects($scope);
+            this.getAllProjects($scope);
           },function (res) {
             $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
           });
   };
+
+  //Return all test projects
+  this.getAllProjects = function($scope){
+        Restangular.all("/api/testProject").getList().then(function(testProjects) {
+          $scope.testProjects = testProjects;
+        },function (res) {
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+      };
+
+  //Return all test projects
+  this.getTestProject = function($scope, id){
+        Restangular.all("/api/testProject/"+id).getList().then(function(testProjects) {
+          $scope.testProjects = testProjects;
+        },function (res) {
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+      };
  }]);

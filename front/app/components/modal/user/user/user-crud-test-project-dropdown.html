@@ -1,0 +1,5 @@
+<div>
+  <select ng-model="users[row.rowIndex].defaultTestProject" ng-blur="updateEntity(row)">
+    <option ng-repeat="tPj in testProjects">{{tPj.name}}</option>
+  </select>
+</div>

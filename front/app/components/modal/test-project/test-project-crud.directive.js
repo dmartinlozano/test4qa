@@ -27,7 +27,7 @@ angular.module('testingItApp')
       //Init test projects when modal is show
       $('#testProjectCrudModal').on('shown.bs.modal', function() {
         $scope.testProjects = [];
-        NavbarService.getAllProjects($scope);
+        TestProjectCrudService.getAllProjects($scope);
       });
 
       //modal is closed
@@ -42,7 +42,7 @@ angular.module('testingItApp')
         columnDefs: [{field:'name', displayName: 'Name'},
                      {field:'prefix', displayName:'Prefix'},
                      {field:'description', displayName: 'Description'},
-                     {field: 'edit',cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteProject(row.entity._id)" ></button>'}]
+                     {field: 'delete',enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteProject(row.entity._id)" ></button>'}]
       };
 
       //when the table is editing

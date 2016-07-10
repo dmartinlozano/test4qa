@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the testingItApp
  */
-angular.module('testingItApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'ngSanitize', 'restangular', 'environment', 'restangular', 'angularBootstrapNavTree', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav'])
+angular.module('testingItApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'ngSanitize', 'restangular', 'environment', 'restangular', 'angularBootstrapNavTree', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.bootstrap'])
   .config(['$stateProvider', '$urlRouterProvider', 'envServiceProvider',
     function($stateProvider, $urlRouterProvider, envServiceProvider) {
       //$translateProvider.useLoader('langLoader');

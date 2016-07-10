@@ -4,8 +4,12 @@ var Schema = mongoose.Schema;
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-  name: String,
+  name: { type: String, index: { unique: true }},
   password: { type: String, select: false },
+  firstName: String,
+  lastName: String,
+  email: String,
+  roleInProject: mongoose.Schema.ObjectId,
   isAdmin: Boolean,
   defaultTestProject: mongoose.Schema.ObjectId
   //permissions

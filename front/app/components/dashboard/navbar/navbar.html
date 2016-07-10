@@ -5,7 +5,7 @@
           <ul class="nav navbar-top-links navbar-right">
               <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test project <span class="caret"></span></a>
-                <ul class="dropdown-menu" style="width: 250px">
+                <ul class="dropdown-menu navbar-dopdown-menu">
                   <div ng-repeat="project in testProjects">
                     <li><a >{{project.prefix}}: {{project.name}}</a></li>
                   </div>
@@ -24,10 +24,8 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a><i class="fa fa-users fa-fw"></i> Users</a></li>
-                        <li><a><i class="fa fa-user-secret fa-fw"></i> Roles</a></li>
-                        <li><a><i class="fa fa-suitcase fa-fw"></i> Project roles</a></li>
-                        <li><a><i class="fa fa-ship fa-fw"></i> Test plan roles</a></li>
+                        <li><a ng-click="openModal('userManagementModal')"><i class="fa fa-users fa-fw"></i> User management</a></li>
+                        <li><a><i class="fa fa-user-secret fa-fw"></i> Profile</a></li>
                         <li class="divider"></li>
                         <li><a><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                     </ul>

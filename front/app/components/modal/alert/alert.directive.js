@@ -25,7 +25,7 @@ angular.module('testingItApp')
       });
 
       $scope.markAsRead = function(indexSelected){
-        if ($rootScope.alerts[indexSelected].unread == true){
+        if ($rootScope.alerts[indexSelected].unread === true){
           $rootScope.alerts[indexSelected].unread = false;
           $scope.alerts[indexSelected].unread = false;
           $rootScope.unreadAlerts = $rootScope.unreadAlerts -1;

@@ -1,0 +1,31 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="userManagementModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">User Management</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- Tabs: -->
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a data-target="#users" data-toggle="tab" href="">Users</a></li>
+          <li><a data-target="#roles" data-toggle="tab" ng-click="showRolesPanel">Roles</a></li>
+          <li><a data-target="#tpRoles" data-toggle="tab" ng-click="showTpRolesPanel">Test project roles</a></li>
+          <li><a data-target="#tpnRoles" data-toggle="tab" ng-click="showTpnRolesPanel">Test plan roles</a></li>
+        </ul>
+
+        <div class="tab-content">
+           <div class="tab-pane active" id="users"><users-crud></users-crud></div>
+           <div class="tab-pane" id="roles"><roles-crud></roles-crud></div>
+           <div class="tab-pane" id="tpRoles"><tpjRoles-crud></tpjRoles-crud></div>
+           <div class="tab-pane" id="tpnRoles"><tpnRoles-crud></tpnRoles-crud></div>
+         </div>
+         <!-- ./Tabs: -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

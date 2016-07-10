@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
   });
 
   //add a new test project
-  app.put('/api/testProject', function(req, res) {
+  app.put('/api/testProject', middleware.ensureAuthenticated, function(req, res) {
     TestProject.findOne({ name: req.body.name }, function(err, tp) {
       if(err){
           console.log(err);
@@ -70,7 +70,7 @@ module.exports = function(app, passport) {
 
 
   //update a field
-  app.post('/api/testProject/:id', function(req, res) {
+  app.post('/api/testProject/:id', middleware.ensureAuthenticated, function(req, res) {
     TestProject.findOne({_id: req.params.id}, function(err, tp) {
       if(err){
           console.log(err);
@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
   });
 
   //delete a test plan
-  app.delete('/api/testProject/:id', function(req, res) {
+  app.delete('/api/testProject/:id', middleware.ensureAuthenticated, function(req, res) {
     TestProject.findOne({_id: req.params.id}, function(err, tp) {
       if(err){
           console.log(err);
