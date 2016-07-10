@@ -16,18 +16,14 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', 'NavbarService', 'TestProjectCrudService', function($scope, $rootScope, NavbarService, TestProjectCrudService) {
 
-      //TODO Fix error grid in modal:
-    /*  $('#testProjectCrudModal').on('shown.bs.modal', function() {
-        var class = $('#testProjectCrudModal').children().attr('class');
-        $('#testProjectCrudModal')children().css('class', 'modal-dialog');
-        $('#testProjectCrudModal')children().css('class', class);
-      });*/
-
 
       //Init test projects when modal is show
       $('#testProjectCrudModal').on('shown.bs.modal', function() {
         $scope.testProjects = [];
         TestProjectCrudService.getAllProjects($scope);
+        window.setTimeout(function(){
+          $(window).resize();
+        }, 1000);
       });
 
       //modal is closed

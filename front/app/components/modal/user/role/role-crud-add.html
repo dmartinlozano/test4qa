@@ -1,0 +1,23 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="userAddModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">New Role</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Name" ng-model="newRole.name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Description" ng-model="newRole.password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addRole()">Add</button>
+        <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

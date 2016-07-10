@@ -16,23 +16,16 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', 'UserService', 'TestProjectCrudService', function($scope, $rootScope, UserService, TestProjectCrudService) {
 
-      //TODO Fix error grid in modal
-
       //Init users when modal is show
       $rootScope.$on('user-management.directive:shown.bs.modal', function() {
         $scope.users = [];
         $scope.testProjects = [];
         UserService.getAllUsers($scope);
         TestProjectCrudService.getAllProjects($scope);
+        window.setTimeout(function(){
+          $(window).resize();
+        }, 1000);
       });
-
-      //watch $scope.users to parse id of testProject
-      /*$scope.$watch('users', function() {
-        $scope.users.forEach(function(user)
-          user.defaultTestProject
-          entry.unread = false;
-          $rootScope.unreadAlerts = $rootScope.unreadAlerts -1;
-        });*/
 
       //Delete an user
       $scope.deleteUser = function(id){
