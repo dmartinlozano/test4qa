@@ -7,10 +7,11 @@
       <div class="modal-body">
 
         <!-- Tabs: -->
-        <ul class="nav nav-tabs" id="myTab">
+        <ul class="nav nav-tabs" id="userManagementTab">
           <li class="active"><a data-target="#users" data-toggle="tab" href ng-click="changeTab()">Users</a></li>
           <li><a data-target="#roles" data-toggle="tab" href ng-click="changeTab()">Roles</a></li>
           <li><a data-target="#tpjRoles" data-toggle="tab" href ng-click="changeTab()">Test project roles</a></li>
+          <li><a data-target="#permissions" data-toggle="tab" href ng-click="changeTab()">Permissions</a></li>
           <li><a data-target="#tpnRoles" data-toggle="tab" href ng-click="changeTab()">Test plan roles</a></li>
         </ul>
 
@@ -18,6 +19,7 @@
            <div class="tab-pane active" id="users"><users-crud></users-crud></div>
            <div class="tab-pane" id="roles"><roles-crud></roles-crud></div>
            <div class="tab-pane" id="tpjRoles"><tpj-roles-crud></tpj-roles-crud></div>
+           <div class="tab-pane" id="permissions"><permissions></permissions></div>
            <div class="tab-pane" id="tpnRoles"><tpn-roles-crud></tpn-roles-crud></div>
          </div>
          <!-- ./Tabs: -->

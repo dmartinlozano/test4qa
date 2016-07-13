@@ -51,4 +51,13 @@ angular.module('testingItApp')
       $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
   };
+
+  //Return all roles -dropdown in ui-grid
+  this.getAllRolesForDropDown = function(columnNum, gridOptions){
+        Restangular.all("/api/role").getList().then(function(testProjects) {
+          gridOptions.columnDefs[columnNum].editDropdownOptionsArray = testProjects;
+        },function (res) {
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+      };
  }]);

@@ -44,6 +44,7 @@ app.use(function (err, req, res, next) {
 });
 // RESTful API =================================================================
 require('./app/api/user')(app,passport);
+require('./app/api/user-roles-tpj')(app,passport);
 require('./app/api/test-project')(app,passport);
 require('./app/api/role')(app,passport);
 

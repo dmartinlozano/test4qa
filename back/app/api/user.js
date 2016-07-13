@@ -41,28 +41,6 @@ module.exports = function(app, passport) {
     });
   });
 
-  //Get all users with roles
-  app.get('/api/user-roles-tpj', middleware.ensureAuthenticated, function(req, res) {
-    User.find({}, function(err, users) {
-      if(err){
-          console.log(err);
-        }
-        else{
-          if (users) {
-            var result = [];
-            users.forEach(function(user){
-              user.roleInProject.forEach(function(pjRole){
-                result.push({user:user.name,project: pjRole.project, role:pjRole.role});
-              });
-            });
-            res.send(result);
-          }else{
-            res.send([]);
-          };
-        }
-    });
-  });
-
   //add a new user
   app.put('/api/user', middleware.ensureAuthenticated, function(req, res) {
     User.findOne({ name: req.body.newUser.name }, function(err, user) {

@@ -7,6 +7,7 @@
  * # testManagementFind
  * Directive of the testingItApp
  */
+ //TODO deprecated?????
 angular.module('testingItApp')
 .directive('user', function() {
   return {

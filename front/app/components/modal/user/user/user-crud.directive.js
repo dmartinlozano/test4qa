@@ -22,7 +22,7 @@ angular.module('testingItApp')
         //To read in a combo in ng-grid
         UserService.getAllUsers($scope);
         TestProjectCrudService.getAllProjects($scope);
-        UserService.getAllProjectsForDropDown($scope.userCrudGridOptions);
+        TestProjectCrudService.getAllProjectsForDropDown(5, $scope.userCrudGridOptions);
         window.setTimeout(function(){
           $(window).resize();
         }, 1000);
@@ -36,6 +36,7 @@ angular.module('testingItApp')
       //Init uiGrid for users
       $scope.userCrudGridOptions = {
         data: 'users',
+        enableCellEditOnFocus: true,
         columnDefs: [{field:'name', displayName: 'Name'},
                      {field:'firstName', displayName:'First Name'},
                      {field:'lastName', displayName: 'Last Name'},
@@ -99,24 +100,11 @@ angular.module('testingItApp')
       //Load test projects for dropdown
       $('#userAddModal').on('shown.bs.modal', function() {
         TestProjectCrudService.getAllProjects($scope);
-        UserService.getAllProjectsForDropDown($scope.userCrudGridOptions);
+        TestProjectCrudService.getAllProjectsForDropDown(5, $scope.userCrudGridOptions);
       });
 
 
     }],
     templateUrl: 'views/modal/user/user/user-crud-add.html'
   };
-})
-
-//In user management, the dropdown show the name of testProjects:
-.filter('testProjectsFilter', function () {
-    return function (input, map) {
-        if (typeof map !== "undefined") {
-            for (var i = 0; i < map.length; i++) {
-                if (map[i]["_id"] == input) {
-                    return map[i]["name"];
-                }
-            }
-        }
-    };
-})
+});
