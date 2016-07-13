@@ -52,6 +52,15 @@ angular.module('testingItApp')
     });
   };
 
+  //Return all users
+  this.getRolesByProjects = function($gridOptions){
+    Restangular.all("/api/user-roles-tpj").getList().then(function(userRolesTpj) {
+      $scope.userRolesTpj = userRolesTpj;
+    },function (res) {
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
+  };
+
   //Return all test projects -dropdown in ui-grid
   this.getAllProjectsForDropDown = function(gridOptions){
         Restangular.all("/api/testProject").getList().then(function(testProjects) {

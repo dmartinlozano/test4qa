@@ -33,7 +33,7 @@ angular.module('testingItApp')
         UserService.deleteUser($scope, id);
       };
 
-      //Init ngGrid for users
+      //Init uiGrid for users
       $scope.userCrudGridOptions = {
         data: 'users',
         columnDefs: [{field:'name', displayName: 'Name'},
@@ -48,8 +48,8 @@ angular.module('testingItApp')
                       editDropdownOptionsArray: $scope.testProjects,
                       editDropdownIdLabel: '_id',
                       editDropdownValueLabel: 'name',
-                      cellFilter: 'testProjectsFilter:editDropdownOptionsArray:editDropdownIdLabel:editDropdownValueLabel:row.entity'},
-                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteUser(row.entity.)" ></button>'}]
+                      cellFilter: 'testProjectsFilter:grid.appScope.testProjects'},
+                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteUser(row.entity)" ></button>'}]
       };
 
       //when the table is editing
@@ -63,12 +63,6 @@ angular.module('testingItApp')
       $scope.clickIsAdminCheckBox = function(rowEntity){
         UserService.updateUser($scope,rowEntity._id,'isAdmin',rowEntity.isAdmin);
       }
-
-      //When testProjectDrowpDown is selected, the selected value remplace the value of dropdown
-      $("#testProjectInUserCrudDropDown").on('click', 'li a', function(){
-        var selText = $(this).text();
-        $(this).parents('.dropdown').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
-      });
 
       //Open add a new users  modal
       $scope.openAddUserModal = function(){
@@ -108,28 +102,21 @@ angular.module('testingItApp')
         UserService.getAllProjectsForDropDown($scope.userCrudGridOptions);
       });
 
-      $scope.setSelectedTestProjectInUserCrudDropDown = function(id){
-        $scope.newUser.defaultTestProject = id;
-      };
-
 
     }],
     templateUrl: 'views/modal/user/user/user-crud-add.html'
   };
 })
 
+//In user management, the dropdown show the name of testProjects:
 .filter('testProjectsFilter', function () {
-  //http://stackoverflow.com/questions/29219380/ui-grid-dropdown-editor-with-complex-json-object
-    return function (input, map, idField, valueField, initial) {
+    return function (input, map) {
         if (typeof map !== "undefined") {
             for (var i = 0; i < map.length; i++) {
-                if (map[i][idField] == input) {
-                    return map[i][valueField];
+                if (map[i]["_id"] == input) {
+                    return map[i]["name"];
                 }
             }
-        } else if (initial) {
-            return initial;
         }
-        return input;
     };
 })

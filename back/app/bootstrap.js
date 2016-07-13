@@ -32,9 +32,23 @@ var admin = new User({
   isAdmin: true,
   defaultTestProject: testProject1._id,
 });
-admin.roleInProject.push({role: adminRole._id, project: testProject1._id});
-admin.roleInProject.push({role: guestRole._id, project: testProject2._id});
+admin.roleInProject.push({project: testProject1._id, role: adminRole._id});
+admin.roleInProject.push({project: testProject2._id, role: guestRole._id});
 admin.save(function(err) {if (err) console.log(err);});
+
+var guest = new User({
+  name: "guest",
+  password: "guest",
+  firstName: "Guest",
+  lastName: "Martinez",
+  email: "guest@admin.es",
+  roleInProject: [],
+  isAdmin: false,
+  defaultTestProject: testProject2._id,
+});
+guest.roleInProject.push({project: testProject1._id, role: guestRole._id});
+guest.roleInProject.push({project: testProject2._id, role: guestRole._id});
+guest.save(function(err) {if (err) console.log(err);});
 
 
 console.log("Bootstrap done");
