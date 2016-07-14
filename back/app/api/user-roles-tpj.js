@@ -89,5 +89,28 @@ module.exports = function(app, passport) {
     });
   });
 
+  //add a new user
+  app.put('/api/userRolesTpj', middleware.ensureAuthenticated, function(req, res) {
+    User.findOne({ _id: req.body.newUserTpjRole.name }, function(err, user) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (!user) {
+            return res.status(500).send({ message: 'User not exist' });
+          }else{
+            user.roleInProject.push({project: req.body.newUserTpjRole.project, role: req.body.newUserTpjRole.role});
+            user.save(function(err, result) {
+              if (err) {
+                res.status(500).send({ message: err.message });
+              }
+              return res.send("succesfully saved");
+            });
+          };
+        }
+
+    });
+  });
+
 
 };

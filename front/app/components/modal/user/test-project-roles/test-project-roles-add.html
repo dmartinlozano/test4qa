@@ -1,0 +1,50 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="userTpjRoleAddModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">New Test project roles</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <div class="dropdown" id="userInTestProjectDropDown">
+              <label>Users:</label>
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                   Users<span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu navbar-dopdown-menu" aria-labelledby="dropdownMenu1">
+                   <li ng-repeat="user in users"><a  value="{{user._id}}">{{user.name}}</a></li>
+               </ul>
+           </div>
+           </div>
+           <div class="form-group">
+             <div class="dropdown" id="tpjInTestProjectDropDown">
+               <label>Test projects:</label>
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Test projects<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu navbar-dopdown-menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="project in testProjects" ><a value="{{project._id}}">{{project.name}}</a></li>
+                </ul>
+            </div>
+            </div>
+          <div class="form-group">
+            <div class="dropdown" id="roleInTestProjectDropDown">
+              <label>Roles:</label>
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                   Roles<span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu navbar-dopdown-menu" aria-labelledby="dropdownMenu1">
+                   <li ng-repeat="role in roles"><a value="{{role._id}}">{{role.name}}</a></li>
+               </ul>
+           </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addUserTpjRole()">Add</button>
+        <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

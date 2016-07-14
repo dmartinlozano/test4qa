@@ -50,8 +50,8 @@ angular.module('testingItApp')
 
   //Return all test projects
   this.getTestProject = function($scope, id){
-        Restangular.all("/api/testProject/"+id).getList().then(function(testProjects) {
-          $scope.testProjects = testProjects;
+        Restangular.one("/api/testProject/"+id).get().then(function(testProject) {
+          $scope.testProject = testProject;
         },function (res) {
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });

@@ -5,6 +5,7 @@
   <user-management-crud></user-management-crud>
   <user-crud-add></user-crud-add>
   <role-crud-add></role-crud-add>
+  <test-project-roles-add></test-project-roles-add>
   <alert></alert>
   <!--./Modals-->
 
@@ -18,9 +19,14 @@
 
   <div class="tab-content">
      <div class="tab-pane active" id="tm">
-       <div id="tmLeft" style="width: 25%">
+       <div id="tmTree" class="tree-left">
          <test-management-find></test-management-find>
          <test-management-tree></test-management-tree>
+       </div>
+       <div id="tmPane" class="panel-right">
+         <tpj-panel></tpj-panel>
+         <tps-panel></tps-panel>
+         <tpc-panel></tpc-panel>
        </div>
      </div>
      <div class="tab-pane" id="tp">Test Plan</div>

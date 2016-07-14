@@ -1,0 +1,10 @@
+.tree-left{
+ width:25%;
+ float:left
+}
+
+.panel-right{
+ width: 75%;
+ float: left;
+ display: none;
+}

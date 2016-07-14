@@ -25,7 +25,6 @@ module.exports = function(app, passport) {
 
   //Get the projects
   app.get('/api/testProject/:id', middleware.ensureAuthenticated, function(req, res) {
-    //TestProject.find({_id: mongoose.Schema.ObjectId(req.params.id)},function(err, tp) {
     TestProject.findOne({_id: req.params.id},function(err, tp) {
       if(err){
           console.log(err);
@@ -53,9 +52,15 @@ module.exports = function(app, passport) {
             var newTP = new TestProject({
               name: req.body.name,
               prefix: req.body.prefix,
-              description: req.body.description,
-              tmTreeData: "[{label: "+req.body.name+",children: []}]"
+              description: req.body.description/*,
+              tmTreeData: "[{label: "+req.body.name+", type: 'tpr', children: []}]"*/
             });
+            newTP.save(function(err, result) {
+              if (err) {
+                res.status(500).send({ message: err.message });
+              }
+            });
+            newTp.tmTreeData = "[{label: "+req.body.name+", type: 'tpr', _id: '" + newTp._id + "', children: []}]";
             newTP.save(function(err, result) {
               if (err) {
                 res.status(500).send({ message: err.message });

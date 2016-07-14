@@ -37,8 +37,7 @@ angular.module('testingItApp')
 
       //select a branch
       $scope.tmTreeHandler = function(branch){
-        //TODO
-        console.log(branch);
+        $rootScope.$emit('test-management-tree.directive:branch', branch);
       };
 
     }],
