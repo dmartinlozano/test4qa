@@ -85,5 +85,14 @@ angular.module('testingItApp')
     });
   };
 
+  //add user-roles-tpj
+  this.addUserTpjRole = function($scope, newUserTpjRole){
+    Restangular.one("/api/userRolesTpj").customPUT({newUserTpjRole: newUserTpjRole}).then(function() {
+      $scope.closeModal();
+    },function (res) {
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
+  };
+
 
  }]);
