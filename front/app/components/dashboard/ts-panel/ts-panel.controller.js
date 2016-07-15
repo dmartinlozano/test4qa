@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:TpsController
+ * @name testingItApp.controller:TsController
  * @description
- * # TpsController
+ * # TsController
  * Controller of the testingItApp
  */
 angular.module('testingItApp')
-.controller('TpsController', ['$rootScope', '$scope', '$state', 'TestSuiteCrudService',
+.controller('TsController', ['$rootScope', '$scope', '$state', 'TestSuiteCrudService',
   function ($rootScope, $scope, $state, TestSuiteCrudService) {
 
     $scope.reqErr = {};
@@ -24,7 +24,7 @@ angular.module('testingItApp')
     //The new TS has been added y tree must be added too:
     $scope.closeModal = function(){
         $("#testSuiteAddModal").modal('hide');
-        $rootScope.$emit('tps-panel.controller:closeModal', $scope.parentBranch, $scope.newTS);
+        $rootScope.$emit('ts-panel.controller:closeModal', $scope.parentBranch, $scope.newTS);
     };
 
     var newTsEngine = new Bloodhound({

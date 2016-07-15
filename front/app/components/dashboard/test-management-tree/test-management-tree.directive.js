@@ -41,10 +41,10 @@ angular.module('testingItApp')
       };
 
       //new ts branch
-      $rootScope.$on('tps-panel.controller:closeModal', function($event, branch, newTS) {
+      $rootScope.$on('ts-panel.controller:closeModal', function($event, branch, newTS) {
         tree.add_branch(branch, {
           label: newTS.name,
-          type: 'tps',
+          type: 'ts',
           _id: newTS._id,
           children: []
         });
