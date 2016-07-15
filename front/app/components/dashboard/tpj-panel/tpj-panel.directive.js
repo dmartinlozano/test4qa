@@ -16,11 +16,19 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', 'TestProjectCrudService', function($scope, $rootScope, TestProjectCrudService) {
 
+      $scope.currentBranch;
+
       //show panel of tpj
-      $rootScope.$on('test-management-tree.directive:branch', function($event, branch) {
+      $rootScope.$on('test-management-tree.directive:branch-tpj', function($event, branch) {
         $('#tmPane').show();
+        $scope.currentBranch = branch;
         TestProjectCrudService.getTestProject($scope, branch._id);
       });
+
+      //Show modal to new test suite from test project
+      $scope.newTestSuite = function(testProject){
+        $rootScope.$emit('tpj-panel.directive:newTestSuite', $scope.currentBranch);
+      };
 
     }],
     templateUrl: 'views/dashboard/tpj-panel/tpj-panel.html'

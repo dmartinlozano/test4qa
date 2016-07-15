@@ -14,7 +14,7 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+    controller: ['$scope', '$rootScope', 'TestProjectCrudService', function($scope, $rootScope, TestProjectCrudService) {
 
       var tree;
       $scope.tmTreeControl = tree = {};
@@ -37,8 +37,20 @@ angular.module('testingItApp')
 
       //select a branch
       $scope.tmTreeHandler = function(branch){
-        $rootScope.$emit('test-management-tree.directive:branch', branch);
+        $rootScope.$emit('test-management-tree.directive:branch-' + branch.type, branch);
       };
+
+      //new ts branch
+      $rootScope.$on('tps-panel.controller:closeModal', function($event, branch, newTS) {
+        tree.add_branch(branch, {
+          label: newTS.name,
+          type: 'tps',
+          _id: newTS._id,
+          children: []
+        });
+        tree.expand_branch();
+        TestProjectCrudService.updateTestProject($scope, $rootScope.currentTpj._id, 'tmTreeData', JSON.stringify($scope.tmTreeData));
+      });
 
     }],
     templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'

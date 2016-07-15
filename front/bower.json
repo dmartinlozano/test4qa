@@ -16,7 +16,9 @@
     "components-font-awesome": "*",
     "angular-bootstrap-nav-tree": "*",
     "angular-ui-grid": "*",
-    "angular-bootstrap": "*"
+    "angular-bootstrap": "*",
+    "typeahead.js": "*",
+    "bootstrap-tokenfield": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",

@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // model =======================================================================
 var User = require('./app/models/user');
 var TestProject = require('./app/models/test-project');
+var TestSuite = require('./app/models/test-suite');
 var Role = require('./app/models/role');
 
 
@@ -46,6 +47,7 @@ app.use(function (err, req, res, next) {
 require('./app/api/user')(app,passport);
 require('./app/api/user-roles-tpj')(app,passport);
 require('./app/api/test-project')(app,passport);
+require('./app/api/test-suite')(app,passport);
 require('./app/api/role')(app,passport);
 
 // bootstrap ===================================================================

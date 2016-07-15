@@ -6,6 +6,7 @@
   <user-crud-add></user-crud-add>
   <role-crud-add></role-crud-add>
   <test-project-roles-add></test-project-roles-add>
+  <test-suite-crud-add></test-suite-crud-add>
   <alert></alert>
   <!--./Modals-->
 
@@ -18,14 +19,14 @@
   </ul>
 
   <div class="tab-content">
-     <div class="tab-pane active" id="tm">
+     <div class="tab-pane tm-left active" id="tm">
        <div id="tmTree" class="tree-left">
          <test-management-find></test-management-find>
          <test-management-tree></test-management-tree>
        </div>
        <div id="tmPane" class="panel-right">
          <tpj-panel></tpj-panel>
-         <tps-panel></tps-panel>
+         <tps-panel ng-controller="TpsController"></tps-panel>
          <tpc-panel></tpc-panel>
        </div>
      </div>

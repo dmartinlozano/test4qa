@@ -52,15 +52,14 @@ module.exports = function(app, passport) {
             var newTP = new TestProject({
               name: req.body.name,
               prefix: req.body.prefix,
-              description: req.body.description/*,
-              tmTreeData: "[{label: "+req.body.name+", type: 'tpr', children: []}]"*/
+              description: req.body.description
             });
             newTP.save(function(err, result) {
               if (err) {
                 res.status(500).send({ message: err.message });
               }
             });
-            newTp.tmTreeData = "[{label: "+req.body.name+", type: 'tpr', _id: '" + newTp._id + "', children: []}]";
+            newTp.tmTreeData = "[{label: "+req.body.name+", type: 'tpj', _id: '" + newTp._id + "', children: []}]";
             newTP.save(function(err, result) {
               if (err) {
                 res.status(500).send({ message: err.message });
