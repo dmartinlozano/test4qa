@@ -1,0 +1,44 @@
+<div class="panel panel-primary tsPanel" ng-controller="TcController">
+  <div class="panel-heading">
+    <div class="btn-group pull-right editDropDown">
+        <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown" >
+          Edit
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li><a>Edit Test case</a></li>
+          <li><a>Delete Test case</a></li>
+        </ul>
+      </div>
+      {{testCase.name}}</div>
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label>Description:</label>
+        {{testCase.description}}
+      </div>
+      <preconditions></preconditions>
+      <div ng-if="testCase.isHappyPath" class="form-group">
+        <span class="label label-primary">Is Happy Path</span>
+      </div>
+      <div ng-if="testCase.isErrorPath" class="form-group">
+        <span class="label label-danger">Is Error Path</span>
+      </div>
+      <div class="form-group">
+        <label>Priority:</label>
+        {{testCase.priority}}
+      </div>
+      <div class="form-group">
+        <label>Status:</label>
+        {{testCase.status}}
+      </div>
+      <steps></steps>
+      <div class="form-group">
+        <label>Keywords:</label>
+        <div ng-repeat="keyword in testCase.keywords.split(',')">
+            <span class="label label-default">{{keyword}} </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -10,5 +10,8 @@
 .panel-right{
  width: 75%;
  float: left;
+}
+
+.init-hidden{
  display: none;
 }

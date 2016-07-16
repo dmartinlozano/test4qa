@@ -1,7 +1,7 @@
-<div class="panel panel-default tpjPanel">
+<div class="panel panel-primary tpjPanel">
   <div class="panel-heading">
-    <div class="btn-group pull-right editTpjDropDown">
-        <a class="btn dropdown-toggle" data-toggle="dropdown" >
+    <div class="btn-group pull-right editDropDown">
+        <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown" >
           Edit
           <span class="caret"></span>
         </a>
@@ -10,14 +10,14 @@
           <li><a>Delete Test project</a></li>
           <li class="divider"></li>
           <li><a ng-click="newTestSuite(testProject)">New Test suite</a></li>
-          <li><a>New Test case</a></li>
+          <li><a ng-click="newTestCase(testProject)">New Test case</a></li>
         </ul>
       </div>
       {{testProject.name}} -{{testProject.prefix}}-</div>
   <div class="panel-body">
     <form role="form">
       <div class="form-group">
-        <label for="email">Description:</label>
+        <label>Description:</label>
         {{testProject.description}}
       </div>
     </form>

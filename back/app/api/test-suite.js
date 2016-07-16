@@ -41,30 +41,18 @@ module.exports = function(app, passport) {
 
   //add a new test project
   app.put('/api/testSuite', middleware.ensureAuthenticated, function(req, res) {
-    TestSuite.findOne({ name: req.body.newTS.name }, function(err, ts) {
-      if(err){
-          console.log(err);
+      var newTS = new TestSuite({
+        name: req.body.newTS.name,
+        description: req.body.newTS.description,
+        keywords: req.body.newTS.keywords,
+        parent: req.body.newTS.parent
+      });
+      newTS.save(function(err, result) {
+        if (err) {
+          res.status(500).send({ message: err.message });
         }
-        else{
-          if (ts) {
-            return res.status(500).send({ message: 'Suite test already exists' });
-          }else{
-            var newTS = new TestSuite({
-              name: req.body.name,
-              description: req.body.newTS.description,
-              keywords: req.body.newTS.keywords,
-              parent: req.body.newTS.parent
-            });
-            newTS.save(function(err, result) {
-              if (err) {
-                res.status(500).send({ message: err.message });
-              }
-            });
-            return res.send(newTS);
-          };
-        }
-
-    });
+      });
+      return res.send(newTS);    
   });
 
 

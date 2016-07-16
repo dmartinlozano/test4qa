@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:navbar
+ * @name testingItApp.directive:test-management-tree
  * @description
- * # navbar
+ * # test-management-tree
  * Directive of the testingItApp
  */
 angular.module('testingItApp')
-.directive('navbar', function() {
+.directive('preconditions', function() {
   return {
     restrict: 'E',
     scope: {
       type: '@',
     },
-    templateUrl: 'views/dashboard/navbar/navbar.html'
+    templateUrl: 'views/modal/test-case/preconditions/preconditions.html'
   };
 });

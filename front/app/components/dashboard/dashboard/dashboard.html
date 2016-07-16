@@ -7,6 +7,7 @@
   <role-crud-add></role-crud-add>
   <test-project-roles-add></test-project-roles-add>
   <test-suite-crud-add></test-suite-crud-add>
+  <test-case-crud-add></test-case-crud-add>
   <alert></alert>
   <!--./Modals-->
 
@@ -24,10 +25,10 @@
          <test-management-find></test-management-find>
          <test-management-tree></test-management-tree>
        </div>
-       <div id="tmPane" class="panel-right">
-         <tpj-panel></tpj-panel>
-         <ts-panel ng-controller="TsController"></ts-panel>
-         <tc-panel></tpc-panel>
+       <div id="tmPanel" class="panel-right">
+         <tpj-panel id="tpjPanel" class="init-hidden"></tpj-panel>
+         <ts-panel id="tsPanel" class="init-hidden"></ts-panel>
+         <tc-panel id="tcPanel" class="init-hidden"></tpc-panel>
        </div>
      </div>
      <div class="tab-pane" id="tp">Test Plan</div>

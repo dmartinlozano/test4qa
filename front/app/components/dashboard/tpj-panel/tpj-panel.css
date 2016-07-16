@@ -1,10 +1,15 @@
 .tpjPanel{
  margin-left: 5px;
  margin-right: 5px;
- margin-top: 4px;
+ margin-top: 3px;
 }
 
 
-.editTpjDropDown{
-  margin-top: -7px;
+.editDropDown{
+  margin-top: -1px;
+}
+
+.dropdown-color{
+  color: white;
+  margin-top: -5px;
 }

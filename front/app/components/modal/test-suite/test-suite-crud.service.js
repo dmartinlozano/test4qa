@@ -49,7 +49,7 @@ angular.module('testingItApp')
         });
       };*/
 
-  //Return all test projects
+  //Return all test suites
   this.getTestSuite = function($scope, id){
         Restangular.one("/api/testSuite/"+id).get().then(function(testSuite) {
           $scope.testSuite = testSuite;

@@ -36,16 +36,17 @@ angular.module('testingItApp')
       });
 
       //select a branch
-      $scope.tmTreeHandler = function(branch){
-        $rootScope.$emit('test-management-tree.directive:branch-' + branch.type, branch);
+      $scope.tmTreeHandler = function(selectedBranch){
+        $rootScope.selectedBranch = selectedBranch;
+        $rootScope.$emit('test-management-tree.directive:branch-' + selectedBranch.type);
       };
 
       //new ts branch
-      $rootScope.$on('ts-panel.controller:closeModal', function($event, branch, newTS) {
-        tree.add_branch(branch, {
-          label: newTS.name,
-          type: 'ts',
-          _id: newTS._id,
+      $rootScope.$on('panel.controller:closeModal', function($event, newTest, type) {
+        tree.add_branch($rootScope.selectedBranch, {
+          label: newTest.name,
+          type: type,
+          _id: newTest._id,
           children: []
         });
         tree.expand_branch();

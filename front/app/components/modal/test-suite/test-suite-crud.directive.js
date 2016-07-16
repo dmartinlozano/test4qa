@@ -14,10 +14,6 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'NavbarService', 'TestProjectCrudService', function($scope, $rootScope, NavbarService, TestProjectCrudService) {
-
-
-    }],
     templateUrl: 'views/modal/test-suite/test-suite-crud.html'
   };
 })
