@@ -1,0 +1,24 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="preconditionsAddEditModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" ng-show="newPrecondition">New precondition for {{testCase.name}}</h4>
+        <h4 class="modal-title" ng-show="!newPrecondition">Edit precondition for {{testCase.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Name" ng-model="precondition">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addEditPrecondition()">
+          <div ng-show="newPrecondition">Add</div>
+          <div ng-show="!newPrecondition">Edit</div>
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

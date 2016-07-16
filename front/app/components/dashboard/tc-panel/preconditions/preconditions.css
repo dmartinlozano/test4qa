@@ -1,0 +1,12 @@
+.btn-group-in-list{
+ margin-top: -14px;
+}
+
+.btn-hidden{
+  visibility: hidden;
+  display: block!important;
+}
+
+.preconditions-panel{
+ margin-left: 30px;
+}

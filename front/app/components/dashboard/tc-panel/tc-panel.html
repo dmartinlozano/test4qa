@@ -17,12 +17,15 @@
         <label>Description:</label>
         {{testCase.description}}
       </div>
-      <preconditions></preconditions>
       <div ng-if="testCase.isHappyPath" class="form-group">
         <span class="label label-primary">Is Happy Path</span>
       </div>
       <div ng-if="testCase.isErrorPath" class="form-group">
         <span class="label label-danger">Is Error Path</span>
+      </div>
+      <div class="form-group">
+        <label>Preconditions:</label>
+        <preconditions test-case="testCase"></preconditions>
       </div>
       <div class="form-group">
         <label>Priority:</label>

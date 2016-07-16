@@ -9,6 +9,7 @@ var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
 var del = require('del');
 var rename = require("gulp-rename");
+var livereload = require('gulp-livereload');
 
 var testingIt = {
   app: require('./bower.json').appPath || 'app',
@@ -143,35 +144,7 @@ gulp.task('start:server', function() {
   });
 });
 
-gulp.task('watch', function () {
-  $.watch(paths.styles)
-    .pipe($.plumber())
-    .pipe(styles())
-    .pipe($.connect.reload());
 
-  $.watch(paths.views.files)
-    .pipe($.plumber())
-    .pipe($.connect.reload());
-
-  $.watch(paths.scripts)
-    .pipe($.plumber())
-    .pipe(lintScripts())
-    .pipe($.connect.reload());
-
-  $.watch(paths.test)
-    .pipe($.plumber())
-    .pipe(lintScripts());
-
-  gulp.watch('bower.json');
-});
-
-gulp.task('serve:prod', function() {
-  $.connect.server({
-    root: [testingIt.dist],
-    livereload: true,
-    port: 8080
-  });
-});
 
 ///////////
 // Build //
@@ -235,12 +208,20 @@ gulp.task('copy:fonts', function () {
     .pipe(gulp.dest(testingIt.dist + '/stylesheets'));
 });
 
+
+
 gulp.task('build', ['clean:dist'], function () {
   runSequence(['clean:tmp', 'images', 'copy:extras', 'copy:fonts', 'client:build', 'lint:scripts', 'lint:vendorJS', 'lint:css','lint:vendorCSS']);
 });
 
 gulp.task('serve', function (cb) {
-  runSequence('build', 'start:client', 'watch', cb);
+  runSequence('build', 'start:client', cb);
+});
+
+
+gulp.task('watch', function() {
+  livereload.listen({ basePath: '.' });
+  gulp.watch('./*.*', ['build']);
 });
 
 gulp.task('default', ['serve']);

@@ -22,13 +22,13 @@ angular.module('testingItApp')
       };
 
   //service to update a field of testCase
-/*  this.updateTestCase = function($scope, id,field,newValue){
+  this.updateTestCase = function($scope, id,field,newValue){
     Restangular.one("/api/testCase/"+id).customPOST({field:field, newValue:newValue}).then(function() {
       //TODO mostrar mensaje de ok
     },function (res) {
       $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
-  };*/
+  };
 
   //delete a testCase
 /*  this.deleteTestCase = function($scope, id){
