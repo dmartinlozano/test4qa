@@ -17,6 +17,11 @@ angular.module('testingItApp')
     replace: true,
     controller: ['$scope', '$rootScope', 'TestCaseCrudService', function($scope, $rootScope, TestCaseCrudService) {
 
+      //The last down button must be disabled
+      $scope.disableLastDownButton = function(index){
+        var maxLength = $scope.testCase.preconditions.length - 1;
+        return (index < maxLength) ? false : true;
+      }
       //Add precondition
       $scope.newPrecondition = function(){
         $('#preconditionsAddEditModal').modal('show');

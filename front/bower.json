@@ -14,7 +14,6 @@
     "underscore": "*",
     "bootstrap": "*",
     "components-font-awesome": "*",
-    "angular-bootstrap-nav-tree": "*",
     "angular-ui-grid": "*",
     "angular-bootstrap": "*",
     "typeahead.js": "*",

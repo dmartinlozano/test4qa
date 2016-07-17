@@ -68,7 +68,7 @@ gulp.task('lint:scripts', function () {
     .pipe($.jshint.reporter('default'))
     .pipe($.concat('app.js'))
     //.pipe(plugins.uglify())
-    .pipe(gulp.dest(testingIt.dist + '/scripts'))
+    .pipe(gulp.dest(testingIt.dist + '/scripts'));
 });
 
 gulp.task('lint:vendorJS', function() {
@@ -92,7 +92,8 @@ gulp.task('lint:vendorJS', function() {
             './bower_components/angular-bootstrap/ui-bootstrap.js',
             './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             './bower_components/bootstrap-tokenfield/dist/bootstrap-tokenfield.js',
-            './bower_components/typeahead.js/dist/typeahead.bundle.js'
+            './bower_components/typeahead.js/dist/typeahead.bundle.js',
+            testingIt.app+'/custom/**/*.js'
           ])
     .pipe($.concat('lib.js'))
     .pipe(gulp.dest(testingIt.dist + '/scripts'));
@@ -119,7 +120,8 @@ gulp.task('lint:vendorCSS', function() {
               './bower_components/angular-bootstrap/ui-bootstrap-csp.css',
               './bower_components/angular-ui-grid/ui-grid.css',
               './bower_components/angular-bootstrap/ui-bootstrap-csp.css',
-              './bower_components/bootstrap-tokenfield/dist/css/bootstrap-tokenfield.css'
+              './bower_components/bootstrap-tokenfield/dist/css/bootstrap-tokenfield.css',
+              testingIt.app+'/custom/**/*.css'
 		          ])
         .pipe($.concat('lib.css'))
         .pipe(gulp.dest(testingIt.dist + '/stylesheets'));
