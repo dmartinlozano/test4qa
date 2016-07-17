@@ -16,6 +16,7 @@ angular.module('testingItApp')
 
     //Show Modal new tc
     $rootScope.$on('tpj-panel.directive:newTestCase', function($event) {
+      $scope.newTC = {};
       $('#testCaseAddModal').modal('show');
     });
 

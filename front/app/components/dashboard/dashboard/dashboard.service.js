@@ -19,12 +19,14 @@ angular.module('testingItApp')
           if (user === undefined){
             $state.go('login');
           }
-          
+
           $rootScope.currentTpj = {};
           $rootScope.currentTpj._id = user.defaultTestProject;
 
           Restangular.one("/api/testProject/" + $rootScope.currentTpj._id).get().then(function(projectManagement) {
             $rootScope.currentTpj.name = projectManagement.name;
+            $rootScope.currentTpj.prefix = projectManagement.prefix;
+            $rootScope.currentTpj.currentTcNumber = projectManagement.currentTcNumber;
             $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
           },function (res) {
             $rootScope.$emit('alert', "The current user hasn't defined a default project");

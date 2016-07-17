@@ -6,6 +6,7 @@ var testProjectSchema = mongoose.Schema({
   name: { type: String, index: { unique: true }},
   prefix: String,
   description: String,
+  currentTcNumber : Number,
   tmTreeData: String,
   tpTreeData: String
 }, { collection: 'testProject' });

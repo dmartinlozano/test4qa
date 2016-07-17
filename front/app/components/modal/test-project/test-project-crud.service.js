@@ -48,7 +48,7 @@ angular.module('testingItApp')
         });
       };
 
-  //Return all test projects
+  //Return test project
   this.getTestProject = function($scope, id){
         Restangular.one("/api/testProject/"+id).get().then(function(testProject) {
           $scope.testProject = testProject;
@@ -57,7 +57,18 @@ angular.module('testingItApp')
         });
       };
 
-      //Return all test projects -dropdown in ui-grid
+
+      //Return test project
+  this.updateCurrentTcNumberTestProject = function($scope, id){
+    var nextTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
+    Restangular.one("/api/testProject/"+id).customPOST({field:"currentTcNumber", newValue: nextTcNumber}).then(function() {
+      $rootScope.currentTpj.currentTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
+    },function (res) {
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
+  };
+
+  //Return all test projects -dropdown in ui-grid
   this.getAllProjectsForDropDown = function(columnNum, gridOptions){
         Restangular.all("/api/testProject").getList().then(function(testProjects) {
           gridOptions.columnDefs[columnNum].editDropdownOptionsArray = testProjects;

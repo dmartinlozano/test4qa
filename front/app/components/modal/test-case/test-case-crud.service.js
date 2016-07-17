@@ -9,11 +9,14 @@
  */
 angular.module('testingItApp')
 
-.service('TestCaseCrudService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
+.service('TestCaseCrudService', ['Restangular', '$rootScope', 'TestProjectCrudService', function(Restangular, $rootScope, TestProjectCrudService) {
 
   //service to add a new testCase
   this.addTestCase = function($scope, newTC){
+        newTC.name = "["+$rootScope.currentTpj.prefix+"-"+$rootScope.currentTpj.currentTcNumber+"] "+newTC.name;
         Restangular.one("/api/testCase").customPUT({newTC: newTC}).then(function(returnTC) {
+          //Update increment of testPlan when a newTestCase is created:
+          TestProjectCrudService.updateCurrentTcNumberTestProject($scope,$rootScope.currentTpj._id);
           $scope.newTC._id = returnTC._id;
           $scope.closeModal();
         },function (res) {

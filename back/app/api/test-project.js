@@ -52,6 +52,7 @@ module.exports = function(app, passport) {
             var newTP = new TestProject({
               name: req.body.name,
               prefix: req.body.prefix,
+              currentTcNumber: 1,
               description: req.body.description
             });
             newTP.save(function(err, result) {
@@ -83,7 +84,12 @@ module.exports = function(app, passport) {
           if (!tp) {
             return res.status(500).send({ message: "Project test doesn't exists" });
           }else{
-            tp[req.body.field] = req.body.newValue;
+            //TODO fix esto: debería pasarse tambien el tipo: String, Number...
+            if (req.body.field === "currentTcNumber"){
+              tp[req.body.field] = Number(req.body.newValue);
+            }else{
+              tp[req.body.field] = req.body.newValue;
+            }
             TestProject.findOneAndUpdate({_id:req.params.id}, tp, {upsert:true}, function(err, doc){
                 if (err) res.status(500).send({ message: err.message });
                 return res.send("succesfully saved");
