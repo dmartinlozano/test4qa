@@ -1,0 +1,30 @@
+<div class="steps-panel panel panel-primary">
+  <ul class="steps-line list-group row">
+     <li class="list-group-item col-md-1 list-group-item-info steps-table-column steps-table-head"></li>
+     <li class="list-group-item col-md-4 list-group-item-info steps-table-column">Action</p></li>
+     <li class="list-group-item col-md-4 list-group-item-info steps-table-column">Result</p></li>
+     <li class="list-group-item col-md-3 list-group-item-info steps-table-column steps-table-head"></li>
+   </ul>
+  <ul class="steps-line list-group row" ng-repeat="stepItem in testCase.steps track by $index">
+     <li class="list-group-item col-md-1 steps-table-column">{{$index}}.</li>
+     <li class="list-group-item col-md-4 steps-table-column"><p ng-bind-html="stepItem.action"></p></li>
+     <li class="list-group-item col-md-4 steps-table-column"><p ng-bind-html="stepItem.result"></p></li>
+     <li class="list-group-item col-md-3 steps-table-column">
+       <div class="btn-group btn pull-right btn-group-in-list" role="group" ng-show="showMode">
+         <button type="button" class="btn btn-default fa fa-pencil" ng-click="editStep($index)"></button>
+         <button type="button" class="btn btn-default fa fa-times-circle" ng-click="deleteStep($index)"></button>
+       </div>
+       <div class="btn-group btn pull-right btn-group-in-list" role="group" ng-show="showMode">
+         <button type="button" class="btn btn-default fa fa-arrow-up" ng-disabled="$index === 0" ng-click="upStep($index)"></button>
+         <button type="button" class="btn btn-default fa fa-arrow-down" ng-disabled="disableLastDownButton($index)" ng-click="downStep($index)"></button>
+       </div>
+     </li>
+   </ul>
+   <div class="btn-group btn pull-right" role="group" ng-hide="showMode">
+     <button type="button" class="btn btn-default pull-right btn-primary" ng-click="showMode=!showMode">Edit</button>
+   </div>
+   <div class="btn-group btn pull-right" role="group" ng-show="showMode">
+     <button type="button" class="btn btn-default btn-primary" ng-click="newStep()">New</button>
+     <button type="button" class="btn btn-default" ng-click="showMode=!showMode" >Canel</button>
+   </div>
+</div>

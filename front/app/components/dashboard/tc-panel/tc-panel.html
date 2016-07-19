@@ -35,7 +35,10 @@
         <label>Status:</label>
         {{testCase.status}}
       </div>
-      <steps></steps>
+      <div class="form-group">
+        <label>Steps:</label>
+        <steps test-case="testCase"></steps>
+      </div>
       <div class="form-group">
         <label>Keywords:</label>
         <div ng-repeat="keyword in testCase.keywords.split(',')">

@@ -1,6 +1,6 @@
 <div class="panel panel-primary preconditions-panel">
   <ul class="list-group"  >
-    <li class="list-group-item" ng-repeat="precondition in testCase.preconditions track by $index" id="preconditionsListGroup">
+    <li class="steps-table-column list-group-item" ng-repeat="precondition in testCase.preconditions track by $index" id="preconditionsListGroup">
       {{precondition}}
       <div class="btn-group btn pull-right btn-group-in-list" role="group" ng-show="showMode">
         <button type="button" class="btn btn-default fa fa-pencil" ng-click="editPrecondition($index)"></button>

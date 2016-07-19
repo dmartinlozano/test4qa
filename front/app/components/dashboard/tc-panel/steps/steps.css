@@ -1,0 +1,17 @@
+.steps-panel{
+  margin-left:30px
+}
+
+.steps-line{
+  width: 100%!important;
+  margin-left: 0px!important
+}
+
+.steps-table-column{
+  border: 0px!important;
+  margin-bottom: 0px!important;
+}
+
+.steps-table-head{
+  padding: 0px!important;
+}

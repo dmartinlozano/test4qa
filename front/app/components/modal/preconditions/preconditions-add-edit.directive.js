@@ -15,19 +15,13 @@ angular.module('testingItApp')
 
       $scope.newPrecondition = true;
       $scope.index; //used only in edition mode
-      $scope.precondition;
-
-      $scope.$watch('isDisplayed', function(newValue, oldValue) {
-        if (newValue !== oldValue) {
-            console.log('Changed!: '+newValue, oldValue);
-            console.log('ops:!: '+$scope.isDisplayed);
-        }
-      });
+      $scope.precondition = "";
 
       //get testCase to add new precondition
       $rootScope.$on('preconditions.directive.newPrecondition:testCase', function($event, testCase) {
         $scope.newPrecondition = true;
         $scope.testCase = testCase;
+        $scope.precondition = "";
       });
 
       //get testCase to edit a precondition
