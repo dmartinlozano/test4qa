@@ -5,14 +5,10 @@
           <ul class="nav navbar-top-links navbar-right">
               <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test project <span class="caret"></span></a>
-                <ul class="dropdown-menu navbar-dopdown-menu">
-                  <div ng-repeat="project in testProjects">
-                    <li><a >{{project.prefix}}: {{project.name}}</a></li>
-                  </div>
+                <ul class="dropdown-menu navbar-dopdown-menu" >
+                  <li ng-repeat="project in testProjects"><a ng-click="changeProject(project._id)">{{project.prefix}}: {{project.name}}</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a ng-click="openModal('testProjectCrudModal')"><i class="fa fa-cog fa-fw"></i> Management</a></li>
-                  <li><a><i class="fa fa-key fa-fw"></i> Key words</a></li>
-                </ul>
+                  <li><a ng-click="openModal('testProjectCrudModal')"><i class="fa fa-cog fa-fw"></i> Management</a></li>                </ul>
               </li>
               <li>
                 <a href="" ng-click="openModal('alertsModal')">

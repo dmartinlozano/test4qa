@@ -35,4 +35,20 @@ angular.module('testingItApp')
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
       };
+
+    //Change project
+    $rootScope.$on('navbar.controler:changeProject', function($event, projectId) {
+      Restangular.one("/api/testProject/" + projectId).get().then(function(projectManagement) {
+        $rootScope.currentTpj._id = projectManagement._id;
+        $rootScope.currentTpj.name = projectManagement.name;
+        $rootScope.currentTpj.prefix = projectManagement.prefix;
+        $rootScope.currentTpj.currentTcNumber = projectManagement.currentTcNumber;
+        $('#tpjPanel').hide();
+        $('#tsPanel').hide();
+        $('#tcPanel').hide();
+        $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
+      },function (res) {
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
+    });
  }]);

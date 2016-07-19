@@ -15,6 +15,11 @@ angular.module('testingItApp')
     //Init webComponent with the list of projects
     TestProjectCrudService.getAllProjects($scope);
 
+    //Change current project
+    $scope.changeProject = function(projectId){
+        $rootScope.$emit('navbar.controler:changeProject', projectId);
+    }
+
     //Open generic modal by name from navbar
     $scope.openModal = function(modalName){
       $('#'+modalName).modal('show');
