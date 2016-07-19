@@ -1,0 +1,4 @@
+.ta-editor.form-control.myform1-height, .ta-scroll-window.form-control.myform1-height  {
+    min-height: 200px;
+    height: 200px;
+}

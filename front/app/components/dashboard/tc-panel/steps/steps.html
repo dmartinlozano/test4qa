@@ -1,9 +1,9 @@
 <div class="steps-panel panel panel-primary">
-  <ul class="steps-line list-group row">
-     <li class="list-group-item col-md-1 list-group-item-info steps-table-column steps-table-head"></li>
-     <li class="list-group-item col-md-4 list-group-item-info steps-table-column">Action</p></li>
-     <li class="list-group-item col-md-4 list-group-item-info steps-table-column">Result</p></li>
-     <li class="list-group-item col-md-3 list-group-item-info steps-table-column steps-table-head"></li>
+  <ul class="steps-table-head list-group row">
+     <li class="col-md-1">&nbsp;&nbsp;&nbsp;</li>
+     <li class="col-md-4">Action</p></li>
+     <li class="col-md-4">Result</p></li>
+     <li class="col-md-3">&nbsp;&nbsp;&nbsp;</li>
    </ul>
   <ul class="steps-line list-group row" ng-repeat="stepItem in testCase.steps track by $index">
      <li class="list-group-item col-md-1 steps-table-column">{{$index}}.</li>
