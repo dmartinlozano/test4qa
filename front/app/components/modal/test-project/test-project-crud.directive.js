@@ -7,62 +7,8 @@
  * # testManagementFind
  * Directive of the testingItApp
  */
+
 angular.module('testingItApp')
-.directive('testProjectCrud', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      type: '@',
-    },
-    controller: ['$scope', '$rootScope', 'NavbarService', 'TestProjectCrudService', function($scope, $rootScope, NavbarService, TestProjectCrudService) {
-
-
-      //Init test projects when modal is show
-      $('#testProjectCrudModal').on('shown.bs.modal', function() {
-        $scope.testProjects = [];
-        TestProjectCrudService.getAllProjects($scope);
-        window.setTimeout(function(){
-          $(window).resize();
-        }, 1000);
-      });
-
-      //modal is closed
-      $('#testProjectCrudModal').on('hidden.bs.modal', function() {
-        $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
-      });
-
-      //Init ngGrid for test projects
-      $scope.testProjectCrudGridOptions = {
-        data: 'testProjects',
-        enableCellEditOnFocus: true,
-        columnDefs: [{field:'name', displayName: 'Name'},
-                     {field:'prefix', displayName:'Prefix'},
-                     {field:'description', displayName: 'Description'},
-                     {field: 'delete',enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteProject(row.entity._id)" ></button>'}]
-      };
-
-      //when the table is editing
-      $scope.testProjectCrudGridOptions.onRegisterApi = function(gridApi) {
-        gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            TestProjectCrudService.updateTestProject($scope,rowEntity._id,colDef.field,newValue);
-        });
-      };
-
-      //Open add a new test project  modal
-      $scope.openAddProjectModal = function(){
-        $('#testProjectCrudModal').modal("hide");
-        $('#testProjectAddModal').modal('show');
-      };
-
-      //Delete a test project
-      $scope.deleteProject = function(id){
-        TestProjectCrudService.deleteTestProject($scope, id);
-      }
-    }],
-    templateUrl: 'views/modal/test-project/test-project-crud.html'
-  };
-})
-
 .directive('testProjectCrudAdd', function() {
   return {
     restrict: 'E',
@@ -71,18 +17,60 @@ angular.module('testingItApp')
     },
     controller: ['$scope', '$rootScope', 'TestProjectCrudService', function($scope, $rootScope, TestProjectCrudService) {
 
+      $scope.isNewTestProject = true;
+      $scope.testProject = {};
+
+      //New test project: open modal
+      $rootScope.$on('tpj-panel.directive:newTestProject', function() {
+        $scope.isNewTestProject = true;
+        $scope.testProject = {};
+        $('#testProjectAddModal').modal('show');
+      });
+
+      //New test project: open modal
+      $rootScope.$on('tpj-panel.directive:editTestProject', function($event, testProject) {
+        $scope.isNewTestProject = false;
+        $scope.testProject = testProject;
+        $('#newPriorities').tokenfield('setTokens', $scope.testProject.priorities);
+        $('#newStatus').tokenfield('setTokens', $scope.testProject.status);
+        $('#testProjectAddModal').modal('show');
+      });
+
       //A new test project
       $scope.addTestProject = function(){
-        TestProjectCrudService.addTestProject($scope, $scope.name, $scope.prefix, $scope.description);
+        $scope.testProject.priorities = $('#newPriorities').val();
+        $scope.testProject.status = $('#newStatus').val();
+        TestProjectCrudService.addTestProject($scope, $scope.testProject);
       };
 
-      //Close current modal and show testProjectCrudModal
+      //Edit test project
+      $scope.editTestProject = function(){
+        $scope.testProject.priorities = $('#newPriorities').val();
+        $scope.testProject.status = $('#newStatus').val();
+        TestProjectCrudService.updateTestProject($scope, $scope.testProject);
+        $scope.closeModal();
+      };
+
+      //Close current modal
       $scope.closeModal = function(){
         $('#testProjectAddModal').modal("hide");
-        $('#testProjectCrudModal').modal('show');
+        $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
       };
 
+      var newTcEngine = new Bloodhound({
+        local: [],
+        datumTokenizer: function(d) {
+          return Bloodhound.tokenizers.whitespace(d.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+      });
+
+      newTcEngine.initialize();
+
+      $('#newPriorities').tokenfield({typeahead: [null,{source: newTcEngine.ttAdapter()}]});
+      $('#newStatus').tokenfield({typeahead: [null,{source: newTcEngine.ttAdapter()}]});
+
     }],
-    templateUrl: 'views/modal/test-project/test-project-crud-add.html'
+    templateUrl: 'views/modal/test-project/test-project-crud-add-edit.html'
   };
 });

@@ -10,12 +10,12 @@ TestProject.remove({}).exec();
 User.remove({}).exec();
 Role.remove({}).exec();
 
-var testProject1 = new TestProject({name: "Test Project 1", prefix: "TP1", currentTcNumber: 1, description: "Description del test project 1", tpTreeData: ""});
+var testProject1 = new TestProject({name: "Test Project 1", prefix: "TP1", currentTcNumber: 1, description: "Description del test project 1", tpTreeData: "", priorities: "Alta,Media,Baja", status:"ok,failed"});
 testProject1.save(function(err) {if (err) console.log(err);});
 testProject1.tmTreeData =  "[{label: 'Test Project 1', type: 'tpj',  _id: '" +  testProject1._id + "', children: []}]";
 testProject1.save(function(err) {if (err) console.log(err);});
 
-var testProject2 = new TestProject({name: "Test Project 2", prefix: "TP2", currentTcNumber: 1, description: "Description del test project 2", tpTreeData: ""});
+var testProject2 = new TestProject({name: "Test Project 2", prefix: "TP2", currentTcNumber: 1, description: "Description del test project 2", tpTreeData: "", priorities: "Alta,Media,Baja", status:"ok,failed"});
 testProject2.save(function(err) {if (err) console.log(err);});
 testProject2.tmTreeData =  "[{label: 'Test Project 2', type: 'tpj',  _id: '" +  testProject2._id + "', children: []}]";
 testProject2.save(function(err) {if (err) console.log(err);});

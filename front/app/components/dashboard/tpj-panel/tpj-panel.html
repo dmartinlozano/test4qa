@@ -6,20 +6,34 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a>Edit Test project</a></li>
-          <li><a>Delete Test project</a></li>
+          <li><a ng-click="editTestProject()">Edit Test project</a></li>
+          <li><a ng-click="deleteTestProject()">Delete Test project</a></li>
           <li class="divider"></li>
-          <li><a ng-click="newTestSuite(testProject)">New Test suite</a></li>
-          <li><a ng-click="newTestCase(testProject)">New Test case</a></li>
+          <li><a ng-click="newTestProject()">New Test project</a></li>
+          <li><a ng-click="newTestSuite()">New Test suite</a></li>
+          <li><a ng-click="newTestCase()">New Test case</a></li>
         </ul>
       </div>
-      {{testProject.name}} -{{testProject.prefix}}-</div>
+      {{testProject.name}}</div>
   <div class="panel-body">
-    <form role="form">
-      <div class="form-group">
-        <label>Description:</label>
-        {{testProject.description}}
+    <div class="form-group">
+      <label>Prefix:</label>
+      {{testProject.prefix}}
+    </div>
+    <div class="form-group">
+      <label>Description:</label>
+      {{testProject.description}}
+    </div>
+    <div class="form-group">
+      <label>Priorities:</label>
+      <div ng-repeat="priority in testProject.priorities.split(',') track by $index">
+        <span class="label label-pill label-default">{{priority}}</span>
       </div>
-    </form>
+    <div class="form-group">
+      <label>Status:</label>
+      <div ng-repeat="status in testProject.status.split(',') track by $index">
+        <span class="label label-pill label-default">{{status}}</span>
+      </div>
+    </div>
   </div>
 </div>

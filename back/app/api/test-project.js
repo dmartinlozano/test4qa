@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
 
   //add a new test project
   app.put('/api/testProject', middleware.ensureAuthenticated, function(req, res) {
-    TestProject.findOne({ name: req.body.name }, function(err, tp) {
+    TestProject.findOne({ name: req.body.testProject.name }, function(err, tp) {
       if(err){
           console.log(err);
         }
@@ -50,22 +50,24 @@ module.exports = function(app, passport) {
             return res.status(500).send({ message: 'Project test already exists' });
           }else{
             var newTP = new TestProject({
-              name: req.body.name,
-              prefix: req.body.prefix,
+              name: req.body.testProject.name,
+              prefix: req.body.testProject.prefix,
               currentTcNumber: 1,
-              description: req.body.description
+              priorities: req.body.testProject.priorities,
+              status: req.body.testProject.status,
+              description: req.body.testProject.description
             });
-            newTP.save(function(err, result) {
+            newTP.save(function(err, tpjResult) {
               if (err) {
                 res.status(500).send({ message: err.message });
               }
-            });
-            newTp.tmTreeData = "[{label: "+req.body.name+", type: 'tpj', _id: '" + newTp._id + "', children: []}]";
-            newTP.save(function(err, result) {
-              if (err) {
-                res.status(500).send({ message: err.message });
-              }
-              return res.send("succesfully saved");
+              tpjResult.tmTreeData = "[{label: '"+req.body.testProject.name+"', type: 'tpj', _id: '" + tpjResult._id + "', children: []}]";
+              tpjResult.save(function(err, result) {
+                if (err) {
+                  res.status(500).send({ message: err.message });
+                }
+                return res.send("succesfully saved");
+              });
             });
           };
         }
@@ -84,12 +86,14 @@ module.exports = function(app, passport) {
           if (!tp) {
             return res.status(500).send({ message: "Project test doesn't exists" });
           }else{
-            //TODO fix esto: debería pasarse tambien el tipo: String, Number...
-            if (req.body.field === "currentTcNumber"){
-              tp[req.body.field] = Number(req.body.newValue);
-            }else{
-              tp[req.body.field] = req.body.newValue;
-            }
+            
+            tp.name = req.body.testProject.name;
+            tp.prefix = req.body.testProject.prefix;
+            tp.currentTcNumber = 1;
+            tp.priorities =  req.body.testProject.priorities;
+            tp.status = req.body.testProject.status;
+            tp.description = req.body.testProject.description;
+
             TestProject.findOneAndUpdate({_id:req.params.id}, tp, {upsert:true}, function(err, doc){
                 if (err) res.status(500).send({ message: err.message });
                 return res.send("succesfully saved");

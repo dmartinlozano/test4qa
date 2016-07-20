@@ -1,0 +1,34 @@
+<div class="modal fade" tabindex="-1" role="dialog"  id="testProjectAddModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" ng-show="isNewTestProject">New Test project</h4>
+        <h4 class="modal-title" ng-show="!isNewTestProject">Edit Test project</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Name" ng-model="testProject.name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Prefix" ng-model="testProject.prefix">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Description" ng-model="testProject.description">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="newPriorities" placeholder="Write priorities and hit enter"/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="newStatus" placeholder="Write status and hit enter"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addTestProject()" ng-show="isNewTestProject">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="editTestProject()" ng-show="!isNewTestProject">Edit</button>
+        <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

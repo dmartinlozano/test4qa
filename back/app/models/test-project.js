@@ -7,6 +7,8 @@ var testProjectSchema = mongoose.Schema({
   prefix: String,
   description: String,
   currentTcNumber : Number,
+  priorities: String, //Splitted by commas
+  status: String, //Splitted by commas
   tmTreeData: String,
   tpTreeData: String
 }, { collection: 'testProject' });
