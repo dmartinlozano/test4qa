@@ -50,7 +50,7 @@ angular.module('testingItApp')
           children: []
         });
         tree.expand_branch();
-        TestProjectCrudService.updateTestProject($scope, $rootScope.currentTpj._id, 'tmTreeData', JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
       });
 
     }],

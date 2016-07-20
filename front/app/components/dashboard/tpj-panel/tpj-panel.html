@@ -6,15 +6,16 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a ng-click="editTestProject()">Edit Test project</a></li>
-          <li><a ng-click="deleteTestProject()">Delete Test project</a></li>
+          <li><a ng-click="editTestProject()"><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test project</a></li>
+          <li><a ng-click="deleteTestProject()"><i class="fa fa-times" aria-hidden="true"></i>  Delete Test project</a></li>
           <li class="divider"></li>
-          <li><a ng-click="newTestProject()">New Test project</a></li>
-          <li><a ng-click="newTestSuite()">New Test suite</a></li>
-          <li><a ng-click="newTestCase()">New Test case</a></li>
+          <li><a ng-click="newTestProject()"><i class="fa fa-folder" aria-hidden="true"></i>  New Test project</a></li>
+          <li><a ng-click="newTestSuite()"><i class="fa fa-folder-o" aria-hidden="true"></i>  New Test suite</a></li>
+          <li><a ng-click="newTestCase()"><i class="fa fa-cogs" aria-hidden="true"></i>  New Test case</a></li>
         </ul>
       </div>
-      {{testProject.name}}</div>
+      <i class="fa fa-folder" aria-hidden="true"></i>  {{testProject.name}}
+  </div>
   <div class="panel-body">
     <div class="form-group">
       <label>Prefix:</label>

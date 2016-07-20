@@ -6,14 +6,15 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a>Edit Test suite</a></li>
-          <li><a>Delete Test suite</a></li>
+          <li><a><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test suite</a></li>
+          <li><a><i class="fa fa-times" aria-hidden="true"></i>  Delete Test suite</a></li>
           <li class="divider"></li>
-          <li><a ng-click="newTestSuite(testSuite)">New Test suite</a></li>
-          <li><a ng-click="newTestCase(testSuite)">New Test case</a></li>
+          <li><a ng-click="newTestSuite(testSuite)"><i class="fa fa-folder-o" aria-hidden="true"></i>  New Test suite</a></li>
+          <li><a ng-click="newTestCase(testSuite)"><i class="fa fa-cogs" aria-hidden="true"></i>  New Test case</a></li>
         </ul>
       </div>
-      {{testSuite.name}}</div>
+      <i class="fa fa-folder-o" aria-hidden="true"></i>  {{testSuite.name}}
+  </div>
   <div class="panel-body">
     <form role="form">
       <div class="form-group">

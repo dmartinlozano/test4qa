@@ -86,13 +86,14 @@ module.exports = function(app, passport) {
           if (!tp) {
             return res.status(500).send({ message: "Project test doesn't exists" });
           }else{
-            
+            //TODO for each field, if  req.body.testProject.XXX is undefined, not replace!!
             tp.name = req.body.testProject.name;
             tp.prefix = req.body.testProject.prefix;
-            tp.currentTcNumber = 1;
+            tp.currentTcNumber = req.body.testProject.currentTcNumber;
             tp.priorities =  req.body.testProject.priorities;
             tp.status = req.body.testProject.status;
             tp.description = req.body.testProject.description;
+            tp.tmTreeData = req.body.testProject.tmTreeData;
 
             TestProject.findOneAndUpdate({_id:req.params.id}, tp, {upsert:true}, function(err, doc){
                 if (err) res.status(500).send({ message: err.message });

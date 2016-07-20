@@ -29,6 +29,20 @@ angular.module('testingItApp')
     });
   };
 
+  //Service to update only tmTreeData of testProject for a new TS.
+  this.updateTmTreeDataTestProject = function($scope, id, tmTreeData){
+    Restangular.one("/api/testProject/"+id).get().then(function(testProject) {
+      testProject.tmTreeData = tmTreeData;
+      Restangular.one("/api/testProject/"+testProject._id).customPOST({testProject:testProject}).then(function() {
+        //TODO mostrar mensaje de ok
+      },function (res) {
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
+    },function (res) {
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
+  };
+
   //delete a testProject
   this.deleteTestProject = function($scope, id){
     Restangular.one("/api/testProject/"+id).remove().then(function() {
@@ -59,12 +73,17 @@ angular.module('testingItApp')
 
       //Return test project
   this.updateCurrentTcNumberTestProject = function($scope, id){
-    var nextTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
-    Restangular.one("/api/testProject/"+id).customPOST({field:"currentTcNumber", newValue: nextTcNumber}).then(function() {
-      $rootScope.currentTpj.currentTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
-    },function (res) {
+    Restangular.one("/api/testProject/"+id).get().then(function(testProject) {
+      testProject.currentTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
+      Restangular.one("/api/testProject/"+testProject._id).customPOST({testProject:testProject}).then(function() {
+        $rootScope.currentTpj.currentTcNumber = $rootScope.currentTpj.currentTcNumber + 1;
+      },function (res) {
         $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
+    },function (res) {
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
+
   };
 
   //Return all test projects -dropdown in ui-grid
