@@ -12,38 +12,6 @@ angular.module('testingItApp')
   function ($rootScope, $scope, $state, TestCaseCrudService) {
 
     $scope.reqErr = {};
-    $scope.newTC = {};
-
-    //Show Modal new tc
-    $rootScope.$on('tpj-panel.directive:newTestCase', function($event) {
-      $scope.newTC = {};
-      $('#testCaseAddModal').modal('show');
-    });
-
-    //The new TS has been added y tree must be added too:
-    $scope.closeModal = function(){
-        $("#testCaseAddModal").modal('hide');
-        $rootScope.$emit('panel.controller:closeModal', $scope.newTC, 'tc');
-    };
-
-    var newTcEngine = new Bloodhound({
-      local: [],
-      datumTokenizer: function(d) {
-        return Bloodhound.tokenizers.whitespace(d.value);
-      },
-      queryTokenizer: Bloodhound.tokenizers.whitespace
-    });
-
-    newTcEngine.initialize();
-
-    $('#newTCKeywords').tokenfield({typeahead: [null,{source: newTcEngine.ttAdapter()}]});
-
-    //Add a new testcase
-    $scope.addTestCase = function(){
-      $scope.newTC.keywords = $('#newTCKeywords').val();
-      $scope.newTC.parent = $rootScope.selectedBranch._id;
-      TestCaseCrudService.addTestCase($scope, $scope.newTC);
-    }
 
     //show panel of tc
     $rootScope.$on('test-management-tree.directive:branch-tc', function($event) {
@@ -53,9 +21,14 @@ angular.module('testingItApp')
       TestCaseCrudService.getTestCase($scope, $rootScope.selectedBranch._id);
     });
 
-    //Show modal to new test case from test project
-    $scope.newTestCase = function(testCase){
-      $rootScope.$emit('ts-panel.directive:newTestCase', $rootScope.selectedBranch);
+    //Edit current TestCase
+    $scope.editTestCase = function(){
+      $rootScope.$emit('tc-panel.directive:editTestCase', $scope.testCase);
+    };
+
+    //Delete current TestCase
+    $scope.deleteTestCase = function(){
+      TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
     };
 
   }

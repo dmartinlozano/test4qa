@@ -63,7 +63,7 @@ module.exports = function(app, passport) {
 
 
   //update a field
-  app.post('/api/testCase/:id', middleware.ensureAuthenticated, function(req, res) {
+  app.post('/api/testCase/field/:id', middleware.ensureAuthenticated, function(req, res) {
     TestCase.findOne({_id: req.params.id}, function(err, ts) {
       if(err){
           console.log(err);
@@ -73,6 +73,35 @@ module.exports = function(app, passport) {
             return res.status(500).send({ message: "Case test doesn't exists" });
           }else{
             ts[req.body.field] = req.body.newValue;
+            TestCase.findOneAndUpdate({_id:req.params.id}, ts, {upsert:true}, function(err, doc){
+                if (err) res.status(500).send({ message: err.message });
+                return res.send("succesfully saved");
+            });
+          };
+        }
+    });
+  });
+
+  //update all field
+  app.post('/api/testCase/:id', middleware.ensureAuthenticated, function(req, res) {
+    TestCase.findOne({_id: req.params.id}, function(err, ts) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (!ts) {
+            return res.status(500).send({ message: "Case test doesn't exists" });
+          }else{
+            
+            //TODO for each field, if  req.body.testProject.XXX is undefined, not replace!!
+            ts.name = req.body.name;
+            ts.description = req.body.description;
+            ts.isHappyPath = req.body.isHappyPath;
+            ts.isErrorPath = req.body.isErrorPath;
+            ts.priority = req.body.priority;
+            ts.status = req.body.status;
+            ts.keywords = req.body.keywords;
+
             TestCase.findOneAndUpdate({_id:req.params.id}, ts, {upsert:true}, function(err, doc){
                 if (err) res.status(500).send({ message: err.message });
                 return res.send("succesfully saved");

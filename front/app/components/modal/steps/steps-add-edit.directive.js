@@ -40,7 +40,7 @@ angular.module('testingItApp')
           //Edit step
           $scope.testCase.steps[$scope.index] = $scope.step;
         }
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
         $('#stepsAddEditModal').modal('hide');
       }
 

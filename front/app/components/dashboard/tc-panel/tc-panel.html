@@ -6,8 +6,8 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test case</a></li>
-          <li><a><i class="fa fa-times" aria-hidden="true"></i>  Delete Test case</a></li>
+          <li><a ng-click="editTestCase()"><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test case</a></li>
+          <li><a ng-click="deleteTestCase()"><i class="fa fa-times" aria-hidden="true"></i>  Delete Test case</a></li>
         </ul>
       </div>
       <i class="fa fa-cogs" aria-hidden="true"></i>  {{testCase.name}}

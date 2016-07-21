@@ -37,7 +37,7 @@ angular.module('testingItApp')
       //Delete step
       $scope.deleteStep = function(index){
         $scope.testCase.steps.splice(index, 1);
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
       }
 
       //Up step
@@ -45,7 +45,7 @@ angular.module('testingItApp')
         var previousPred = $scope.testCase.steps[index - 1];
         $scope.testCase.steps[index -1] = $scope.testCase.steps[index];
         $scope.testCase.steps[index] =previousPred;
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
       }
 
       //Down step
@@ -53,7 +53,7 @@ angular.module('testingItApp')
         var nextPred = $scope.testCase.steps[index + 1];
         $scope.testCase.steps[index + 1] = $scope.testCase.steps[index];
         $scope.testCase.steps[index] = nextPred;
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
       }
 
     }],

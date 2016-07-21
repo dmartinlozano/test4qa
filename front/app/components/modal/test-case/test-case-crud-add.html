@@ -1,32 +1,49 @@
-<div class="modal fade" tabindex="-1" role="dialog"  id="testCaseAddModal" ng-controller="TcController">
+<!--<div class="modal fade" tabindex="-1" role="dialog"  id="testCaseAddModal" ng-controller="TcController">-->
+<div class="modal fade" tabindex="-1" role="dialog"  id="testCaseAddModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">New Test case</h4>
+        <h4 class="modal-title" ng-show="isNewTestCase">New Test case</h4>
+        <h4 class="modal-title" ng-show="!isNewTestCase">Edit Test case</h4>
       </div>
       <div class="modal-body">
         <form role="form">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" ng-model="newTC.name">
+            <input type="text" class="form-control" placeholder="Name" ng-show="isNewTestCase" ng-model="testCase.name">
+            <input type="text" class="form-control" placeholder="Name" ng-show="!isNewTestCase" ng-model="testCaseName">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Description" ng-model="newTC.description">
+            <input type="text" class="form-control" placeholder="Description" ng-model="testCase.description">
           </div>
           <div class="form-group">
             <label>Happy path:</label>
-            <input type="checkbox" ng-model="newTC.isHappyPath">
+            <input type="checkbox" ng-model="testCase.isHappyPath">
           </div>
           <div class="form-group">
             <label>Error path:</label>
-            <input type="checkbox" ng-model="newTC.isErrorPath">
+            <input type="checkbox" ng-model="testCase.isErrorPath">
           </div>
           <div class="form-group">
-            <!--TODO replace by dropdown:-->
-            <input type="text" class="form-control" placeholder="Priority, replace by a dropdown with posible values of testplan" ng-model="newTC.priority">
+            <div class="dropdown" id="priorityDropdownMenu">
+              <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Priority
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" >
+                <li ng-repeat="priority in priorities.split(',')"><a>{{priority}}</a></li>
+              </ul>
+            </div>
           </div>
           <div class="form-group">
-            <!--TODO replace by dropdown:-->
-            <input type="text" class="form-control" placeholder="Status, replace by a dropdown with posible values of testplan" ng-model="newTC.status">
+            <div class="dropdown" id="statusDropdownMenu">
+              <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Status
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" >
+                <li ng-repeat="status in status.split(',')"><a>{{status}}</a></li>
+              </ul>
+            </div>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="newTCKeywords" placeholder="Write keywords and hit enter"/>
@@ -34,7 +51,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="addTestCase()">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="addTestCase()" ng-show="isNewTestCase">Add</button>
+        <button type="button" class="btn btn-primary" ng-click="updateTestCase()" ng-show="!isNewTestCase">Edit</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>

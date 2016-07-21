@@ -40,7 +40,7 @@ angular.module('testingItApp')
           //Edit precondition
           $scope.testCase.preconditions[$scope.index] = $scope.precondition;
         }
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
         $('#preconditionsAddEditModal').modal('hide');
       }
 

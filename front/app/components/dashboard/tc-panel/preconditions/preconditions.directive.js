@@ -37,7 +37,7 @@ angular.module('testingItApp')
       //Delete precondition
       $scope.deletePrecondition = function(index){
         $scope.testCase.preconditions.splice(index, 1);
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
       }
 
       //Up precondition
@@ -45,7 +45,7 @@ angular.module('testingItApp')
         var previousPred = $scope.testCase.preconditions[index - 1];
         $scope.testCase.preconditions[index -1] = $scope.testCase.preconditions[index];
         $scope.testCase.preconditions[index] =previousPred;
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
       }
 
       //Down precondition
@@ -53,7 +53,7 @@ angular.module('testingItApp')
         var nextPred = $scope.testCase.preconditions[index + 1];
         $scope.testCase.preconditions[index + 1] = $scope.testCase.preconditions[index];
         $scope.testCase.preconditions[index] = nextPred;
-        TestCaseCrudService.updateTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
+        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
       }
 
     }],
