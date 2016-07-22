@@ -24,6 +24,8 @@ angular.module('testingItApp')
       //print tm tree
       $rootScope.$on('dashboard.service:tmTreeData', function($event, tmTreeData) {
         $scope.tmTreeData = eval(tmTreeData);
+        //TODO fix: selecciona bien en el panel de la derecha pero no en el arbol:
+        $scope.tmTreeControl.select_first_branch();
       });
 
       //collapseTmTree
@@ -54,6 +56,7 @@ angular.module('testingItApp')
         TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
       });
 
+      //Find recursively an item by id
       $scope.findInTree = function(treeData, idToFind){
         var children;
   			for (var i in treeData){
@@ -61,9 +64,7 @@ angular.module('testingItApp')
   				if (children != undefined && children.length != 0){
   					$scope.findInTree(children, idToFind);
   				}
-          console.log(treeData[i].label+","+treeData[i]._id+", "+idToFind);
   				if (treeData[i]._id === idToFind){
-            //TODO fix: LOS IDS NO COINCIDEN
   					$scope.nodeFound = treeData[i];
   				}
   			}
@@ -72,7 +73,9 @@ angular.module('testingItApp')
       //Select a branch by id
       $rootScope.$on('test-management-find-result.directive:selectInTreeAndOpenPanel', function($event, idToFind) {
         $scope.findInTree($scope.tmTreeData,idToFind);
-        if ($scope.nodeFound !== undefined){
+        if ($scope.nodeFound === undefined){
+          $rootScope.$emit('alert', "The selected item not found in tree");
+        }else{
           tree.select_branch($scope.nodeFound);
         }
       });

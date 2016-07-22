@@ -6,7 +6,8 @@ var testSuiteSchema = mongoose.Schema({
   name: String,
   description: String,
   keywords: String,
-  parent: mongoose.Schema.ObjectId
+  parent: mongoose.Schema.ObjectId,
+  tpjId: mongoose.Schema.ObjectId
 }, { collection: 'testSuite' });
 
 //To full find index

@@ -57,6 +57,7 @@ angular.module('testingItApp')
       $scope.addTestSuite = function(){
         $scope.testSuite.keywords = $('#newTSKeywords').val();
         $scope.testSuite.parent = $rootScope.selectedBranch._id;
+        $scope.testSuite.tpjId = $rootScope.currentTpj._id;
         TestSuiteCrudService.addTestSuite($scope, $scope.testSuite);
         $("#testSuiteAddModal").modal('hide');
       };

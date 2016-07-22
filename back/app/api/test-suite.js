@@ -45,14 +45,15 @@ module.exports = function(app, passport) {
         name: req.body.newTS.name,
         description: req.body.newTS.description,
         keywords: req.body.newTS.keywords,
-        parent: req.body.newTS.parent
+        parent: req.body.newTS.parent,
+        tpjId: req.body.newTS.tpjId
       });
       newTS.save(function(err, result) {
         if (err) {
           res.status(500).send({ message: err.message });
         }
       });
-      return res.send(newTS);    
+      return res.send(newTS);
   });
 
 

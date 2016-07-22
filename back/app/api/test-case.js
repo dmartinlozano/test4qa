@@ -51,7 +51,8 @@ module.exports = function(app, passport) {
         status: req.body.newTC.status,
         steps: req.body.newTC.steps,
         keywords: req.body.newTC.keywords,
-        parent: req.body.newTC.parent
+        parent: req.body.newTC.parent,
+        tpjId: req.body.newTC.tpjId
       });
       newTC.save(function(err, result) {
         if (err) {
@@ -92,7 +93,7 @@ module.exports = function(app, passport) {
           if (!ts) {
             return res.status(500).send({ message: "Case test doesn't exists" });
           }else{
-            
+
             //TODO for each field, if  req.body.testProject.XXX is undefined, not replace!!
             ts.name = req.body.name;
             ts.description = req.body.description;

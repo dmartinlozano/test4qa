@@ -12,7 +12,8 @@ var testCaseSchema = mongoose.Schema({
   status: String,
   steps: [{action:String, result:String}],
   keywords: String,
-  parent: mongoose.Schema.ObjectId
+  parent: mongoose.Schema.ObjectId,
+  tpjId: mongoose.Schema.ObjectId
 }, { collection: 'testCase' });
 
 //To full find index

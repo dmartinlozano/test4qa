@@ -97,6 +97,7 @@ angular.module('testingItApp')
       $scope.addTestCase = function(){
         $scope.testCase.keywords = $('#newTCKeywords').val();
         $scope.testCase.parent = $rootScope.selectedBranch._id;
+        $scope.testCase.tpjId = $rootScope.currentTpj._id;
         TestCaseCrudService.addTestCase($scope, $scope.testCase);
       };
 
