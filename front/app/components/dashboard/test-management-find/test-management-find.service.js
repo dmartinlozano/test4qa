@@ -12,7 +12,7 @@ angular.module('testingItApp')
 
   //service to find
   this.find = function($scope, searchString){
-    Restangular.one("/api/find/").customPOST({searchString:searchString}).then(function(findResults) {
+    Restangular.one("/api/find/" + $rootScope.currentTpj._id).customPOST({searchString:searchString}).then(function(findResults) {
       $rootScope.$emit('test-management-find.service:find', searchString, findResults);
       //TODO es recibido en un componente que tiene que dibujar un modal con el resultado
     },function (res) {
