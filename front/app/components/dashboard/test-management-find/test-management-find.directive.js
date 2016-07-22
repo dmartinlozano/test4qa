@@ -14,11 +14,10 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+    controller: ['$scope', '$rootScope', 'FindService', function($scope, $rootScope, FindService) {
 
       $scope.findInTmTree = function(){
-        $rootScope.$emit('test-management-find.directive:findInTmTree', $scope.textToFindInTmTree);
-        //TODO es recibido en un componente que tiene que dibujar un modal con el resultado
+        FindService.find($scope,$scope.textToFindInTmTree);
       };
 
       $scope.collapseTmTree = function(){

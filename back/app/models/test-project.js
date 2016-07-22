@@ -13,5 +13,8 @@ var testProjectSchema = mongoose.Schema({
   tpTreeData: String
 }, { collection: 'testProject' });
 
+//To full find index
+testProjectSchema.index({'$**': 'text'});
+
 // create the model for TP and expose it to our app
 module.exports = mongoose.model('TestProject', testProjectSchema);

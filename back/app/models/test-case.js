@@ -15,5 +15,8 @@ var testCaseSchema = mongoose.Schema({
   parent: mongoose.Schema.ObjectId
 }, { collection: 'testCase' });
 
+//To full find index
+testCaseSchema.index({'$**': 'text'});
+
 // create the model for TP and expose it to our app
 module.exports = mongoose.model('TestCase', testCaseSchema);

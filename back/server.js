@@ -51,10 +51,11 @@ require('./app/api/test-project')(app,passport);
 require('./app/api/test-suite')(app,passport);
 require('./app/api/test-case')(app,passport);
 require('./app/api/role')(app,passport);
+require('./app/api/find')(app,passport);
 
 // bootstrap ===================================================================
 if (env === 'development'){
-	//require('./app/bootstrap.js');
+	require('./app/bootstrap.js');
 }
 app.use(express.static(__dirname + '/'));
 

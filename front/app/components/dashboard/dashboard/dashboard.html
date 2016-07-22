@@ -10,20 +10,21 @@
   <test-case-crud-add></test-case-crud-add>
   <preconditions-add-edit></preconditions-add-edit>
   <steps-add-edit></steps-add-edit>
+  <test-management-find-result></test-management-find-result>
   <alert></alert>
   <!--./Modals-->
 
   <navbar></navbar>
 
   <!-- Tabs: -->
-  <ul class="nav nav-tabs" id="navTab">
+  <ul class="nav nav-pills" id="navTab">
     <li class="active"><a data-target="#tm" data-toggle="tab">Test management</a></li>
     <li><a data-target="#tp" data-toggle="tab">Test plan</a></li>
   </ul>
 
   <div class="tab-content">
      <div class="tab-pane tm-left active" id="tm">
-       <div id="tmTree" class="tree-left">
+       <div id="tmTree" class="panel panel-primary tree-left">
          <test-management-find></test-management-find>
          <test-management-tree></test-management-tree>
        </div>

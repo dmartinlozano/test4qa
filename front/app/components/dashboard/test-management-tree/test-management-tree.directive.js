@@ -19,6 +19,7 @@ angular.module('testingItApp')
       var tree;
       $scope.tmTreeControl = tree = {};
       $scope.tmTreeData = [];
+      $scope.nodeFound = undefined;
 
       //print tm tree
       $rootScope.$on('dashboard.service:tmTreeData', function($event, tmTreeData) {
@@ -52,6 +53,30 @@ angular.module('testingItApp')
         tree.expand_branch();
         TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
       });
+
+      $scope.findInTree = function(treeData, idToFind){
+        var children;
+  			for (var i in treeData){
+  				children = treeData[i].children;
+  				if (children != undefined && children.length != 0){
+  					$scope.findInTree(children, idToFind);
+  				}
+          console.log(treeData[i].label+","+treeData[i]._id+", "+idToFind);
+  				if (treeData[i]._id === idToFind){
+            //TODO fix: LOS IDS NO COINCIDEN
+  					$scope.nodeFound = treeData[i];
+  				}
+  			}
+      };
+
+      //Select a branch by id
+      $rootScope.$on('test-management-find-result.directive:selectInTreeAndOpenPanel', function($event, idToFind) {
+        $scope.findInTree($scope.tmTreeData,idToFind);
+        if ($scope.nodeFound !== undefined){
+          tree.select_branch($scope.nodeFound);
+        }
+      });
+
 
     }],
     templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'
