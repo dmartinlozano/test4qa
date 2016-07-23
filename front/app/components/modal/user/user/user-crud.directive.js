@@ -40,10 +40,7 @@ angular.module('testingItApp')
         columnDefs: [{field:'name', displayName: 'Name'},
                      {field:'firstName', displayName:'First Name'},
                      {field:'lastName', displayName: 'Last Name'},
-                     {field:'email', displayName: 'Email'},
-                     {field:'isAdmin', displayName: 'Is admin', enableCellEdit: false, cellTemplate: '<input type="checkbox" ng-model="row.entity.isAdmin"  ng-click="grid.appScope.clickIsAdminCheckBox(row.entity)">'},
-                     //{field:'defaultTestProject', enableCellEdit: false, displayName: 'Test project by default'},
-                     {field:'defaultTestProject',
+                     {field:'email', displayName: 'Email'},{field:'defaultTestProject',
                       displayName: 'Test Project',
                       editableCellTemplate: 'ui-grid/dropdownEditor',
                       editDropdownOptionsArray: $scope.testProjects,
@@ -59,11 +56,6 @@ angular.module('testingItApp')
             UserService.updateUser($scope,rowEntity._id,colDef.field,newValue);
         });
       };
-
-      //When isAdmin column is click:
-      $scope.clickIsAdminCheckBox = function(rowEntity){
-        UserService.updateUser($scope,rowEntity._id,'isAdmin',rowEntity.isAdmin);
-      }
 
       //Open add a new users  modal
       $scope.openAddUserModal = function(){
@@ -84,7 +76,6 @@ angular.module('testingItApp')
     controller: ['$scope', '$rootScope', 'UserService', 'TestProjectCrudService', function($scope, $rootScope, UserService, TestProjectCrudService) {
 
       $scope.newUser = {};
-      $scope.newUser.isAdmin = false;
 
       //A new user
       $scope.addUser = function(){

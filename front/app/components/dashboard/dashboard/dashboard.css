@@ -1,8 +1,9 @@
 .tm-left{
   margin-top: 5px;
+  margin-left: 5px;
 }
 
-.tree-left{
+.panel-left{
  width:25%;
  float:left
 }

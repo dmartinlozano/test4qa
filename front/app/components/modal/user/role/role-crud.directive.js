@@ -36,6 +36,7 @@ angular.module('testingItApp')
         enableCellEditOnFocus: true,
         columnDefs: [{field:'name', displayName: 'Name'},
                      {field:'description', displayName:'Description'},
+                     {field:'isAdmin', displayName: 'Is admin', enableCellEdit: false, cellTemplate: '<input type="checkbox" ng-model="row.entity.isAdmin"  ng-click="grid.appScope.clickIsAdminCheckBox(row.entity)">'},
                      {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteRole(row.entity._id)" ></button>'}]
       };
 
@@ -45,6 +46,11 @@ angular.module('testingItApp')
             RoleService.updateRole($scope,rowEntity._id,colDef.field,newValue);
         });
       };
+
+      //When isAdmin column is click:
+      $scope.clickIsAdminCheckBox = function(rowEntity){
+        RoleService.updateRole($scope,rowEntity._id,'isAdmin',rowEntity.isAdmin);
+      }
 
       //Open add a new roles  modal
       $scope.openAddRoleModal = function(){

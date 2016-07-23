@@ -28,6 +28,7 @@ angular.module('testingItApp')
             $rootScope.currentTpj.prefix = projectManagement.prefix;
             $rootScope.currentTpj.currentTcNumber = projectManagement.currentTcNumber;
             $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
+            $rootScope.$emit('dashboard.service:currentTpjName', $rootScope.currentTpj.name);
           },function (res) {
             $rootScope.$emit('alert', "The current user hasn't defined a default project");
           });
@@ -38,6 +39,7 @@ angular.module('testingItApp')
 
     //Change project
     $rootScope.$on('navbar.controler:changeProject', function($event, projectId) {
+      //To reload permissions in directive:
       Restangular.one("/api/testProject/" + projectId).get().then(function(projectManagement) {
         $rootScope.currentTpj._id = projectManagement._id;
         $rootScope.currentTpj.name = projectManagement.name;

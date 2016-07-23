@@ -6,7 +6,7 @@
               <li class="dropdown">
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test project <span class="caret"></span></a>
                 <ul class="dropdown-menu navbar-dopdown-menu" >
-                  <li ng-repeat="project in testProjects"><a ng-click="changeProject(project._id)">{{project.prefix}}: {{project.name}}</a></li>             
+                  <li ng-repeat="project in testProjects"><a ng-click="changeProject(project._id)">{{project.prefix}}: {{project.name}}</a></li>
                 </ul>
               </li>
               <li>
@@ -19,7 +19,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a ng-click="openModal('userManagementModal')"><i class="fa fa-users fa-fw"></i> User management</a></li>
+                        <li permissions="userManagementView"><a ng-click="openModal('userManagementModal')"><i class="fa fa-users fa-fw"></i> User management</a></li>
                         <li><a><i class="fa fa-user-secret fa-fw"></i> Profile</a></li>
                         <li class="divider"></li>
                         <li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>

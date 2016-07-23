@@ -1,21 +1,35 @@
 <div class="panel panel-primary tpjPanel">
   <div class="panel-heading">
-    <div class="btn-group pull-right editDropDown">
-        <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown" >
-          Edit
+    <div class="btn-group pull-right editDropDown" permissions="testPlanRun">
+      <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown" >
+        Run
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li><a ng-click="newTestPlan()"><i class="fa fa-tachometer" aria-hidden="true"></i>  Run test plan</a></li>
+      </ul>
+    </div>
+    <div class="btn-group pull-right editDropDown" permissions="testManagementEdit">
+        <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown">
+          New
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-right">
-          <li><a ng-click="editTestProject()"><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test project</a></li>
-          <li><a ng-click="deleteTestProject()"><i class="fa fa-times" aria-hidden="true"></i>  Delete Test project</a></li>
-          <li class="divider"></li>
           <li><a ng-click="newTestProject()"><i class="fa fa-folder" aria-hidden="true"></i>  New Test project</a></li>
           <li><a ng-click="newTestSuite()"><i class="fa fa-folder-o" aria-hidden="true"></i>  New Test suite</a></li>
           <li><a ng-click="newTestCase()"><i class="fa fa-cogs" aria-hidden="true"></i>  New Test case</a></li>
-          <li class="divider"></li>
-          <li><a ng-click="newTestPlan()"><i class="fa fa-tachometer" aria-hidden="true"></i>  Run test plan</a></li>
         </ul>
       </div>
+      <div class="btn-group pull-right editDropDown" permissions="testManagementEdit">
+          <a class="btn dropdown-toggle dropdown-color" data-toggle="dropdown" >
+            Edit
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a ng-click="editTestProject()"><i class="fa fa-pencil" aria-hidden="true"></i>  Edit Test project</a></li>
+            <li><a ng-click="deleteTestProject()"><i class="fa fa-times" aria-hidden="true"></i>  Delete Test project</a></li>
+          </ul>
+        </div>
       <i class="fa fa-folder" aria-hidden="true"></i>  {{testProject.name}}
   </div>
   <div class="panel-body">

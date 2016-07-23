@@ -4,7 +4,12 @@ var Schema = mongoose.Schema;
 // define the schema for our user model
 var roleSchema = mongoose.Schema({
   name: { type: String, index: { unique: true }},
-  description: String
+  description: String,
+  isAdmin: Boolean,
+  permissions: {testManagementView: Boolean, testManagementEdit: Boolean,
+                testPlanView: Boolean, testPlanEdit: Boolean, testPlanRun: Boolean,
+                userManagementView: Boolean, userManagementEdit: Boolean
+               }
 }, { collection: 'role' });
 
 // create the model for users and expose it to our app

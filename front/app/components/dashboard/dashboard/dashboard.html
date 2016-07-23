@@ -15,16 +15,15 @@
   <!--./Modals-->
 
   <navbar></navbar>
-
   <!-- Tabs: -->
   <ul class="nav nav-pills" id="navTab">
     <li class="active"><a data-target="#tm" data-toggle="tab">Test management</a></li>
     <li><a data-target="#tp" data-toggle="tab">Test plan</a></li>
   </ul>
 
-  <div class="tab-content">
+  <div class="tab-content" permissions="testManagementView">
      <div class="tab-pane tm-left active" id="tm">
-       <div id="tmTree" class="panel panel-primary tree-left">
+       <div id="tmTree" class="panel panel-primary panel-left">
          <test-management-find></test-management-find>
          <test-management-tree></test-management-tree>
        </div>
@@ -37,5 +36,4 @@
      <div class="tab-pane" id="tp">Test Plan</div>
    </div>
    <!-- ./Tabs: -->
-
  </div>

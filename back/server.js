@@ -52,6 +52,7 @@ require('./app/api/test-suite')(app,passport);
 require('./app/api/test-case')(app,passport);
 require('./app/api/role')(app,passport);
 require('./app/api/find')(app,passport);
+require('./app/api/permission')(app,passport);
 
 // bootstrap ===================================================================
 if (env === 'development'){

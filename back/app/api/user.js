@@ -65,7 +65,6 @@ module.exports = function(app, passport) {
                       lastName: req.body.newUser.lastName,
                       email: req.body.newUser.email,
                       role: req.body.newUser.role,
-                      isAdmin: req.body.newUser.isAdmin,
                       defaultTestProject: tpj._id
                     });
                     newUser.save(function(err, result) {

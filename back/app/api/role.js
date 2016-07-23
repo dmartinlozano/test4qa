@@ -25,6 +25,22 @@ module.exports = function(app, passport) {
     });
   });
 
+  //Get permissions by action
+  app.get('/api/role/:id', middleware.ensureAuthenticated, function(req, res) {
+    Role.findOne({_id:req.params.id}, function(err, role) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (role) {
+            res.send(role);
+          }else{
+            return res.status(500).send({ message: 'Role not found' });
+          };
+        }
+    });
+  });
+
   //add a new role
   app.put('/api/role', middleware.ensureAuthenticated, function(req, res) {
     Role.findOne({ name: req.body.newRole.name }, function(err, role) {
@@ -37,7 +53,9 @@ module.exports = function(app, passport) {
           }else{
             var newRole = new Role({
               name: req.body.newRole.name,
-              description: req.body.newRole.description
+              description: req.body.newRole.description,
+              isAdmin: req.body.newRole.isAdmin,
+              permissions: req.body.newRole.description
             });
             newRole.save(function(err, result) {
               if (err) {

@@ -21,10 +21,26 @@ testProject2.tmTreeData =  "[{label: 'Test Project 2', type: 'tpj',  _id: '" +  
 testProject2.save(function(err) {if (err) console.log(err);});
 
 
-var adminRole = new Role({name:"adminRole",description:"Description role admin"});
+var adminRole = new Role({name:"adminRole",description:"Description role admin", isAdmin: true});
+adminRole.permissions={testManagementView: true, testManagementEdit: true,
+                testPlanView: true, testPlanEdit: true, testPlanRun: true,
+                userManagementView: true, userManagementEdit: true
+              };
 adminRole.save(function(err) {if (err) console.log(err);});
-var guestRole = new Role({name:"guestRole",description:"Description role guest"});
+
+var guestRole = new Role({name:"guestRole",description:"Description role guest", isAdmin: false});
+guestRole.permissions={testManagementView: true, testManagementEdit: false,
+                testPlanView: true, testPlanEdit: false, testPlanRun: false,
+                userManagementView: true, userManagementEdit: false
+              };
 guestRole.save(function(err) {if (err) console.log(err);});
+
+var noneRole = new Role({name:"noneRole",description:"Description role none", isAdmin: false});
+noneRole.permissions={testManagementView: false, testManagementEdit: false,
+                testPlanView: false, testPlanEdit: false, testPlanRun: false,
+                userManagementView: false, userManagementEdit: false
+              };
+noneRole.save(function(err) {if (err) console.log(err);});
 
 var admin = new User({
   name: "admin",
@@ -33,11 +49,10 @@ var admin = new User({
   lastName: "Garcia",
   email: "adim@admin.es",
   roleInProject: [],
-  isAdmin: true,
   defaultTestProject: testProject1._id,
 });
 admin.roleInProject.push({project: testProject1._id, role: adminRole._id});
-admin.roleInProject.push({project: testProject2._id, role: guestRole._id});
+admin.roleInProject.push({project: testProject2._id, role: adminRole._id});
 admin.save(function(err) {if (err) console.log(err);});
 
 var guest = new User({
@@ -47,11 +62,10 @@ var guest = new User({
   lastName: "Martinez",
   email: "guest@admin.es",
   roleInProject: [],
-  isAdmin: false,
   defaultTestProject: testProject2._id,
 });
 guest.roleInProject.push({project: testProject1._id, role: guestRole._id});
-guest.roleInProject.push({project: testProject2._id, role: guestRole._id});
+guest.roleInProject.push({project: testProject2._id, role: noneRole._id});
 guest.save(function(err) {if (err) console.log(err);});
 
 
