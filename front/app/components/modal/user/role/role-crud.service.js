@@ -28,6 +28,14 @@ angular.module('testingItApp')
       $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });
   };
+  //service to add a new permission in existent
+  this.addPermission = function($scope,roleId,newPermission){
+    Restangular.one("/api/role/"+roleId).get().then(function(role) {
+      this.updateRole($scope, roleId, 'permissions',role.permissions);
+    },function (res) {
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
+  };
 
   //delete a role
   this.deleteRole = function($scope, id){

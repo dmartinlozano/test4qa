@@ -14,7 +14,10 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'UserService', 'TpjRolesService', 'TestProjectCrudService', 'RoleService', function($scope, $rootScope, UserService, TpjRolesService, TestProjectCrudService, RoleService) {
+    controller: ['$scope', '$rootScope', 'UserService', 'TpjRolesService', 'TestProjectCrudService', 'RoleService', 'Restangular', function($scope, $rootScope, UserService, TpjRolesService, TestProjectCrudService, RoleService, Restangular) {
+
+      $scope.edit = true;
+      $scope.canEdit = function() { return $scope.edit; };
 
       //Init ui-grid when tab is selected
       $rootScope.$on('user-management.directive:shown.bs.modal', function() {
@@ -26,34 +29,54 @@ angular.module('testingItApp')
           TestProjectCrudService.getAllProjectsForDropDown(3, $scope.userRoleTpjGridOptions);
           RoleService.getAllRoles($scope);
           RoleService.getAllRolesForDropDown(4, $scope.userRoleTpjGridOptions);
-
+          $scope.loadPermissions($scope.userRoleTpjGridOptions);
           window.setTimeout(function(){
             $(window).resize();
           }, 1000);
-      //  }
       });
+
+      //Put table how readOnly if not permissions
+      $scope.loadPermissions = function(gridOptions){
+          var tpjId = "-";
+          if ($rootScope.currentTpj !== undefined ){
+            if ($rootScope.currentTpj._id !== undefined){
+              tpjId = $rootScope.currentTpj._id;
+            }
+          }
+          Restangular.one("/api/permission/"+tpjId+"/userManagementEdit").get().then(function(permission) {
+            if (permission === true){
+              $scope.edit = true;
+            }else{
+              $scope.edit = false;
+            }
+          },function (res) {
+              $rootScope.$emit('alert', "The current user hasn't defined a default project");
+          });
+        };
 
       //Init uiGrid for users
       $scope.userRoleTpjGridOptions = {
         data: 'userRolesTpj',
         enableCellEditOnFocus: true,
-        columnDefs: [{field: 'id', visible:false},
-                     {field: 'userId', visible:false},
-                     {field:'user', displayName: 'User', enableCellEdit: false},
+        columnDefs: [{field: 'id', visible:false, cellEditableCondition : $scope.canEdit },
+                     {field: 'userId', visible:false, cellEditableCondition : $scope.canEdit },
+                     {field:'user', displayName: 'User', enableCellEdit: false, cellEditableCondition : $scope.canEdit },
                      {field:'project',
                       displayName: 'Test Project',
                       editableCellTemplate: 'ui-grid/dropdownEditor',
                       editDropdownOptionsArray: $scope.testProjects,
                       editDropdownIdLabel: '_id',
                       editDropdownValueLabel: 'name',
-                      cellFilter: 'testProjectsFilter:grid.appScope.testProjects'},
+                      cellFilter: 'testProjectsFilter:grid.appScope.testProjects',
+                      cellEditableCondition : $scope.canEdit },
                      {field:'role', displayName: 'Roles',
                       editableCellTemplate: 'ui-grid/dropdownEditor',
                       editDropdownOptionsArray: $scope.testProjects,
                       editDropdownIdLabel: '_id',
                       editDropdownValueLabel: 'name',
-                      cellFilter: 'testProjectsFilter:grid.appScope.roles'},
-                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteRolesByProjects(row.entity)" ></button>'}]
+                      cellFilter: 'testProjectsFilter:grid.appScope.roles',
+                      cellEditableCondition : $scope.canEdit },
+                     {field: 'delete', enableCellEdit: false, cellEditableCondition : $scope.canEdit , cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteRolesByProjects(row.entity)" ng-disabled="!grid.appScope.edit" ></button>'}]
       };
 
       //when the table is editing

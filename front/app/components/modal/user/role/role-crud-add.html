@@ -12,6 +12,29 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Description" ng-model="newRole.description">
           </div>
+          <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.testManagementView"> View Test Management
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.testManagementEdit"> Edit Test Management
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.testPlanView"> View Test Plan
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.testPlanEdit"> Edit Test Plan
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.testPlanRun"> Run Test Plan
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.userManagementView"> View User Management
+            </label></p>
+            <label class="checkbox-inline">
+                <input type="checkbox" ng-model="newRole.permissions.userManagementEdit"> Edit User Management
+            </label></p>
+        </div>
         </form>
       </div>
       <div class="modal-footer">

@@ -25,7 +25,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  //Get permissions by action
+  //Get role by id
   app.get('/api/role/:id', middleware.ensureAuthenticated, function(req, res) {
     Role.findOne({_id:req.params.id}, function(err, role) {
       if(err){
@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
               name: req.body.newRole.name,
               description: req.body.newRole.description,
               isAdmin: req.body.newRole.isAdmin,
-              permissions: req.body.newRole.description
+              permissions: req.body.newRole.permissions
             });
             newRole.save(function(err, result) {
               if (err) {

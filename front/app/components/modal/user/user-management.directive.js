@@ -16,8 +16,6 @@ angular.module('testingItApp')
     },
     controller: ['$rootScope', '$scope', function($rootScope, $scope) {
 
-      //TODO Fix error grid in modal
-
       //Init users when modal is show
       $('#userManagementModal').on('shown.bs.modal', function() {
         $rootScope.$emit('user-management.directive:shown.bs.modal');

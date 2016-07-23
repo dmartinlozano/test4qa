@@ -14,16 +14,39 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'RoleService', function($scope, $rootScope, RoleService) {
+    controller: ['$scope', '$rootScope', 'RoleService', 'Restangular', function($scope, $rootScope, RoleService, Restangular) {
+
+      $scope.edit = true;
+      $scope.canEdit = function() { return $scope.edit; };
 
       //Init users when modal is show
       $rootScope.$on('role-management.directive:shown.bs.modal', function() {
         $scope.roles = [];
         RoleService.getAllRoles($scope);
+        $scope.loadPermissions($scope.roleCrudGridOptions);
         window.setTimeout(function(){
           $(window).resize();
         }, 1000);
       });
+
+      //Put table how readOnly if not permissions
+      $scope.loadPermissions = function(gridOptions){
+          var tpjId = "-";
+          if ($rootScope.currentTpj !== undefined ){
+            if ($rootScope.currentTpj._id !== undefined){
+              tpjId = $rootScope.currentTpj._id;
+            }
+          }
+          Restangular.one("/api/permission/"+tpjId+"/userManagementEdit").get().then(function(permission) {
+            if (permission === true){
+              $scope.edit = true;
+            }else{
+              $scope.edit= false;
+            }
+          },function (res) {
+              $rootScope.$emit('alert', "The current user hasn't defined a default project");
+          });
+        };
 
       //Delete an user
       $scope.deleteRole = function(id){
@@ -34,10 +57,10 @@ angular.module('testingItApp')
       $scope.roleCrudGridOptions = {
         data: 'roles',
         enableCellEditOnFocus: true,
-        columnDefs: [{field:'name', displayName: 'Name'},
-                     {field:'description', displayName:'Description'},
-                     {field:'isAdmin', displayName: 'Is admin', enableCellEdit: false, cellTemplate: '<input type="checkbox" ng-model="row.entity.isAdmin"  ng-click="grid.appScope.clickIsAdminCheckBox(row.entity)">'},
-                     {field: 'delete', enableCellEdit: false, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteRole(row.entity._id)" ></button>'}]
+        columnDefs: [{field:'name', displayName: 'Name', cellEditableCondition : $scope.canEdit},
+                     {field:'description', displayName:'Description', cellEditableCondition : $scope.canEdit},
+                     {field:'isAdmin', displayName: 'Is admin', cellEditableCondition : $scope.canEdit, enableCellEdit: false, cellTemplate: '<input type="checkbox" ng-model="row.entity.isAdmin"  ng-click="grid.appScope.clickIsAdminCheckBox(row.entity)" ng-disabled="!grid.appScope.edit">'},
+                     {field: 'delete', enableCellEdit: false, cellEditableCondition : $scope.canEdit, cellTemplate: '<button class="btn btn-default fa fa-times-circle" ng-click="grid.appScope.deleteRole(row.entity._id)" ng-disabled="!grid.appScope.edit"></button>'}]
       };
 
       //when the table is editing
