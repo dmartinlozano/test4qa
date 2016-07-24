@@ -1,5 +1,5 @@
 // server.js
-var env = process.env.NODE_ENV || 'development';
+var env = process.argv[2]||'prod';
 
 // set up ======================================================================
 // get all the tools we need
@@ -55,7 +55,7 @@ require('./app/api/find')(app,passport);
 require('./app/api/permission')(app,passport);
 
 // bootstrap ===================================================================
-if (env === 'development'){
+if (env === 'dev'){
 	require('./app/bootstrap.js');
 }
 app.use(express.static(__dirname + '/'));
