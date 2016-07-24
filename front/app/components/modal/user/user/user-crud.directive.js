@@ -52,8 +52,8 @@ angular.module('testingItApp')
         };
 
       //Delete an user
-      $scope.deleteUser = function(id){
-        UserService.deleteUser($scope, id);
+      $scope.deleteUser = function(entity){
+        UserService.deleteUser($scope, entity._id);
       };
 
       //Init uiGrid for users
@@ -102,6 +102,11 @@ angular.module('testingItApp')
 
       $scope.newUser = {};
 
+      //The selected value in dropbox must be showed in dropdown
+      $("#testProjectInUserCrudDropDown").on('click', 'li a', function(){
+        $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+      });
+
       //A new user
       $scope.addUser = function(){
         UserService.addUser($scope, $scope.newUser);
@@ -116,8 +121,12 @@ angular.module('testingItApp')
       //Load test projects for dropdown
       $('#userAddModal').on('shown.bs.modal', function() {
         TestProjectCrudService.getAllProjects($scope);
-        TestProjectCrudService.getAllProjectsForDropDown(5, $scope.userCrudGridOptions);
       });
+
+      //Store de selected project
+      $scope.setSelectedTestProjectInUserCrudDropDown = function(projectId){
+        $scope.newUser.defaultTestProject= projectId;
+      };
 
 
     }],

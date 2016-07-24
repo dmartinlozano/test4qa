@@ -41,5 +41,10 @@ angular.module('testingItApp')
       window.localStorage.removeItem("user.token");
       $state.go('login');
     }
+
+    //show modal to change password
+    $scope.changePassword = function(){
+      $scope.openModal("changePasswordModal");
+    }
   }
 ]);

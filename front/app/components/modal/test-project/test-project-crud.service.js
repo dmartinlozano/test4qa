@@ -88,10 +88,12 @@ angular.module('testingItApp')
 
   //Return all test projects -dropdown in ui-grid
   this.getAllProjectsForDropDown = function(columnNum, gridOptions){
+    if (gridOptions != undefined){
         Restangular.all("/api/testProject").getList().then(function(testProjects) {
           gridOptions.columnDefs[columnNum].editDropdownOptionsArray = testProjects;
         },function (res) {
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
       };
+    };
  }]);

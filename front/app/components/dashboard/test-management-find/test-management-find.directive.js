@@ -15,9 +15,11 @@ angular.module('testingItApp')
       type: '@',
     },
     controller: ['$scope', '$rootScope', 'FindService', function($scope, $rootScope, FindService) {
+      
+      $scope.toFindInTmTree = "";
 
       $scope.findInTmTree = function(){
-        FindService.find($scope,$scope.textToFindInTmTree);
+        FindService.find($scope, $scope.toFindInTmTree);
       };
 
       $scope.collapseTmTree = function(){

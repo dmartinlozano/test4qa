@@ -56,7 +56,7 @@ require('./app/api/permission')(app,passport);
 
 // bootstrap ===================================================================
 if (env === 'development'){
-	//require('./app/bootstrap.js');
+	require('./app/bootstrap.js');
 }
 app.use(express.static(__dirname + '/'));
 

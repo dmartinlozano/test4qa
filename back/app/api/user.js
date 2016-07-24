@@ -5,6 +5,7 @@ var TestProject = mongoose.model('TestProject');
 var request = require('request');
 var moment = require('moment');
 var jwt = require('jwt-simple');
+var bcrypt   = require('bcrypt-nodejs');
 var middleware = require('./middleware');
 
 module.exports = function(app, passport) {
@@ -85,7 +86,7 @@ module.exports = function(app, passport) {
   });
 
   //update a user
-  app.post('/api/user/:id', middleware.ensureAuthenticated, function(req, res) {
+  app.post('/api/user/:id', middleware.ensureAuthenticated, function(req, res, next) {
     User.findOne({_id: req.params.id}, function(err, user) {
       if(err){
           console.log(err);
@@ -95,10 +96,25 @@ module.exports = function(app, passport) {
             return res.status(500).send({ message: "User doesn't exists" });
           }else{
             user[req.body.field] = req.body.newValue;
-            User.findOneAndUpdate({_id:req.params.id}, user, {upsert:true}, function(err, doc){
-                if (err) res.status(500).send({ message: err.message });
-                return res.send("succesfully saved");
-            });
+            if (req.body.field === "password"){
+              //encode password and store it
+              bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(user.password, salt, null, function(err, hash) {
+                  user.password = hash;
+                  //update encrypted password
+                  User.findOneAndUpdate({_id:req.params.id}, user, {upsert:true}, function(err, doc){
+                      if (err) res.status(500).send({ message: err.message });
+                      return res.send("pasword succesfully saved");
+                  });
+                });
+              });
+            }else{
+              //update user
+              User.findOneAndUpdate({_id:req.params.id}, user, {upsert:true}, function(err, doc){
+                  if (err) res.status(500).send({ message: err.message });
+                  return res.send("succesfully saved");
+              });
+            };
           };
         }
     });

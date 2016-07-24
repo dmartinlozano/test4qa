@@ -24,8 +24,10 @@ angular.module('testingItApp')
       //print tm tree
       $rootScope.$on('dashboard.service:tmTreeData', function($event, tmTreeData) {
         $scope.tmTreeData = eval(tmTreeData);
-        //TODO fix: selecciona bien en el panel de la derecha pero no en el arbol:
-        $scope.tmTreeControl.select_first_branch();
+        //Select first branch if exists:
+        if ($scope.tmTreeData.length > 0) {
+          tree.select_branch($scope.tmTreeData[0]);
+          }
       });
 
       //collapseTmTree
