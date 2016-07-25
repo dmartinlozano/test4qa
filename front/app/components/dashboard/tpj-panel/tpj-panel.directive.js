@@ -51,8 +51,12 @@ angular.module('testingItApp')
           $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
           $rootScope.$emit('navbar.controler:changeProject', user.defaultTestProject);
         });
+      };
 
-      }
+      //Show modal to reorder tree of test manager
+      $scope.reorderTests = function(){
+        $rootScope.$emit('tpj-panel.directive:reorderTests');
+      };
     }],
     templateUrl: 'views/dashboard/tpj-panel/tpj-panel.html'
   };

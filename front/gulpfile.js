@@ -97,6 +97,7 @@ gulp.task('lint:vendorJS', function() {
             './bower_components/textAngular/dist/textAngular-sanitize.min.js',
             './bower_components/textAngular/dist/textAngularSetup.js',
             './bower_components/textAngular/dist/textAngular.js',
+            './bower_components/angular-ui-tree/dist/angular-ui-tree.js',
             testingIt.app+'/custom/**/*.js'
           ])
     .pipe($.concat('lib.js'))
@@ -126,6 +127,7 @@ gulp.task('lint:vendorCSS', function() {
               './bower_components/angular-bootstrap/ui-bootstrap-csp.css',
               './bower_components/bootstrap-tokenfield/dist/css/bootstrap-tokenfield.css',
               './bower_components/textAngular/dist/textAngular.css',
+              './bower_components/angular-ui-tree/dist/angular-ui-tree.css',
               testingIt.app+'/custom/**/*.css'
 		          ])
         .pipe($.concat('lib.css'))

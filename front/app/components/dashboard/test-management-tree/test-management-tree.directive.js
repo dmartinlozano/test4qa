@@ -82,6 +82,11 @@ angular.module('testingItApp')
         }
       });
 
+      //Send the tree to reorder:
+      $rootScope.$on('tpj-panel.directive:reorderTests', function($event, idToFind) {
+        $rootScope.$emit('test-management-tree.directive:reorderTests', $scope.tmTreeData);
+      });
+
 
     }],
     templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'

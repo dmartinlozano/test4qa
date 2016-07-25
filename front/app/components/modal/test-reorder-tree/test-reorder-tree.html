@@ -1,0 +1,46 @@
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content">
+    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="glyphicon"
+        ng-class="{
+          'fa fa-chevron-right': collapsed,
+          'fa fa-chevron-down': !collapsed
+        }"></span></a>
+    {{node.title}}
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes track by $index" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
+
+<div class="modal fade" tabindex="-1" role="dialog"  id="testReorderTreeModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Reorder tests</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="alert alert-danger" role="alert" ng-show="reqErr.showError">
+          <button type="button" class="close" aria-label="Close" ng-click="reqErr.showError = false">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{reqErr.message}}</pre>
+        </div>
+
+        <div id="tree-root" data-ui-tree="treeOptions">
+          <ol ui-tree-nodes ng-model="uiTree">
+            <li ng-repeat="node in uiTree track by $index" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+          </ol>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="change()" ng-disabled="tcHasChildren">Change</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
