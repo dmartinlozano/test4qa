@@ -18,7 +18,7 @@ angular.module('testingItApp')
           //Update increment of testPlan when a newTestCase is created:
           TestProjectCrudService.updateCurrentTcNumberTestProject($scope,$rootScope.currentTpj._id);
           $scope.testCase._id = returnTC._id;
-          $scope.closeModal();
+          $scope.closeModalToAdd();
         },function (res) {
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
@@ -27,7 +27,6 @@ angular.module('testingItApp')
   //service to update a field of testCase
   this.updateFieldTestCase = function($scope, id,field,newValue){
     Restangular.one("/api/testCase/field/"+id).customPOST({field:field, newValue:newValue}).then(function() {
-      //TODO mostrar mensaje de ok
     },function (res) {
       $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
     });

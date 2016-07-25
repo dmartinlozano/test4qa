@@ -48,6 +48,7 @@ angular.module('testingItApp')
         $scope.testProject.priorities = $('#newPriorities').val();
         $scope.testProject.status = $('#newStatus').val();
         TestProjectCrudService.updateTestProject($scope, $scope.testProject);
+        $rootScope.$emit('test-project-crud.directive:editTestProject', $scope.testProject);
         $scope.closeModal();
       };
 

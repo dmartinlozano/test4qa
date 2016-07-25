@@ -28,15 +28,16 @@ angular.module('testingItApp')
       });
 
       //Edit TestSuite
-      $rootScope.$on('ts-panel.directive:editTestSuite', function($event, TestSuite){
+      $rootScope.$on('ts-panel.directive:editTestSuite', function($event, testSuite){
         $scope.isNewTestSuite = false;
-        $scope.testSuite = TestSuite;
+        $scope.testSuite = testSuite;
         $('#newTSKeywords').tokenfield('setTokens', $scope.testSuite.keywords);
+        $rootScope.$emit('test-suite-crud.directive:editTestSuite', $scope.testSuite);
         $("#testSuiteAddModal").modal('show');
       });
 
       //The new TS has been added y tree must be added too:
-      $scope.closeModal = function(){
+      $scope.closeModalToAdd = function(){
           $("#TestSuiteAddModal").modal('hide');
           $rootScope.$emit('panel.controller:closeModal', $scope.testSuite, 'ts');
       };
@@ -68,6 +69,7 @@ angular.module('testingItApp')
         TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'name', $scope.testSuite.name);
         TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'description',$scope.testSuite.description);
         TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'keywords',$scope.testSuite.keywords);
+        $rootScope.$emit('test-suite-crud.directive:updateTestSuite', $scope.testSuite);
         $("#testSuiteAddModal").modal('hide');
       };
 

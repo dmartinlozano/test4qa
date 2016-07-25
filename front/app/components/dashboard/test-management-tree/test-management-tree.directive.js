@@ -72,6 +72,19 @@ angular.module('testingItApp')
   			}
       };
 
+      //Find recursively an item by id and rename it
+      $scope.renameItemInTree = function(treeData, id, newName){
+  			for (var i in treeData){
+          if (treeData[i]._id === id){
+            treeData[i].label = newName;
+          }else{
+            if (treeData[i].children != undefined && treeData[i].children.length != 0){
+    					$scope.renameItemInTree(treeData[i].children, id, newName);
+    				};
+          };
+  			};
+      };
+
       //Select a branch by id
       $rootScope.$on('test-management-find-result.directive:selectInTreeAndOpenPanel', function($event, idToFind) {
         $scope.findInTree($scope.tmTreeData,idToFind);
@@ -80,6 +93,24 @@ angular.module('testingItApp')
         }else{
           tree.select_branch($scope.nodeFound);
         }
+      });
+
+      //Rename tpj
+      $rootScope.$on('test-project-crud.directive:editTestProject', function($event, editTestProject) {
+        $scope.renameItemInTree($scope.tmTreeData, editTestProject._id, editTestProject.name);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+      });
+
+      //Rename ts
+      $rootScope.$on('test-suite-crud.directive:updateTestSuite', function($event, editTestSuite) {
+        $scope.renameItemInTree($scope.tmTreeData, editTestSuite._id, editTestSuite.name);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+      });
+
+      //Rename tc
+      $rootScope.$on('test-case-crud.directive:updateTestCase', function($event, editTestCase) {
+        $scope.renameItemInTree($scope.tmTreeData, editTestCase._id, editTestCase.name);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
       });
 
       //Send the tree to reorder:

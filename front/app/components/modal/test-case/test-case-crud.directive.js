@@ -56,7 +56,7 @@ angular.module('testingItApp')
               $("#statusDropdownMenu").find('.btn').html($scope.testCase.status + ' <span class="caret"></span>');
             }
             $('#newTCKeywords').tokenfield('setTokens', $scope.testCase.keywords);
-          }
+          };
           $("#testCaseAddModal").modal('show');
         },function (res) {
           $rootScope.$emit('alert', "The current user hasn't defined a default project");
@@ -76,7 +76,7 @@ angular.module('testingItApp')
       });
 
       //The new TS has been added y tree must be added too:
-      $scope.closeModal = function(){
+      $scope.closeModalToAdd = function(){
           $("#testCaseAddModal").modal('hide');
           $rootScope.$emit('panel.controller:closeModal', $scope.testCase, 'tc');
       };
@@ -106,6 +106,7 @@ angular.module('testingItApp')
         $scope.testCase.keywords = $('#newTCKeywords').val();
         $scope.testCase.name = tpjPrefix+"] "+$scope.testCaseName;
         TestCaseCrudService.updateTestCase($scope, $scope.testCase);
+        $rootScope.$emit('test-case-crud.directive:updateTestCase', $scope.testCase);
         $("#testCaseAddModal").modal('hide');
       };
     }],

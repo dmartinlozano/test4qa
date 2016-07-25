@@ -15,7 +15,7 @@ angular.module('testingItApp')
   this.addTestSuite = function($scope, newTS){
         Restangular.one("/api/testSuite").customPUT({newTS: newTS}).then(function(returnTS) {
           $scope.testSuite._id=returnTS._id;
-          $scope.closeModal();
+          $scope.closeModalToAdd();
         },function (res) {
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
