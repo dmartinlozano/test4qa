@@ -14,7 +14,7 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'UserService', 'TpjRolesService', 'TestProjectCrudService', 'RoleService', 'Restangular', function($scope, $rootScope, UserService, TpjRolesService, TestProjectCrudService, RoleService, Restangular) {
+    controller: ['$scope', '$rootScope', 'UserService', 'TpjRolesService', 'TestProjectCrudService', 'RoleService', 'DialogConfirmService', 'Restangular', function($scope, $rootScope, UserService, TpjRolesService, TestProjectCrudService, RoleService, DialogConfirmService, Restangular) {
 
       $scope.edit = true;
       $scope.canEdit = function() { return $scope.edit; };
@@ -88,7 +88,12 @@ angular.module('testingItApp')
 
       //Delete an user
       $scope.deleteRolesByProjects = function(rowEntity){
-        TpjRolesService.deleteRolesByProjects($scope, rowEntity.userId, rowEntity.id);
+        $scope.config = ["Are you sure?", "Do you want delete the selected user?", "Accept", "Cancel"];
+        DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
+          if (isOk){
+              TpjRolesService.deleteRolesByProjects($scope, rowEntity.userId, rowEntity.id);
+          };
+        });
       };
 
       //Open add a new users  modal

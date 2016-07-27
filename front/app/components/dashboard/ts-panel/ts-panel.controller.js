@@ -8,8 +8,8 @@
  * Controller of the testingItApp
  */
 angular.module('testingItApp')
-.controller('TsController', ['$rootScope', '$scope', '$state', 'TestSuiteCrudService',
-  function ($rootScope, $scope, $state, TestSuiteCrudService) {
+.controller('TsController', ['$rootScope', '$scope', '$state', 'TestSuiteCrudService', 'DialogConfirmService',
+  function ($rootScope, $scope, $state, TestSuiteCrudService, DialogConfirmService) {
 
     $scope.reqErr = {};
 
@@ -40,7 +40,13 @@ angular.module('testingItApp')
 
     //Delete current TestSuite
    $scope.deleteTestSuite = function(){
-     TestSuiteCrudService.deleteTestSuite($scope, $scope.testSuite._id);
+     $scope.config = ["Are you sure?", "Do you want delete the selected test case?", "Accept", "Cancel"];
+     DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
+       if (isOk){
+           TestSuiteCrudService.deleteTestSuite($scope, $scope.testSuite._id);
+       };
+     });
+
    };
 
     //Show modal to new test suite from test project

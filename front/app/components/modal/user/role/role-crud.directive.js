@@ -14,7 +14,7 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'RoleService', 'Restangular', function($scope, $rootScope, RoleService, Restangular) {
+    controller: ['$scope', '$rootScope', 'RoleService', 'Restangular', 'DialogConfirmService', function($scope, $rootScope, RoleService, Restangular, DialogConfirmService) {
 
       $scope.edit = true;
       $scope.canEdit = function() { return $scope.edit; };
@@ -50,7 +50,12 @@ angular.module('testingItApp')
 
       //Delete an user
       $scope.deleteRole = function(id){
-        RoleService.deleteRole($scope, id);
+        $scope.config = ["Are you sure?", "Do you want delete the selected user?", "Accept", "Cancel"];
+        DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
+          if (isOk){
+              RoleService.deleteRole($scope, id);
+          };
+        });
       };
 
       //Init ngGrid for users

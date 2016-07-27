@@ -8,8 +8,8 @@
  * Controller of the testingItApp
  */
 angular.module('testingItApp')
-.controller('TcController', ['$rootScope', '$scope', '$state', 'TestCaseCrudService',
-  function ($rootScope, $scope, $state, TestCaseCrudService) {
+.controller('TcController', ['$rootScope', '$scope', '$state', 'TestCaseCrudService', 'DialogConfirmService',
+  function ($rootScope, $scope, $state, TestCaseCrudService, DialogConfirmService) {
 
     $scope.reqErr = {};
 
@@ -28,7 +28,12 @@ angular.module('testingItApp')
 
     //Delete current TestCase
     $scope.deleteTestCase = function(){
-      TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
+      $scope.config = ["Are you sure?", "Do you want delete the selected test case?", "Accept", "Cancel"];
+      DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
+        if (isOk){
+              TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
+        };
+      });
     };
 
   }
