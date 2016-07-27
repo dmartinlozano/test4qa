@@ -85,6 +85,19 @@ angular.module('testingItApp')
   			};
       };
 
+      //Find recursively an item by id and delete it
+      $scope.deleteItemInTree = function(treeData, id){
+        for (var i in treeData){
+          if (treeData[i]._id === id){
+            treeData.splice(i, 1);
+          }else{
+            if (treeData[i].children != undefined && treeData[i].children.length != 0){
+    					$scope.deleteItemInTree(treeData[i].children, id);
+    				};
+          };
+  			};
+      }
+
       //Select a branch by id
       $rootScope.$on('test-management-find-result.directive:selectInTreeAndOpenPanel', function($event, idToFind) {
         $scope.findInTree($scope.tmTreeData,idToFind);
@@ -118,6 +131,30 @@ angular.module('testingItApp')
         $rootScope.$emit('test-management-tree.directive:reorderTests', $scope.tmTreeData);
       });
 
+      //////
+
+      $rootScope.$emit('test-project-crud.directive:deleteTestProject', $scope.testProject);
+      $rootScope.$emit('ts-panel.controller:deleteTestSuite', $scope.testSuite);
+      $rootScope.$emit('tc-panel.controller:deleteTestCase', $scope.testCase);
+
+
+      //Delete tpj
+      $rootScope.$on('test-project-crud.directive:deleteTestProject', function($event, deleteTestProject) {
+        $scope.deleteItemInTree($scope.tmTreeData, deleteTestProject._id);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+      });
+
+      //Delete tpj
+      $rootScope.$on('ts-panel.controller:deleteTestSuite', function($event, deleteTestSuite) {
+        $scope.deleteItemInTree($scope.tmTreeData, deleteTestSuite._id);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+      });
+
+      //Delete tpj
+      $rootScope.$on('tc-panel.controller:deleteTestCase', function($event, deleteTestCase) {
+        $scope.deleteItemInTree($scope.tmTreeData, deleteTestCase._id);
+        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+      });
 
     }],
     templateUrl: 'views/dashboard/test-management-tree/test-management-tree.html'

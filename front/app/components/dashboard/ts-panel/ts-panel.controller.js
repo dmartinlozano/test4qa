@@ -44,6 +44,7 @@ angular.module('testingItApp')
      DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
        if (isOk){
            TestSuiteCrudService.deleteTestSuite($scope, $scope.testSuite._id);
+           $rootScope.$emit('ts-panel.controller:deleteTestSuite', $scope.testSuite);
        };
      });
 

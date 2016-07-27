@@ -7,6 +7,8 @@
                 <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Test project <span class="caret"></span></a>
                 <ul class="dropdown-menu navbar-dopdown-menu" >
                   <li ng-repeat="project in testProjects"><a ng-click="changeProject(project._id)">{{project.prefix}}: {{project.name}}</a></li>
+                  <li class="divider"></li>
+                  <li><a ng-click="newTestProject()"><i class="fa fa-folder" aria-hidden="true"></i>  New Test project</a></li>
                 </ul>
               </li>
               <li>

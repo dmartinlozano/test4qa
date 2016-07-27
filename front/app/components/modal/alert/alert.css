@@ -1,0 +1,9 @@
+.modal-header {
+   background:#0480be;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.modal-title{
+  color: white;
+}

@@ -19,6 +19,11 @@ angular.module('testingItApp')
     $scope.changeProject = function(projectId){
         $rootScope.$emit('navbar.controler:changeProject', projectId);
     }
+    
+    //Show modal to new test project
+    $scope.newTestProject = function(){
+        $rootScope.$emit('tpj-panel.directive:newTestProject');
+    };
 
     //Open generic modal by name from navbar
     $scope.openModal = function(modalName){

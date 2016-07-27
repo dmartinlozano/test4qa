@@ -55,6 +55,7 @@ angular.module('testingItApp')
               Restangular.one("/api/me").get().then(function(user) {
                 $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
                 $rootScope.$emit('navbar.controler:changeProject', user.defaultTestProject);
+                $rootScope.$emit('test-project-crud.directive:deleteTestProject', $scope.testProject);
               });
           };
         });

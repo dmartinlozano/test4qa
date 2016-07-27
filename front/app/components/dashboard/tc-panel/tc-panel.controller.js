@@ -31,7 +31,8 @@ angular.module('testingItApp')
       $scope.config = ["Are you sure?", "Do you want delete the selected test case?", "Accept", "Cancel"];
       DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
         if (isOk){
-              TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
+          TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
+          $rootScope.$emit('tc-panel.controller:deleteTestCase', $scope.testCase);
         };
       });
     };
