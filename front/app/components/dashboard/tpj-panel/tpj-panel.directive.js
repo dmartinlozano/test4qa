@@ -14,7 +14,7 @@ angular.module('testingItApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'TestProjectCrudService', 'Restangular', function($scope, $rootScope, TestProjectCrudService, Restangular) {
+    controller: ['$scope', '$rootScope', 'TestProjectCrudService', 'Restangular', '$uibModal', function($scope, $rootScope, TestProjectCrudService, Restangular, $uibModal) {
 
       //show panel of tpj
       $rootScope.$on('test-management-tree.directive:branch-tpj', function($event) {
@@ -46,12 +46,38 @@ angular.module('testingItApp')
 
       //Delete a test project
       $scope.deleteTestProject = function(){
-        TestProjectCrudService.deleteTestProject($scope, $rootScope.selectedBranch._id);
-        Restangular.one("/api/me").get().then(function(user) {
-          $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
-          $rootScope.$emit('navbar.controler:changeProject', user.defaultTestProject);
+
+//TODO: working. Try with a promise in a service
+//See: https://carlosazaustre.es/blog/uso-de-promesas-en-angularjs/
+
+        //Dialog config
+        $scope.config = ["titulo", "texto", "Aceptar", "Cancelar"];
+        var modalInstance = $uibModal.open({
+          templateUrl: 'views/modal/dialog-confirm/dialog-confirm.html',
+          controller: 'DialogConfirmController',
+          size: "sm",
+          resolve: {
+            config: function () {
+              return $scope.config;
+            }
+          }
+        });
+        modalInstance.result.then(function (isOk) {
+          if (isOk){
+
+              TestProjectCrudService.deleteTestProject($scope, $rootScope.selectedBranch._id);
+              Restangular.one("/api/me").get().then(function(user) {
+                $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
+                $rootScope.$emit('navbar.controler:changeProject', user.defaultTestProject);
+              });
+
+          };
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
         });
       };
+
+
 
       //Show modal to reorder tree of test manager
       $scope.reorderTests = function(){

@@ -19,7 +19,8 @@
     "typeahead.js": "*",
     "bootstrap-tokenfield": "*",
     "textAngular": "*",
-    "angular-ui-tree": "*"
+    "angular-ui-tree": "*",
+    "angular-bootstrap": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",
