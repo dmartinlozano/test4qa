@@ -8,7 +8,11 @@
  * Directive of the test4qaApp
  */
 angular.module('test4qaApp')
-.directive('permissions', ['$rootScope', 'Restangular', function($rootScope, Restangular) {
+.directive('permissions', function($rootScope, Restangular, PermissionsService) {
+
+  var permissions = {};
+  permissions.tpjId = undefined;
+  permissions.components = [];
 
   //Function to load a permission from the current user, current pjt, and a component
   var loadPermissions = function($scope, element, attributes){
@@ -19,15 +23,32 @@ angular.module('test4qaApp')
         tpjId = $rootScope.currentTpj._id;
       }
     }
-    Restangular.one("/api/permission/"+tpjId+"/"+component).get().then(function(permission) {
-      if (permission === true){
+
+    //Check first in cache:
+    if (permissions.tpjId == undefined || permissions.tpjId !== tpjId){
+      permissions.tpjId = tpjId;
+    }
+    if (permissions.components[component] !== undefined){
+      if (permissions.components[component] === true){
         element.show();
       }else{
         element.hide();
       }
-    },function (res) {
-        $rootScope.$emit('alert', "The current user hasn't defined a default project");
-    });
+    }else{
+      //permission not stored in cache.
+      PermissionsService.getPermissions(permissions.tpjId, component)
+      .then(function(permission){
+        if (permission === true){
+          permissions.components[component] = true;
+          element.show();
+        }else{
+          permissions.components[component] = false;
+          element.hide();
+        }
+      }).catch(function(res){
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
+    }
   };
 
 
@@ -55,4 +76,4 @@ angular.module('test4qaApp')
     restrict: "A",
     link: link
   });
-}]);
+});

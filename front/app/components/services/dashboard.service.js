@@ -9,7 +9,7 @@
  */
 angular.module('test4qaApp')
 
-.service('DashboardService', ['Restangular', '$rootScope', '$state', function(Restangular, $rootScope, $state) {
+.service('DashboardService', function(Restangular, $rootScope, $state) {
 
 
   //return tmTreeData of defaultTestProject of user
@@ -53,4 +53,4 @@ angular.module('test4qaApp')
         $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
       });
     });
- }]);
+ });
