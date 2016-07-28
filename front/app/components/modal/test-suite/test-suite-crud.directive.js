@@ -59,16 +59,32 @@ angular.module('test4qaApp')
         $scope.testSuite.keywords = $('#newTSKeywords').val();
         $scope.testSuite.parent = $rootScope.selectedBranch._id;
         $scope.testSuite.tpjId = $rootScope.currentTpj._id;
-        TestSuiteCrudService.addTestSuite($scope, $scope.testSuite);
+
+        TestSuiteCrudService.addTestSuite($scope.testSuite).then(function(returnTS){
+          $scope.testSuite._id = returnTS._id;
+          $scope.closeModalToAdd();
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $("#testSuiteAddModal").modal('hide');
       };
 
       //Edit TestSuite
       $scope.updateTestSuite = function(){
         $scope.testSuite.keywords = $('#newTSKeywords').val();
-        TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'name', $scope.testSuite.name);
-        TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'description',$scope.testSuite.description);
-        TestSuiteCrudService.updateTestSuite($scope, $scope.testSuite._id, 'keywords',$scope.testSuite.keywords);
+        TestSuiteCrudService.updateTestSuite( $scope.testSuite._id, 'name', $scope.testSuite.name)
+          .then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+        TestSuiteCrudService.updateTestSuite($scope.testSuite._id, 'description',$scope.testSuite.description)
+          .then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+        TestSuiteCrudService.updateTestSuite($scope.testSuite._id, 'keywords',$scope.testSuite.keywords)
+          .then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+
         $rootScope.$emit('test-suite-crud.directive:updateTestSuite', $scope.testSuite);
         $("#testSuiteAddModal").modal('hide');
       };

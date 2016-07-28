@@ -55,7 +55,10 @@ angular.module('test4qaApp')
           children: []
         });
         tree.expand_branch();
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Find recursively an item by id
@@ -111,19 +114,28 @@ angular.module('test4qaApp')
       //Rename tpj
       $rootScope.$on('test-project-crud.directive:editTestProject', function($event, editTestProject) {
         $scope.renameItemInTree($scope.tmTreeData, editTestProject._id, editTestProject.name);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Rename ts
       $rootScope.$on('test-suite-crud.directive:updateTestSuite', function($event, editTestSuite) {
         $scope.renameItemInTree($scope.tmTreeData, editTestSuite._id, editTestSuite.name);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Rename tc
       $rootScope.$on('test-case-crud.directive:updateTestCase', function($event, editTestCase) {
         $scope.renameItemInTree($scope.tmTreeData, editTestCase._id, editTestCase.name);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Send the tree to reorder:
@@ -134,19 +146,28 @@ angular.module('test4qaApp')
       //Delete tpj
       $rootScope.$on('test-project-crud.directive:deleteTestProject', function($event, deleteTestProject) {
         $scope.deleteItemInTree($scope.tmTreeData, deleteTestProject._id);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Delete tpj
       $rootScope.$on('ts-panel.controller:deleteTestSuite', function($event, deleteTestSuite) {
         $scope.deleteItemInTree($scope.tmTreeData, deleteTestSuite._id);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Delete tpj
       $rootScope.$on('tc-panel.controller:deleteTestCase', function($event, deleteTestCase) {
         $scope.deleteItemInTree($scope.tmTreeData, deleteTestCase._id);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData));
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, JSON.stringify($scope.tmTreeData))
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
     }],

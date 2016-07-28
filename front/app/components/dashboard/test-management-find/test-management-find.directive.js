@@ -15,11 +15,15 @@ angular.module('test4qaApp')
       type: '@',
     },
     controller: ['$scope', '$rootScope', 'FindService', function($scope, $rootScope, FindService) {
-      
+
       $scope.toFindInTmTree = "";
 
       $scope.findInTmTree = function(){
-        FindService.find($scope, $scope.toFindInTmTree);
+        FindService.findInTmTree($scope.toFindInTmTree).then(function(findResults){
+          $rootScope.$emit('test-management-find.service:find', $scope.toFindInTmTree, findResults);
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       $scope.collapseTmTree = function(){

@@ -13,7 +13,11 @@ angular.module('test4qaApp')
     $scope.reqErr = {};
 
     //Init webComponent with the list of projects
-    TestProjectCrudService.getAllProjects($scope);
+    TestProjectCrudService.getAllProjects().then(function(testProjects){
+      $scope.testProjects = testProjects;
+    }).catch(function(res){
+      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+    });
 
     //Change current project
     $scope.changeProject = function(projectId){
@@ -32,7 +36,11 @@ angular.module('test4qaApp')
 
     //TestProject management modal is closed, update the projects
     $rootScope.$on('test-project-crud.directive:hidden.bs.modal', function() {
-      TestProjectCrudService.getAllProjects($scope);
+      TestProjectCrudService.getAllProjects().then(function(testProjects){
+        $scope.testProjects = testProjects;
+      }).catch(function(res){
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
     });
 
     //return if exists unread alerts

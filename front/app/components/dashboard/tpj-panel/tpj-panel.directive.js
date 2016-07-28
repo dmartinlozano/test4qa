@@ -21,7 +21,11 @@ angular.module('test4qaApp')
         $('#tpjPanel').show();
         $('#tsPanel').hide();
         $('#tcPanel').hide();
-        TestProjectCrudService.getTestProject($scope, $rootScope.selectedBranch._id);
+        TestProjectCrudService.getTestProject($rootScope.selectedBranch._id).then(function(testProject){
+          $scope.testProject = testProject;
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Show modal to new test project
@@ -51,7 +55,12 @@ angular.module('test4qaApp')
         $scope.config = ["Are you sure?", "Do you want delete the selected test project?", "Accept", "Cancel"];
         DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
           if (isOk){
-              TestProjectCrudService.deleteTestProject($scope, $rootScope.selectedBranch._id);
+              TestProjectCrudService.deleteTestProject($scope, $rootScope.selectedBranch._id).
+              then(function(){})
+              .catch(function(res){
+                $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+              });
+
               Restangular.one("/api/me").get().then(function(user) {
                 $rootScope.$emit('test-project-crud.directive:hidden.bs.modal');
                 $rootScope.$emit('navbar.controler:changeProject', user.defaultTestProject);

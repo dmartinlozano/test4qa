@@ -21,12 +21,20 @@ angular.module('test4qaApp')
 
       //Init ui-grid when tab is selected
       $rootScope.$on('user-management.directive:shown.bs.modal', function() {
-      //$rootScope.$on('user-management.directive:changeTab', function(event, tab) {
-      //  if (tab === "tpjRoles"){
           $scope.userRolesTpj = [];
-          TpjRolesService.getRolesByProjects($scope, $scope.userRoleTpjGridOptions);
-          TestProjectCrudService.getAllProjects($scope);
-          TestProjectCrudService.getAllProjectsForDropDown(3, $scope.userRoleTpjGridOptions);
+
+          TpjRolesService.getRolesByProjects($scope.userRoleTpjGridOptions).then(function(userRolesTpj){
+            $scope.userRolesTpj = userRolesTpj;
+          }).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+
+          TestProjectCrudService.getAllProjects().then(function(testProjects){
+            $scope.testProjects = testProjects;
+            $scope.userRoleTpjGridOptions.columnDefs[3].editDropdownOptionsArray = testProjects;
+          }).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
 
           //Get roles
           RoleService.getAllRoles().then(function(roles){
@@ -96,7 +104,11 @@ angular.module('test4qaApp')
       //when the table is editing
       $scope.userRoleTpjGridOptions.onRegisterApi = function(gridApi) {
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            TpjRolesService.updateRolesByProjects($scope,rowEntity.userId, rowEntity.id, colDef.field, newValue);
+            TpjRolesService.updateRolesByProjects(rowEntity.userId, rowEntity.id, colDef.field, newValue)
+              .then(function(){})
+              .catch(function(res){
+                  $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+              });
         });
       };
 
@@ -105,7 +117,17 @@ angular.module('test4qaApp')
         $scope.config = ["Are you sure?", "Do you want delete the selected user?", "Accept", "Cancel"];
         DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
           if (isOk){
-              TpjRolesService.deleteRolesByProjects($scope, rowEntity.userId, rowEntity.id);
+              TpjRolesService.deleteRolesByProjects(rowEntity.userId, rowEntity.id)
+                .then(function(){}).catch(function(res){
+                  $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+                });
+
+              TpjRolesService.getRolesByProjects($scope.userRoleTpjGridOptions).then(function(userRolesTpj){
+                $scope.userRolesTpj = userRolesTpj;
+              }).catch(function(res){
+                $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+              });
+
           };
         });
       };
@@ -133,9 +155,21 @@ angular.module('test4qaApp')
 
       //Load test projects for dropdown
       $('#userTpjRoleAddModal').on('shown.bs.modal', function() {
-        UserService.getAllUsers($scope);
-        TestProjectCrudService.getAllProjects($scope);
-
+        //Show users is combo
+        UserService.getAllUsers()
+        .then(function(users){
+          $scope.users = users;
+        })
+        .catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+        //Show test projects in combo
+        TestProjectCrudService.getAllProjects().then(function(testProjects){
+          $scope.testProjects = testProjects;
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+        //Show roles in combo
         RoleService.getAllRoles().then(function(roles){
           $scope.roles = roles;
         }).catch(function(res){
@@ -151,7 +185,11 @@ angular.module('test4qaApp')
 
       //A new user
       $scope.addUserTpjRole = function(){
-        TpjRolesService.addUserTpjRole($scope, $scope.newUserTpjRole);
+        TpjRolesService.addUserTpjRole($scope, $scope.newUserTpjRole).then(function(){
+          $scope.closeModal();
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       //Close current modal and show userModal

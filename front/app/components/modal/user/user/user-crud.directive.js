@@ -23,9 +23,20 @@ angular.module('test4qaApp')
       $rootScope.$on('user-management.directive:shown.bs.modal', function() {
         $scope.users = [];
         //To read in a combo in ng-grid
-        UserService.getAllUsers($scope);
-        TestProjectCrudService.getAllProjects($scope);
-        TestProjectCrudService.getAllProjectsForDropDown(5, $scope.userCrudGridOptions);
+        UserService.getAllUsers()
+        .then(function(users){
+          $scope.users = users;
+        })
+        .catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
+
+        TestProjectCrudService.getAllProjects().then(function(testProjects){
+          $scope.testProjects = testProjects;
+          $scope.userCrudGridOptions.columnDefs[4].editDropdownOptionsArray = testProjects;
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $scope.loadPermissions($scope.userCrudGridOptions);
         window.setTimeout(function(){
           $(window).resize();
@@ -57,7 +68,16 @@ angular.module('test4qaApp')
         $scope.config = ["Are you sure?", "Do you want delete the selected user?", "Accept", "Cancel"];
         DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
           if (isOk){
-              UserService.deleteUser($scope, entity._id);
+              UserService.deleteUser(entity._id).then(function(){}).catch(function(res){
+                $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+                UserService.getAllUsers()
+                .then(function(users){
+                  $scope.users = users;
+                })
+                .catch(function(res){
+                  $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+                });
+              });
           };
         });
       };
@@ -84,7 +104,11 @@ angular.module('test4qaApp')
       //when the table is editing
       $scope.userCrudGridOptions.onRegisterApi = function(gridApi) {
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            UserService.updateUser($scope,rowEntity._id,colDef.field,newValue);
+            UserService.updateUser($scope,rowEntity._id,colDef.field,newValue)
+            .then(function(){})
+            .catch(function(res){
+              $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+            });
         });
       };
 
@@ -115,7 +139,13 @@ angular.module('test4qaApp')
 
       //A new user
       $scope.addUser = function(){
-        UserService.addUser($scope, $scope.newUser);
+        UserService.addUser($scope.newUser)
+        .then(function(){
+          $scope.closeModal();
+        })
+        .catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       //Close current modal and show userModal
@@ -126,7 +156,11 @@ angular.module('test4qaApp')
 
       //Load test projects for dropdown
       $('#userAddModal').on('shown.bs.modal', function() {
-        TestProjectCrudService.getAllProjects($scope);
+        TestProjectCrudService.getAllProjects().then(function(testProjects){
+          $scope.testProjects = testProjects;
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       });
 
       //Store de selected project

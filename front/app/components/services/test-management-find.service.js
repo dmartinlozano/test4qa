@@ -8,16 +8,18 @@
  * Servie of the test4qaApp
  */
 angular.module('test4qaApp')
-.service('FindService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
+.service('FindService', function(Restangular, $q, $rootScope) {
 
   //service to find
-  this.find = function($scope, searchString){
+  this.findInTmTree = function(searchString){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/find/" + $rootScope.currentTpj._id).customPOST({searchString:searchString}).then(function(findResults) {
-      $rootScope.$emit('test-management-find.service:find', searchString, findResults);
-      //TODO es recibido en un componente que tiene que dibujar un modal con el resultado
+      defered.resolve(findResults);
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
+    return promise;
   };
 
- }]);
+ });

@@ -18,7 +18,11 @@ angular.module('test4qaApp')
       $('#tpjPanel').hide();
       $('#tsPanel').hide();
       $('#tcPanel').show();
-      TestCaseCrudService.getTestCase($scope, $rootScope.selectedBranch._id);
+      TestCaseCrudService.getTestCase($rootScope.selectedBranch._id).then(function(testCase){
+        $scope.testCase = testCase;
+      }).catch(function(res){
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
     });
 
     //Edit current TestCase
@@ -31,7 +35,9 @@ angular.module('test4qaApp')
       $scope.config = ["Are you sure?", "Do you want delete the selected test case?", "Accept", "Cancel"];
       DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
         if (isOk){
-          TestCaseCrudService.deleteTestCase($scope, $scope.testCase._id);
+          TestCaseCrudService.deleteTestCase($scope.testCase._id).then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
           $rootScope.$emit('tc-panel.controller:deleteTestCase', $scope.testCase);
         };
       });

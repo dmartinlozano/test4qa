@@ -18,7 +18,13 @@ angular.module('test4qaApp')
       $('#tpjPanel').hide();
       $('#tsPanel').show();
       $('#tcPanel').hide();
-      TestSuiteCrudService.getTestSuite($scope, $rootScope.selectedBranch._id);
+      TestSuiteCrudService.getTestSuite($rootScope.selectedBranch._id)
+      .then(function(testSuite){
+        $scope.testSuite = testSuite;
+      })
+      .catch(function(res){
+        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      });
     });
 
     var newTsEngine = new Bloodhound({
@@ -43,7 +49,11 @@ angular.module('test4qaApp')
      $scope.config = ["Are you sure?", "Do you want delete the selected test case?", "Accept", "Cancel"];
      DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
        if (isOk){
-           TestSuiteCrudService.deleteTestSuite($scope, $scope.testSuite._id);
+           TestSuiteCrudService.deleteTestSuite($scope.testSuite._id)
+            .then(function(){})
+            .catch(function(res){
+              $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+            });
            $rootScope.$emit('ts-panel.controller:deleteTestSuite', $scope.testSuite);
        };
      });

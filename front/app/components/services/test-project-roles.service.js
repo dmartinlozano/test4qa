@@ -9,50 +9,57 @@
  */
 angular.module('test4qaApp')
 
-.service('TpjRolesService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
+.service('TpjRolesService', function(Restangular, $rootScope, $q) {
 
 
   //Return all user-roles-tpj
   this.getRolesByProjects = function($scope){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.all("/api/userRolesTpj").getList().then(function(userRolesTpj) {
-      $scope.userRolesTpj = userRolesTpj;
+      defered.resolve(userRolesTpj);
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
+    return promise;
   };
 
   //Update user-roles-tpj
-  this.updateRolesByProjects = function($scope, idUser, idTpjRole, field, newValue){
+  this.updateRolesByProjects = function(idUser, idTpjRole, field, newValue){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/userRolesTpj/"+idUser+"/"+idTpjRole).customPOST({field:field, newValue:newValue}).then(function() {
-      //TODO mostrar mensaje de ok
+      defered.resolve();
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.resolve();
     });
+    return promise;
   };
 
 
   //Update user-roles-tpj
   this.deleteRolesByProjects = function($scope, idUser, idTpjRole){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/userRolesTpj/"+idUser+"/"+idTpjRole).remove().then(function() {
-      $scope.userRolesTpj = [];
-      Restangular.all("/api/userRolesTpj").getList().then(function(userRolesTpj) {
-        $scope.userRolesTpj = userRolesTpj;
-      },function (res) {
-        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
-      });
+      defered.resolve();
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.resolve();
     });
+    return promise;
   };
 
   //add user-roles-tpj
   this.addUserTpjRole = function($scope, newUserTpjRole){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/userRolesTpj").customPUT({newUserTpjRole: newUserTpjRole}).then(function() {
-      $scope.closeModal();
+      defered.resolve();
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.resolve();
     });
+    return promise;
   };
 
 
- }]);
+ });

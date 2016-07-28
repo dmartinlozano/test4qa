@@ -37,7 +37,10 @@ angular.module('test4qaApp')
       //Delete step
       $scope.deleteStep = function(index){
         $scope.testCase.steps.splice(index, 1);
-        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase($scope.testCase._id,'steps',$scope.testCase.steps).
+        then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       }
 
       //Up step
@@ -45,7 +48,10 @@ angular.module('test4qaApp')
         var previousPred = $scope.testCase.steps[index - 1];
         $scope.testCase.steps[index -1] = $scope.testCase.steps[index];
         $scope.testCase.steps[index] =previousPred;
-        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase($scope.testCase._id,'steps',$scope.testCase.steps).
+        then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       }
 
       //Down step
@@ -53,7 +59,10 @@ angular.module('test4qaApp')
         var nextPred = $scope.testCase.steps[index + 1];
         $scope.testCase.steps[index + 1] = $scope.testCase.steps[index];
         $scope.testCase.steps[index] = nextPred;
-        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase($scope.testCase._id,'steps',$scope.testCase.steps).
+        then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       }
 
     }],

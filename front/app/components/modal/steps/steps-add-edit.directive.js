@@ -40,7 +40,10 @@ angular.module('test4qaApp')
           //Edit step
           $scope.testCase.steps[$scope.index] = $scope.step;
         }
-        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'steps',$scope.testCase.steps);
+        TestCaseCrudService.updateFieldTestCase($scope.testCase._id,'steps',$scope.testCase.steps).
+        then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $('#stepsAddEditModal').modal('hide');
       }
 

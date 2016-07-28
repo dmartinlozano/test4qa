@@ -18,8 +18,6 @@ angular.module('test4qaApp')
 
       $scope.isNewTestCase = true;
       $scope.testCase = {};
-      $scope.testCaseName; //only in edit mode. Is $scope.testCase.name without tpj prefix
-      var tpjPrefix; //onlin in edit mode. Store the tpj prefix
 
       //New test case
       $rootScope.$on('tpj-panel.directive:newTestCase', function($event, parentId){
@@ -32,8 +30,6 @@ angular.module('test4qaApp')
       $rootScope.$on('tc-panel.directive:editTestCase', function($event, testCase){
         $scope.isNewTestCase = false;
         $scope.testCase = testCase;
-        tpjPrefix = $scope.testCase.name.split("] ")[0];
-        $scope.testCaseName = $scope.testCase.name.split("] ")[1];
         fillPrioritiesAndStatus();
       });
 
@@ -98,14 +94,20 @@ angular.module('test4qaApp')
         $scope.testCase.keywords = $('#newTCKeywords').val();
         $scope.testCase.parent = $rootScope.selectedBranch._id;
         $scope.testCase.tpjId = $rootScope.currentTpj._id;
-        TestCaseCrudService.addTestCase($scope, $scope.testCase);
+        TestCaseCrudService.addTestCase($scope.testCase).then(function(returnTC){
+          $scope.testCase._id = returnTC._id;
+          $scope.closeModalToAdd();
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       //Edit TestCase
       $scope.updateTestCase = function(){
         $scope.testCase.keywords = $('#newTCKeywords').val();
-        $scope.testCase.name = tpjPrefix+"] "+$scope.testCaseName;
-        TestCaseCrudService.updateTestCase($scope, $scope.testCase);
+        TestCaseCrudService.updateTestCase($scope.testCase).then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $rootScope.$emit('test-case-crud.directive:updateTestCase', $scope.testCase);
         $("#testCaseAddModal").modal('hide');
       };

@@ -40,7 +40,10 @@ angular.module('test4qaApp')
           //Edit precondition
           $scope.testCase.preconditions[$scope.index] = $scope.precondition;
         }
-        TestCaseCrudService.updateFieldTestCase ($scope, $scope.testCase._id,'preconditions',$scope.testCase.preconditions);
+        TestCaseCrudService.updateFieldTestCase($scope.testCase._id,'preconditions',$scope.testCase.preconditions).
+        then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $('#preconditionsAddEditModal').modal('hide');
       }
 

@@ -40,14 +40,20 @@ angular.module('test4qaApp')
       $scope.addTestProject = function(){
         $scope.testProject.priorities = $('#newPriorities').val();
         $scope.testProject.status = $('#newStatus').val();
-        TestProjectCrudService.addTestProject($scope, $scope.testProject);
+        TestProjectCrudService.addTestProject($scope, $scope.testProject).then(function(){
+          $scope.closeModal();
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       //Edit test project
       $scope.editTestProject = function(){
         $scope.testProject.priorities = $('#newPriorities').val();
         $scope.testProject.status = $('#newStatus').val();
-        TestProjectCrudService.updateTestProject($scope, $scope.testProject);
+        TestProjectCrudService.updateTestProject($scope.testProject).then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $rootScope.$emit('test-project-crud.directive:editTestProject', $scope.testProject);
         $scope.closeModal();
       };

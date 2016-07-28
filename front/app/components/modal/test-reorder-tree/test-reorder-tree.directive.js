@@ -68,7 +68,7 @@ angular.module('test4qaApp')
                $scope.tcHasChildren = false;
                $scope.reqErr.showError = false;
                $scope.checkIfTCHasChildren($scope.uiTree );
-               if ($Scope.uiTree[0].type !== 'tpj'){
+               if ($scope.uiTree[0].type !== 'tpj'){
                  $scope.reqErr.showError = true;
                  $scope.reqErr.message = "The first node must be the test project";
                  $scope.tcHasChildren = true;
@@ -82,7 +82,10 @@ angular.module('test4qaApp')
         $scope.fixUid($scope.uiTree);
         var abnTreeString = JSON.stringify($scope.uiTree).replaceAll('"title"','"label"').replaceAll('"id"','"_id"').replaceAll('"nodes"','"children"');
         $rootScope.$emit('dashboard.service:tmTreeData', abnTreeString);
-        TestProjectCrudService.updateTmTreeDataTestProject($scope, $rootScope.currentTpj._id, abnTreeString);
+        TestProjectCrudService.updateTmTreeDataTestProject($rootScope.currentTpj._id, abnTreeString)
+        .then(function(){}).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
         $('#testReorderTreeModal').modal('hide');
       };
 
