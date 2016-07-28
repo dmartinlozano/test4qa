@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:navbar
+ * @name test4qaApp.controller:navbar
  * @description
  * # navbar
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('navbar', function() {
   return {
     restrict: 'E',

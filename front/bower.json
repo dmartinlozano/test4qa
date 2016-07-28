@@ -1,5 +1,5 @@
 {
-  "name": "appokinar",
+  "name": "test4qa",
   "version": "0.0.0",
   "dependencies": {
     "angular": "*",
@@ -19,13 +19,15 @@
     "typeahead.js": "*",
     "bootstrap-tokenfield": "*",
     "textAngular": "*",
-    "angular-ui-tree": "*",
-    "angular-bootstrap": "*"
+    "angular-ui-tree": "*"
   },
   "devDependencies": {
     "angular-mocks": "*",
     "platform.js": "platform#^1.3.1"
   },
   "appPath": "app",
-  "moduleName": "testingItApp"
+  "moduleName": "test4qaApp",
+  "resolutions": {
+    "angular": "1.5.8"
+  }
 }

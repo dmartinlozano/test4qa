@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:TsController
+ * @name test4qaApp.controller:TsController
  * @description
  * # TsController
- * Controller of the testingItApp
+ * Controller of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .controller('TcController', ['$rootScope', '$scope', '$state', 'TestCaseCrudService', 'DialogConfirmService',
   function ($rootScope, $scope, $state, TestCaseCrudService, DialogConfirmService) {
 

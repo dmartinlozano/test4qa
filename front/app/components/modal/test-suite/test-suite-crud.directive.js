@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:testManagementFind
+ * @name test4qaApp.directive:testManagementFind
  * @description
  * # testManagementFind
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('testSuiteCrudAdd', function() {
   return {
     restrict: 'E',

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:userManagementCrud
+ * @name test4qaApp.directive:userManagementCrud
  * @description
  * # userManagementCrud
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('userManagementCrud', function() {
   return {
     restrict: 'E',

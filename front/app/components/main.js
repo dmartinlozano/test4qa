@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:MainCtrl
+ * @name test4qaApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the testingItApp
+ * Controller of the test4qaApp
  */
-angular.module('testingItApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'ngSanitize', 'restangular', 'environment', 'restangular', 'angularBootstrapNavTree', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'textAngular', 'ui.tree', 'ui.bootstrap'])
+angular.module('test4qaApp', [ 'ngAnimate', 'ngCookies', 'ngResource', 'ui.router', 'ngSanitize', 'restangular', 'environment', 'restangular', 'angularBootstrapNavTree', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'textAngular', 'ui.tree', 'ui.bootstrap'])
   .config(['$stateProvider', '$urlRouterProvider', 'envServiceProvider',
     function($stateProvider, $urlRouterProvider, envServiceProvider) {
       //$translateProvider.useLoader('langLoader');

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:DashBoardController
+ * @name test4qaApp.controller:DashBoardController
  * @description
  * # DashBoardController
- * Controller of the testingItApp
+ * Controller of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .controller('DashBoardController', ['$rootScope', '$scope', 'DashboardService', '$state',
   function ($rootScope, $scope, DashboardService, $state) {
 

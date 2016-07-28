@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.service:RoleService
+ * @name test4qaApp.service:RoleService
  * @description
  * # RoleService
- * Service of the testingItApp
+ * Service of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 
 .service('RoleService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
 

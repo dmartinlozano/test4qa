@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.service:FindService
+ * @name test4qaApp.service:FindService
  * @description
  * # FindService
- * Servie of the testingItApp
+ * Servie of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .service('FindService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
 
   //service to find

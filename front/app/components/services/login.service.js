@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.service:LoginService
+ * @name test4qaApp.service:LoginService
  * @description
  * # LoginService
- * Servie of the testingItApp
+ * Servie of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 
 .service('LoginService', function(Restangular, $state, $q) {
 

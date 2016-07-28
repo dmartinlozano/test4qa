@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.filter:testProjectsFilter
+ * @name test4qaApp.filter:testProjectsFilter
  * @description
  * # testProjectsFilter
- * filter of the testingItApp
+ * filter of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 //In user management, the dropdown show the name of testProjects:
 .filter('testProjectsFilter', function () {
     return function (input, map) {

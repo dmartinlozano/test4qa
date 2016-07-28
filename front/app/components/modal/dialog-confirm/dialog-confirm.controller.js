@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.controller:DialogConfirmController
+ * @name test4qaApp.controller:DialogConfirmController
  * @description
  * # DialogConfirmController
- * Controller of the testingItApp
+ * Controller of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .controller('DialogConfirmController', ['$scope', '$uibModalInstance', 'config',
 function ($scope, $uibModalInstance, config) {
 

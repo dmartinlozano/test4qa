@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:preconditions
+ * @name test4qaApp.directive:preconditions
  * @description
  * # preconditions
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('permissions', ['$rootScope', 'Restangular', function($rootScope, Restangular) {
 
   //Function to load a permission from the current user, current pjt, and a component

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:usersCrud
+ * @name test4qaApp.directive:usersCrud
  * @description
  * # usersCrud
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('tpjRolesCrud', function() {
   return {
     restrict: 'E',

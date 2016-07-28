@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.service:DashboardService
+ * @name test4qaApp.service:DashboardService
  * @description
  * # DashboardService
- * Servie of the testingItApp
+ * Servie of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 
 .service('TestCaseCrudService', ['Restangular', '$rootScope', 'TestProjectCrudService', function(Restangular, $rootScope, TestProjectCrudService) {
 

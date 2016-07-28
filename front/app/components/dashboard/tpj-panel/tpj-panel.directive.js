@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:test-management-tree
+ * @name test4qaApp.directive:test-management-tree
  * @description
  * # test-management-tree
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('tpjPanel', function() {
   return {
     restrict: 'E',

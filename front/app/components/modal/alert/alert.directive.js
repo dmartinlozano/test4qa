@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name testingItApp.directive:alert
+ * @name test4qaApp.directive:alert
  * @description
  * # alert
- * Directive of the testingItApp
+ * Directive of the test4qaApp
  */
-angular.module('testingItApp')
+angular.module('test4qaApp')
 .directive('alert', function() {
   return {
     restrict: 'E',
