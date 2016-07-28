@@ -27,8 +27,22 @@ angular.module('test4qaApp')
           TpjRolesService.getRolesByProjects($scope, $scope.userRoleTpjGridOptions);
           TestProjectCrudService.getAllProjects($scope);
           TestProjectCrudService.getAllProjectsForDropDown(3, $scope.userRoleTpjGridOptions);
-          RoleService.getAllRoles($scope);
-          RoleService.getAllRolesForDropDown(4, $scope.userRoleTpjGridOptions);
+
+          //Get roles
+          RoleService.getAllRoles().then(function(roles){
+            $scope.roles = roles;
+          }).catch(function(res){
+            $rootScope.$emit('alert', "The current user hasn't defined a default project");
+          });
+
+          //Get roles by dropdowns
+          RoleService.getAllRoles().then(function(roles){
+            $scope.userRoleTpjGridOptions.columnDefs[4].editDropdownOptionsArray = roles;
+          }).catch(function(res){
+            $rootScope.$emit('alert', "The current user hasn't defined a default project");
+          });
+
+
           $scope.loadPermissions($scope.userRoleTpjGridOptions);
           window.setTimeout(function(){
             $(window).resize();
@@ -121,7 +135,12 @@ angular.module('test4qaApp')
       $('#userTpjRoleAddModal').on('shown.bs.modal', function() {
         UserService.getAllUsers($scope);
         TestProjectCrudService.getAllProjects($scope);
-        RoleService.getAllRoles($scope);
+
+        RoleService.getAllRoles().then(function(roles){
+          $scope.roles = roles;
+        }).catch(function(res){
+          $rootScope.$emit('alert', "The current user hasn't defined a default project");
+        });
 
         $scope.newUserTpjRole = {};
         $('#userInTestProjectDropDown').find('.btn').html('Users <span class="caret"></span>');

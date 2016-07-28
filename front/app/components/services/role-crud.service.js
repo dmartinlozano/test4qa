@@ -9,63 +9,55 @@
  */
 angular.module('test4qaApp')
 
-.service('RoleService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
+.service('RoleService', function(Restangular, $rootScope, $q) {
 
   //service to add a new role
-  this.addRole = function($scope, newRole){
+  this.addRole = function(newRole){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/role").customPUT({newRole: newRole}).then(function() {
-      $scope.closeModal();
+      defered.resolve();
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
+    return promise;
   };
 
   //service to update a field of role
-  this.updateRole = function($scope, id,field,newValue){
+  this.updateRole = function(id,field,newValue){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.one("/api/role/"+id).customPOST({field:field, newValue:newValue}).then(function() {
-      //TODO mostrar mensaje de ok
+      defered.resolve();
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
-  };
-  //service to add a new permission in existent
-  this.addPermission = function($scope,roleId,newPermission){
-    Restangular.one("/api/role/"+roleId).get().then(function(role) {
-      this.updateRole($scope, roleId, 'permissions',role.permissions);
-    },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
-    });
+    return promise;
   };
 
-  //delete a role
-  this.deleteRole = function($scope, id){
-    Restangular.one("/api/role/"+id).remove().then(function() {
-      $scope.roles = [];
-      Restangular.all("/api/role").getList().then(function(roles) {
-        $scope.roles = roles;
-      },function (res) {
-        $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
-      });
+  //delete a role and show the list
+  this.deleteRole = function(id){
+    var defered = $q.defer();
+    var promise = defered.promise;
+    Restangular.one("/api/role/"+id).remove().then(function() {},function (res) {
+      defered.reject(res);
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
+    return promise;
   };
+
 
   //Return all roles
-  this.getAllRoles = function($scope){
+  this.getAllRoles = function(){
+    var defered = $q.defer();
+    var promise = defered.promise;
     Restangular.all("/api/role").getList().then(function(roles) {
-      $scope.roles = roles;
+        defered.resolve(roles);
     },function (res) {
-      $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+      defered.reject(res);
     });
+    return promise;
   };
-
-  //Return all roles -dropdown in ui-grid
-  this.getAllRolesForDropDown = function(columnNum, gridOptions){
-        Restangular.all("/api/role").getList().then(function(testProjects) {
-          gridOptions.columnDefs[columnNum].editDropdownOptionsArray = testProjects;
-        },function (res) {
-          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
-        });
-      };
- }]);
+  
+ });

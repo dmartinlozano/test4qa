@@ -22,7 +22,13 @@ angular.module('test4qaApp')
       //Init users when modal is show
       $rootScope.$on('role-management.directive:shown.bs.modal', function() {
         $scope.roles = [];
-        RoleService.getAllRoles($scope);
+
+        RoleService.getAllRoles().then(function(roles){
+          $scope.roles = roles;
+        }).catch(function(res){
+          $rootScope.$emit('alert', "The current user hasn't defined a default project");
+        });
+        
         $scope.loadPermissions($scope.permissionsCrudGridOptions);
         window.setTimeout(function(){
           $(window).resize();
@@ -65,13 +71,17 @@ angular.module('test4qaApp')
       //when the table is editing
       $scope.permissionsCrudGridOptions.onRegisterApi = function(gridApi) {
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            RoleService.updateRole($scope,rowEntity._id,colDef.field,newValue);
+            RoleService.updateRole(rowEntity._id, colDef.field, newValue).then(function(){}).catch(function(err){
+              $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+            });
         });
       };
 
       //When TestManagementViewcolumn is click:
       $scope.clickCheckBox = function(rowEntity){
-        RoleService.updateRole($scope,rowEntity._id,'permissions', rowEntity.permissions);
+        RoleService.updateRole(rowEntity._id,'permissions', rowEntity.permissions).then(function(){}).catch(function(err){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       }
     }],
     templateUrl: 'views/modal/user/permissions/permissions-crud.html'

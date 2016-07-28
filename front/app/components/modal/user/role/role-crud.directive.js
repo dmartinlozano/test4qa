@@ -22,7 +22,13 @@ angular.module('test4qaApp')
       //Init users when modal is show
       $rootScope.$on('role-management.directive:shown.bs.modal', function() {
         $scope.roles = [];
-        RoleService.getAllRoles($scope);
+
+        RoleService.getAllRoles().then(function(roles){
+          $scope.roles = roles;
+        }).catch(function(res){
+          $rootScope.$emit('alert', "The current user hasn't defined a default project");
+        });
+
         $scope.loadPermissions($scope.roleCrudGridOptions);
         window.setTimeout(function(){
           $(window).resize();
@@ -48,12 +54,14 @@ angular.module('test4qaApp')
           });
         };
 
-      //Delete an user
+      //Delete a role
       $scope.deleteRole = function(id){
-        $scope.config = ["Are you sure?", "Do you want delete the selected user?", "Accept", "Cancel"];
+        $scope.config = ["Are you sure?", "Do you want delete the selected role?", "Accept", "Cancel"];
         DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
           if (isOk){
-              RoleService.deleteRole($scope, id);
+              RoleService.deleteRole(id).then(function(){}).catch(function(res){
+                $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+              });
           };
         });
       };
@@ -71,13 +79,17 @@ angular.module('test4qaApp')
       //when the table is editing
       $scope.roleCrudGridOptions.onRegisterApi = function(gridApi) {
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            RoleService.updateRole($scope,rowEntity._id,colDef.field,newValue);
+            RoleService.updateRole(rowEntity._id,colDef.field,newValue).then(function(){}).catch(function(err){
+              $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+            });
         });
       };
 
       //When isAdmin column is click:
       $scope.clickIsAdminCheckBox = function(rowEntity){
-        RoleService.updateRole($scope,rowEntity._id,'isAdmin',rowEntity.isAdmin);
+        RoleService.updateRole(rowEntity._id,'isAdmin',rowEntity.isAdmin).then(function(){}).catch(function(err){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       }
 
       //Open add a new roles  modal
@@ -103,7 +115,12 @@ angular.module('test4qaApp')
 
       //A new role
       $scope.addRole = function(){
-        RoleService.addRole($scope, $scope.newRole);
+
+        RoleService.addRole($scope.newRole).then(function(){
+          $scope.closeModal();
+        }).catch(function(res){
+          $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+        });
       };
 
       //Close current modal and show userModal
