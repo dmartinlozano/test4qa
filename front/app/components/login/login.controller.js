@@ -10,12 +10,18 @@
 angular.module('testingItApp')
 .controller('LoginController', ['$rootScope', '$scope', '$state', 'LoginService',
   function ($rootScope, $scope, $state, LoginService) {
-    var vm = this;
     $scope.reqErr = {};
 
-    vm.login = function() {
-      LoginService.login(vm.name, vm.password, $scope);
+    //Login
+    $scope.login = function() {
+      LoginService.login($scope.name, $scope.password)
+      .then(function(token) {
+        window.localStorage.setItem("user.token",token);
+        $state.go('dashBoard');
+      })
+      .catch(function(reqErr){
+        $scope.reqErr = reqErr;
+      });
     };
-
   }
 ]);

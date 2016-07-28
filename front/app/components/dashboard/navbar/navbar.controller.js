@@ -8,8 +8,8 @@
  * Controller of the testingItApp
  */
 angular.module('testingItApp')
-.controller('NavbarController', ['$rootScope', '$scope', '$state', 'NavbarService', 'TestProjectCrudService',
-  function ($rootScope, $scope, $state, NavbarService, TestProjectCrudService) {
+.controller('NavbarController', ['$rootScope', '$scope', '$state', 'TestProjectCrudService',
+  function ($rootScope, $scope, $state, TestProjectCrudService) {
     $scope.reqErr = {};
 
     //Init webComponent with the list of projects
@@ -19,7 +19,7 @@ angular.module('testingItApp')
     $scope.changeProject = function(projectId){
         $rootScope.$emit('navbar.controler:changeProject', projectId);
     }
-    
+
     //Show modal to new test project
     $scope.newTestProject = function(){
         $rootScope.$emit('tpj-panel.directive:newTestProject');

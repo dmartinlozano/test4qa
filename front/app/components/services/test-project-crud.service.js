@@ -9,7 +9,7 @@
  */
 angular.module('testingItApp')
 
-.service('TestProjectCrudService', ['Restangular', 'NavbarService', '$rootScope', function(Restangular, NavbarService, $rootScope) {
+.service('TestProjectCrudService', ['Restangular', '$rootScope', function(Restangular, $rootScope) {
 
   //service to add a new testProject
   this.addTestProject = function($scope, testProject){

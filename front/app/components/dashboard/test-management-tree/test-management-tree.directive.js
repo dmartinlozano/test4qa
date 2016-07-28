@@ -131,13 +131,6 @@ angular.module('testingItApp')
         $rootScope.$emit('test-management-tree.directive:reorderTests', $scope.tmTreeData);
       });
 
-      //////
-
-      $rootScope.$emit('test-project-crud.directive:deleteTestProject', $scope.testProject);
-      $rootScope.$emit('ts-panel.controller:deleteTestSuite', $scope.testSuite);
-      $rootScope.$emit('tc-panel.controller:deleteTestCase', $scope.testCase);
-
-
       //Delete tpj
       $rootScope.$on('test-project-crud.directive:deleteTestProject', function($event, deleteTestProject) {
         $scope.deleteItemInTree($scope.tmTreeData, deleteTestProject._id);
