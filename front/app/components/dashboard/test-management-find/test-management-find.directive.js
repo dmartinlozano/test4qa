@@ -14,12 +14,12 @@ angular.module('test4qaApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'FindService', function($scope, $rootScope, FindService) {
+    controller: ['$scope', '$rootScope', 'TreeService', function($scope, $rootScope, TreeService) {
 
       $scope.toFindInTmTree = "";
 
       $scope.findInTmTree = function(){
-        FindService.findInTmTree($scope.toFindInTmTree).then(function(findResults){
+        TreeService.findInTmTree($scope.toFindInTmTree).then(function(findResults){
           $rootScope.$emit('test-management-find.service:find', $scope.toFindInTmTree, findResults);
         }).catch(function(res){
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);

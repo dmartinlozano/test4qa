@@ -4,6 +4,8 @@ var request = require('request');
 var jwt = require('jwt-simple');
 var middleware = require('./middleware');
 var TestProject = mongoose.model('TestProject');
+var TestSuite = mongoose.model('TestSuite');
+var TestCase = mongoose.model('TestCase');
 
 module.exports = function(app, passport) {
 
@@ -116,6 +118,9 @@ module.exports = function(app, passport) {
               if (err) {
                 res.status(500).send({ message: err.message });
               }
+              //delete all testSuites and testCase with tpjId === req.params.id
+              TestSuite.find({tpjId: req.params.id}).remove().exec();
+              TestCase.find({tpjId: req.params.id}).remove().exec();
               return res.send("succesfully deleted");
             });
           }else{

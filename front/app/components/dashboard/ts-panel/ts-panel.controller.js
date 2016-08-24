@@ -50,7 +50,9 @@ angular.module('test4qaApp')
      DialogConfirmService.openDialogModal($scope.config).then(function (isOk) {
        if (isOk){
            TestSuiteCrudService.deleteTestSuite($scope.testSuite._id)
-            .then(function(){})
+            .then(function(){
+              $rootScope.$emit('dashboard:deleteRecursive');
+            })
             .catch(function(res){
               $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
             });

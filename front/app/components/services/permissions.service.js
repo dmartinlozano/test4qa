@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name test4qaApp.service:FindService
+ * @name test4qaApp.service:PermissionsService
  * @description
- * # FindService
+ * # PermissionsService
  * Servie of the test4qaApp
  */
 angular.module('test4qaApp')

@@ -112,9 +112,9 @@ module.exports = function(app, passport) {
     });
   });
 
-  //delete a test plan
-  app.delete('/api/testCase/:id', middleware.ensureAuthenticated, function(req, res) {
-    TestCase.findOne({_id: req.params.id}, function(err, ts) {
+  //delete a test case
+  var deleteTC = function (req, res, id,errors) {
+    TestCase.findOne({_id: id}, function(err, ts) {
       if(err){
           console.log(err);
         }
@@ -122,14 +122,40 @@ module.exports = function(app, passport) {
           if (ts) {
             ts.remove(function(err, result) {
               if (err) {
-                res.status(500).send({ message: err.message });
+                errors.push(err.message);
+                //return res.status(500).send({ message: err.message });
               }
-              return res.send("succesfully deleted");
+              //return res.send("succesfully deleted");
             });
           }else{
-            return res.status(500).send({ message: "Case test doesn't exists" });
+            errors.push(id + " case test doesn't exists");
+            //return res.status(500).send({ message: "Case test doesn't exists" });
           };
         }
     });
+  };
+
+  app.delete('/api/testCase/:id', middleware.ensureAuthenticated, function(req, res) {
+    var errors = [];
+    deleteTC(req, res, req.params.id, errors);
+    if (errors.length === 0 ){
+      return res.send("succesfully deleted");
+    }else{
+      return res.status(500).send({ message: errors.join(", ")});
+    };
+  });
+
+  //delete a test plan
+  app.delete('/api/deleteTCRecursive/:id', middleware.ensureAuthenticated, function(req, res) {
+    var errors = [];
+    var ids = req.params.id.split(',');
+    for(var i=0;i<ids.length;i++){
+      deleteTC(req, res, ids[i], errors);
+    };
+    if (errors.length === 0 ){
+      return res.send("succesfully deleted");
+    }else{
+      return res.status(500).send({ message: errors.join(", ")});
+    };
   });
 };

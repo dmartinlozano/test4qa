@@ -77,8 +77,8 @@ module.exports = function(app, passport) {
     });
   });
 
-  //delete a test plan
-  app.delete('/api/testSuite/:id', middleware.ensureAuthenticated, function(req, res) {
+  //delete a test suite
+  var deleteTS = function (req, res, id, errors) {
     TestSuite.findOne({_id: req.params.id}, function(err, ts) {
       if(err){
           console.log(err);
@@ -87,14 +87,40 @@ module.exports = function(app, passport) {
           if (ts) {
             ts.remove(function(err, result) {
               if (err) {
-                res.status(500).send({ message: err.message });
+                errors.push(err.message);
+                //return res.status(500).send({ message: err.message });
               }
-              return res.send("succesfully deleted");
+              //return res.send("succesfully deleted");
             });
           }else{
-            return res.status(500).send({ message: "Suite test doesn't exists" });
+            errors.push(id + " suite test doesn't exists");
+            //return res.status(500).send({ message: "Suite test doesn't exists" });
           };
         }
     });
+  };
+
+  app.delete('/api/testSuite/:id', middleware.ensureAuthenticated, function(req, res) {
+    var errors = [];
+    deleteTS(req, res, req.params.id,errors);
+    if (errors.length === 0 ){
+      return res.send("succesfully deleted");
+    }else{
+      return res.status(500).send({ message: errors.join(", ")});
+    };
+  });
+
+  //delete a test plan
+  app.delete('/api/deleteTSRecursive/:id', middleware.ensureAuthenticated, function(req, res) {
+    var errors = [];
+    var ids = req.params.id.split(',');
+    for(var i=0;i<ids.length;i++){
+      deleteTS(req, res, ids[i], errors);
+    };
+    if (errors.length === 0 ){
+      return res.send("succesfully deleted");
+    }else{
+      return res.status(500).send({ message: errors.join(", ")});
+    };
   });
 };

@@ -14,7 +14,7 @@ angular.module('test4qaApp')
     scope: {
       type: '@',
     },
-    controller: ['$scope', '$rootScope', 'TestProjectCrudService', function($scope, $rootScope, TestProjectCrudService) {
+    controller: ['$scope', '$rootScope', 'TestProjectCrudService', 'TreeService', function($scope, $rootScope, TestProjectCrudService, TreeService) {
 
       var tree;
       $scope.tmTreeControl = tree = {};
@@ -168,6 +168,42 @@ angular.module('test4qaApp')
         .then(function(){}).catch(function(res){
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
         });
+      });
+
+      //Get subtree to delete
+      $scope.getChildren = function(treeData){
+        var children;
+        for (var i in treeData){
+          children = treeData[i].children;
+          if (children != undefined && children.length != 0){
+            $scope.getChildren(children);
+          };
+          if (treeData[i].type === "ts"){
+            $scope.tsToDelete.push(treeData[i]._id);
+          }
+          if (treeData[i].type === "tc"){
+            $scope.tcToDelete.push(treeData[i]._id);
+          }
+        };
+      };
+
+      //Delete subtree if exists
+      $rootScope.$on('dashboard:deleteRecursive', function($event) {
+        $scope.tsToDelete=[];
+        $scope.tcToDelete=[];
+        $scope.getChildren($rootScope.selectedBranch.children);
+        if ($scope.tsToDelete.length !== 0){
+          TreeService.deleteTSRecursive($scope.tsToDelete.join(","))
+          .then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+        };
+        if ($scope.tcToDelete.length !== 0){
+          TreeService.deleteTCRecursive($scope.tcToDelete.join(","))
+          .then(function(){}).catch(function(res){
+            $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
+          });
+        };
       });
 
     }],
