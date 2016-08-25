@@ -104,7 +104,7 @@ angular.module('test4qaApp')
       //when the table is editing
       $scope.userCrudGridOptions.onRegisterApi = function(gridApi) {
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue) {
-            UserService.updateUser($scope,rowEntity._id,colDef.field,newValue)
+            UserService.updateUser(rowEntity._id, colDef.field, newValue)
             .then(function(){})
             .catch(function(res){
               $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);

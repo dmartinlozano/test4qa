@@ -30,7 +30,9 @@ angular.module('test4qaApp')
             $rootScope.$emit('dashboard.service:tmTreeData', projectManagement.tmTreeData);
             $rootScope.$emit('dashboard.service:currentTpjName', $rootScope.currentTpj.name);
           },function (res) {
-            $rootScope.$emit('alert', "The current user hasn't defined a default project");
+            if (res.status === 500 && res.data.message==="Project not found"){
+              $('#userDefaultProjectModal').modal('show');
+            }
           });
         },function (res) {
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);
