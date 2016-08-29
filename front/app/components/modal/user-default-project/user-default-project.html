@@ -18,10 +18,21 @@
               </ul>
             </div>
           </div>
+          <div class="form-group">
+            <div class="dropdown" id="roleDropdownMenu">
+              <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Role
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" >
+                <li ng-repeat="role in roles"><a ng-click="changeRole(role._id)">{{role.name}}</a></li>
+              </ul>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="closeModal()" ng-disabled="tPjSelected === undefined">Accept</button>
+        <button type="button" class="btn btn-primary" ng-click="closeModal()" ng-disabled="acceptButtonDisabled()">Accept</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>

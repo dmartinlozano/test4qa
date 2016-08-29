@@ -185,7 +185,7 @@ angular.module('test4qaApp')
 
       //A new user
       $scope.addUserTpjRole = function(){
-        TpjRolesService.addUserTpjRole($scope, $scope.newUserTpjRole).then(function(){
+        TpjRolesService.addUserTpjRole($scope.newUserTpjRole).then(function(){
           $scope.closeModal();
         }).catch(function(res){
           $rootScope.$emit('alert', '[' + res.status + '] ' + res.data.message);

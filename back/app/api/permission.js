@@ -12,6 +12,12 @@ module.exports = function(app, passport) {
 
   //Get the permission associated to an user, a test project and a component
   app.get('/api/permission/:pjtId/:component', middleware.ensureAuthenticated, function(req, res) {
+
+    var defaultNoneRolePermissions = {testManagementView: false, testManagementEdit: false,
+                  testPlanView: false, testPlanEdit: false, testPlanRun: false,
+                  userManagementView: false, userManagementEdit: false
+                };
+
     //Get current user
     User.findById(req.user, function(err, user) {
 
@@ -40,7 +46,7 @@ module.exports = function(app, passport) {
         if (err) return res.status(500).send({ message: err });
         if (!role) return res.status(500).send({ message: 'Role associated to this project test not exist' });
         if (role.permissions === undefined) return res.status(500).send({ message: 'Role associated to this project test hasnt permissions' });
-        
+
         res.send(role.permissions[req.params.component]);
       });
     });

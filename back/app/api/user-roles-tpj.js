@@ -32,6 +32,28 @@ module.exports = function(app, passport) {
     });
   });
 
+  //Get all roles of user
+  app.get('/api/userRolesTpjByUserId/:idUser', middleware.ensureAuthenticated, function(req, res) {
+    User.find({_id: req.params.idUser}, function(err, user) {
+      if(err){
+          console.log(err);
+        }
+        else{
+          if (user) {
+            var result = [];
+            user.forEach(function(user){
+              user.roleInProject.forEach(function(pjRole){
+                result.push({id:pjRole._id, userId:user._id, user:user.name, project:pjRole.project, role:pjRole.role});
+              });
+            });
+            res.send(result);
+          }else{
+            res.send([]);
+          };
+        }
+    });
+  });
+
   //delete a test plan
   app.delete('/api/userRolesTpj/:idUser/:idTpjRole', middleware.ensureAuthenticated, function(req, res) {
     User.findOne({_id: req.params.idUser}, function(err, user) {
